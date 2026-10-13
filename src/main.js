@@ -149,15 +149,17 @@
   const driveNetwork = (p, ap = 1) => {
     const small = vw < 760;
     const enter = sm(0.25, 0.95, ap), grow = sm(0.14, 0.58, p), east = sm(0.58, 0.86, p), hold = sm(0.86, 1, p);
-    const k0 = small ? vw / 330 : vw / 640, k1 = small ? vw / 600 : vw / 1100, k2 = small ? vw / 1300 : vw / 2150;
+    // в конце карта отдаляется, но не до всей страны по центру: кадр смещён к западу, где клубы (восток пустой)
+    const k0 = small ? vw / 330 : vw / 640, k1 = small ? vw / 600 : vw / 1100, k2 = small ? vw / 660 : vw / 1450;
     const k = lerp(lerp(k0, k1, grow), k2, east) * (1 - hold * 0.06);
     const tilt = lerp(lerp(1.2, 0.98, sm(0.05, 0.5, p)), 0.84, east) + hold * 0.06;
     if (map) {
       const F = map.focus, gu = ease(grow);
-      const fu = lerp(lerp(F.hub[0], F.net[0], gu), F.full[0], east);
-      const fv = lerp(lerp(F.hub[1], F.net[1], gu), F.full[1], east);
+      const endU = lerp(F.net[0], F.full[0], small ? 0 : 0.2), endV = lerp(F.net[1], F.full[1], small ? 0.2 : 0.4);
+      const fu = lerp(lerp(F.hub[0], F.net[0], gu), endU, east);
+      const fv = lerp(lerp(F.hub[1], F.net[1], gu), endV, east);
       const cy = lerp(vh * 1.1, small ? vh * 0.6 : vh * 0.7, enter) - (small ? east * vh * 0.12 : east * vh * 0.1);
-      const cx = small ? vw * 0.5 : lerp(vw * 0.5, vw * 0.69, east);
+      const cx = small ? vw * 0.5 : lerp(vw * 0.5, vw * 0.68, east);
       map.set({ cx, cy, k, tilt, fu, fv, reveal: sm(0.12, 0.56, p) * 1.04, ghostOn: sm(0.66, 0.8, p), alpha: enter, scroll: p, glow: 1 - east * 0.3 });
     }
     const reveal = sm(0.12, 0.56, p) * 1.04, ghostOn = sm(0.66, 0.8, p);
