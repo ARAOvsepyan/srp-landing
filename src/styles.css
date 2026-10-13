@@ -497,7 +497,7 @@ img.ico-lg--map { --w: 118px; --h: 60px; width: calc(var(--w) * 1.2828); height:
   .best-stats div:nth-child(n+3) { border-top: 1px solid var(--line); }
   .cards, .league-grid { grid-template-columns: 1fr 1fr; }
   .platform-grid, .partners-grid, .faq-grid, .apply-grid { grid-template-columns: 1fr; }
-  .devices { max-width: 720px; margin: 20px auto 0; padding-left: 8%; }
+  .devices { width: 100%; max-width: 720px; justify-self: center; margin: 20px 0 0; padding-left: 8%; }
   .lg-cards { grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
   .lg-glass { padding: 20px 18px; }
 }
@@ -582,7 +582,7 @@ img.ico-lg--map { --w: 118px; --h: 60px; width: calc(var(--w) * 1.2828); height:
 .rv-q em { font-style: normal; background: var(--gold-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .rv-who { display: flex; align-items: center; gap: 14px; margin-top: 26px; }
 .rv-who b { display: block; font: 700 17px/1.2 var(--body); color: var(--text); }
-.rv-who > span > span { display: block; margin-top: 6px; font: 600 11px/1 ui-monospace, "SF Mono", Menlo, Consolas, monospace; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
+.rv-who .rv-cap > span { display: block; margin-top: 6px; font: 600 11px/1 ui-monospace, "SF Mono", Menlo, Consolas, monospace; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
 .rv-ms { display: flex; flex: none; }
 .rv-m { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: radial-gradient(circle at 30% 25%, #2c2518, #0f0c07 70%); border: 1px solid rgba(220, 199, 127, .55); box-shadow: 0 10px 20px -12px rgba(50, 30, 10, .7); }
 .rv-m + .rv-m { margin-left: -14px; }
