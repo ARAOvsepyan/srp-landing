@@ -309,26 +309,6 @@
       } else v.pause();
     }, { rootMargin: "200px 0px" }).observe(v);
   };
-  // Ролик hero с прозрачным фоном: Safari и iOS понимают HEVC с альфой, остальные браузеры — VP9 с альфой
-  const heroVideo = $("#hero-video");
-  const startHero = () => {
-    const ua = navigator.userAgent;
-    const apple = /iPhone|iPad|iPod/.test(ua) || /^((?!chrome|chromium|android|edg).)*safari/i.test(ua);
-    const src = document.createElement("source");
-    src.src = apple ? heroVideo.dataset.alphaHevc : heroVideo.dataset.alphaWebm;
-    src.type = apple ? 'video/mp4; codecs="hvc1"' : "video/webm";
-    heroVideo.appendChild(src);
-    heroVideo.load();
-    if (!reduce) heroVideo.play().catch(() => {});
-  };
-  // ролик с картами нужен только тёмной теме (в светлой — фото-натюрморт), грузим его один раз и после фото страницы
-  let heroStarted = false;
-  const startHeroOnce = () => {
-    if (heroStarted || !heroVideo || !heroVideo.dataset.alphaWebm) return;
-    heroStarted = true;
-    if (document.readyState === "complete") startHero(); else addEventListener("load", startHero, { once: true });
-  };
-  watchVideo(heroVideo, false);
 
   /* ---------- Тема: светлая по умолчанию, выбор запоминаем (ставится ещё в <head>, без вспышки) ---------- */
   const themeBtn = $("#theme-toggle"), themeMeta = $('meta[name="theme-color"]');
@@ -339,7 +319,6 @@
     themeBtn?.setAttribute("aria-label", dark ? "Светлая тема" : "Тёмная тема");
     themeMeta?.setAttribute("content", dark ? "#0a0908" : "#f7f1e8");
     if (map) map.setTheme(dark ? "dark" : "light");
-    if (dark) startHeroOnce();
   };
   themeBtn?.addEventListener("click", () => { const dark = !isDark(); store.set("srp-theme", dark ? "dark" : "light"); applyTheme(dark); });
   applyTheme(isDark());

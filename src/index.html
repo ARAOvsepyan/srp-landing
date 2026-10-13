@@ -20,7 +20,7 @@
   <meta name="metrika-id" content="{{METRIKA_ID}}">
   <!-- до стилей: встроенный скрипт после <link rel=stylesheet> ждал бы загрузки CSS -->
   <script>try{if(localStorage.getItem("srp-theme")==="dark")document.documentElement.dataset.theme="dark"}catch(e){}document.documentElement.classList.add("js");setTimeout(function(){if(!window.SRP_BOOT)document.documentElement.classList.add("reveal-now")},3000);</script>
-  <link rel="preload" href="/img/hero-light.webp" as="image" fetchpriority="high">
+  <link rel="preload" href="/img/srp-bear-rb.webp" as="image" fetchpriority="high">
   <link rel="preload" href="/fonts/Unbounded-Variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/GolosText-Variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/styles.css">
@@ -73,13 +73,8 @@
   <!-- ============ HERO ============ -->
   <section class="hero" id="top" aria-labelledby="hero-title">
     <div class="hero-bg" aria-hidden="true">
-      <img class="hero-photo" src="/img/hero-light.webp" alt="" width="2560" height="1440" fetchpriority="high" decoding="async">
+      <img class="hero-bear" src="/img/srp-bear-rb.webp" alt="" width="1000" height="953" fetchpriority="high" decoding="async">
       <div class="layer hero-pattern" data-parallax="0.12"></div>
-      <div class="hero-object vbox" data-parallax="-0.1" data-mouse="16" style="--lq:url({{LQIP:hero-cards}})">
-        <img class="vbox-poster" src="/video/hero-cards.webp" alt="" width="640" height="800" loading="lazy" decoding="async">
-        <!-- Ролик с прозрачным фоном: HEVC с альфой для Safari, VP9 с альфой для остальных (выбирает main.js) -->
-        <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto" data-alpha-webm="/video/hero-cards.webm" data-alpha-hevc="/video/hero-cards.mov"></video>
-      </div>
     </div>
     <div class="container hero-inner">
       <h1 id="hero-title" class="reveal" style="--d:80ms">Федеральная сеть <span class="gold-text">спортивно-развлекательного</span> покера в России</h1>
