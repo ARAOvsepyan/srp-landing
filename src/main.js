@@ -291,6 +291,7 @@
     $$("[data-magnetic]").forEach((el) => {
       el.addEventListener("pointermove", (e) => {
         const r = el.getBoundingClientRect();
+        if (innerWidth <= 1020) return;
         el.style.transform = `translate(${((e.clientX - r.left - r.width / 2) * 0.16).toFixed(1)}px, ${((e.clientY - r.top - r.height / 2) * 0.28).toFixed(1)}px)`;
       });
       el.addEventListener("pointerleave", () => { el.style.transform = ""; });
@@ -344,6 +345,18 @@
   if (!reduce) {
     new IntersectionObserver(([e]) => { e.isIntersecting ? video.play().catch(() => {}) : video.pause(); }, { threshold: 0.35 }).observe(video);
   }
+
+  /* ---------- Мобильное меню: бургер, закрытие по ссылке, Esc и при расширении окна ---------- */
+  const burger = $("#burger"), siteNav = $("#site-nav");
+  const setMenu = (open) => {
+    document.documentElement.classList.toggle("menu-open", open);
+    burger?.setAttribute("aria-expanded", String(open));
+    burger?.setAttribute("aria-label", open ? "Закрыть меню" : "Открыть меню");
+  };
+  burger?.addEventListener("click", () => setMenu(!document.documentElement.classList.contains("menu-open")));
+  siteNav?.addEventListener("click", (e) => { if (e.target.closest("a")) setMenu(false); });
+  addEventListener("keydown", (e) => { if (e.key === "Escape") setMenu(false); });
+  matchMedia("(min-width: 1021px)").addEventListener("change", (e) => { if (e.matches) setMenu(false); });
 
   /* ---------- Каталог клубов: поиск + фильтр по городу ---------- */
   const cards = $$("#club-grid .club");
@@ -428,12 +441,12 @@
     if (!applySecEl || !tableSvg || !applyGrid) return;
     const sr = applySecEl.getBoundingClientRect(), g = applyGrid.getBoundingClientRect();
     const W = sr.width, H = sr.height, narrow = W < 760;
-    // на телефоне стол по краям экрана с тонким бортом, контент внутри с отступом (CSS сужает .apply-grid)
-    const padX = narrow ? 0 : 190, padY = narrow ? 0 : 64;
-    const x0 = narrow ? 10 : g.left - sr.left - padX, x1 = narrow ? W - 10 : g.right - sr.left + padX;
-    const y0 = g.top - sr.top - (narrow ? 46 : padY), y1 = g.bottom - sr.top + (narrow ? 30 : padY);
-    const rim = narrow ? 8 : 18, inset = narrow ? 8 : 14;
-    const r = narrow ? 34 : (y1 - y0) / 2, cx = W / 2, sw = narrow ? 0 : Math.min(520, (x1 - x0) * 0.36), f = 56, yb = H + 30;
+    // на телефоне тот же стол, что на десктопе, только шире экрана — закругления и края просто обрезаются
+    const padX = 190, padY = narrow ? 50 : 64, tw = Math.max(1400, (g.height + 2 * padY) * 2 + 300);
+    const x0 = narrow ? W / 2 - tw / 2 : g.left - sr.left - padX, x1 = narrow ? W / 2 + tw / 2 : g.right - sr.left + padX;
+    const y0 = g.top - sr.top - padY, y1 = g.bottom - sr.top + padY;
+    const rim = 18, inset = 14;
+    const r = (y1 - y0) / 2, cx = W / 2, sw = Math.min(520, (x1 - x0) * 0.36), f = 56, yb = H + 30;
     const path = (d) => {
       const R = r - d, X0 = x0 + d, X1 = x1 - d, Y0 = y0 + d, Y1 = y1 - d;
       if (!sw) return `M${X0 + R} ${Y0}H${X1 - R}A${R} ${R} 0 0 1 ${X1} ${Y0 + R}V${Y1 - R}A${R} ${R} 0 0 1 ${X1 - R} ${Y1}H${X0 + R}A${R} ${R} 0 0 1 ${X0} ${Y1 - R}V${Y0 + R}A${R} ${R} 0 0 1 ${X0 + R} ${Y0}Z`;
@@ -444,7 +457,8 @@
     const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
     for (let i = 0; i < 60; i++) {
       const inStem = sw && i > 48;
-      const x = inStem ? cx - sw / 2 + 20 + rnd() * (sw - 40) : x0 + r * 0.5 + rnd() * (x1 - x0 - r);
+      const sx0 = narrow ? 8 : x0 + r * 0.5, sx1 = narrow ? W - 8 : x1 - r * 0.5;
+      const x = inStem ? cx - sw / 2 + 20 + rnd() * (sw - 40) : sx0 + rnd() * (sx1 - sx0);
       const y = inStem ? y1 + 30 + rnd() * Math.max(10, yb - y1 - 60) : y0 + 24 + rnd() * (y1 - y0 - 48);
       stars += `<use href="#c-spark" x="-1" y="-1" width="2" height="2" transform="translate(${x.toFixed(0)} ${y.toFixed(0)}) scale(${(3 + rnd() * 5.5).toFixed(1)})" fill="#f2c879" opacity="${(0.25 + rnd() * 0.55).toFixed(2)}"/>`;
     }
@@ -462,7 +476,10 @@
       const small = [[x0 + (x1 - x0) * 0.36, fy + 18], [x0 + (x1 - x0) * 0.64, fy + 12], [x0 - 10, y0 + h2 * 0.35], [x1 + 10, y0 + h2 * 0.4], [cx - sw / 2 - 60, y1 + 120], [cx + sw / 2 + 70, y1 + 130], [x0 + 80, y1 + 30], [x1 - 80, y1 + 26]];
       flares += small.map(([x, y]) => `<use href="#c-spark" x="-1" y="-1" width="2" height="2" transform="translate(${x.toFixed(0)} ${y.toFixed(0)}) scale(9)" fill="#f2c879" opacity=".8"/>`).join("");
     }
-    const mw = (x1 - x0) * 0.86, mh = mw * 770 / 1480;
+    // на телефоне карта за заголовком (форма её бы закрыла), чуть ярче
+    const mw = narrow ? W * 1.6 : (x1 - x0) * 0.86, mh = mw * 770 / 1480;
+    const copyEl = $(".apply-copy"), cr = copyEl ? copyEl.getBoundingClientRect() : g;
+    const my0 = narrow ? cr.top - sr.top + cr.height / 2 - mh / 2 : y0 + (y1 - y0 - mh) / 2;
     tableSvg.setAttribute("viewBox", `0 0 ${W.toFixed(0)} ${H.toFixed(0)}`);
     tableSvg.innerHTML = `<defs>
         <linearGradient id="ptRim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7a4a1c"/><stop offset=".22" stop-color="#f3cf8a"/><stop offset=".5" stop-color="#9a6528"/><stop offset=".78" stop-color="#f6d896"/><stop offset="1" stop-color="#8a5a24"/></linearGradient>
@@ -473,7 +490,7 @@
       <path d="${path(-rim / 2)}" fill="none" stroke="url(#ptRim)" stroke-width="${rim}"/>
       <path d="${path(0)}" fill="url(#ptFelt)"/>
       <g clip-path="url(#ptClip)">
-        <image href="/img/map-russia.svg" x="${(cx - mw / 2).toFixed(0)}" y="${(y0 + (y1 - y0 - mh) / 2).toFixed(0)}" width="${mw.toFixed(0)}" height="${mh.toFixed(0)}" opacity=".13"/>
+        <image href="/img/map-russia.svg" x="${(cx - mw / 2).toFixed(0)}" y="${my0.toFixed(0)}" width="${mw.toFixed(0)}" height="${mh.toFixed(0)}" opacity="${narrow ? ".2" : ".13"}"/>
         ${stars}
       </g>
       <path d="${path(inset)}" fill="none" stroke="rgba(246,212,143,.38)" stroke-width="1.2"/>`;

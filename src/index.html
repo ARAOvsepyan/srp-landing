@@ -48,7 +48,7 @@
 <header class="site-header" id="header">
   <div class="container bar">
     <a class="brand" href="#top" aria-label="СРП — на главную"><img src="/img/logo-srp.png" alt="СРП" width="112" height="22"></a>
-    <nav class="nav" aria-label="Основная навигация">
+    <nav class="nav" id="site-nav" aria-label="Основная навигация">
       <a href="#about">О СРП</a>
       <a href="#league">Лига городов</a>
       <a href="#why">Преимущества</a>
@@ -56,8 +56,10 @@
       <a href="#clubs">Клубы</a>
       <a href="#reviews">Отзывы</a>
       <a href="#faq">FAQ</a>
+      <a class="btn btn--gold nav-cta" href="#apply">Оставить заявку <svg class="ico"><use href="#i-arrow"/></svg></a>
     </nav>
-    <a class="btn btn--burgundy btn--sm" href="#apply">Оставить заявку</a>
+    <a class="btn btn--burgundy btn--sm head-cta" href="#apply">Оставить заявку</a>
+    <button class="burger" id="burger" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Открыть меню"><i></i><i></i></button>
   </div>
 </header>
 

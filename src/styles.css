@@ -499,8 +499,9 @@ img.ico-lg--map { width: 118px; height: 60px; object-fit: contain; object-positi
   .best-stats div { padding: 18px 14px; }
   .best-stats div:nth-child(odd) { border-left: 0; padding-left: 0; }
   .orbit { height: 420vh; }
-  .hero { padding: 104px 0 130px; justify-content: flex-start; }
-  .hero-object { right: -22vw; top: 70px; margin-top: 0; width: 82vw; opacity: .5; }
+  .hero { padding: 104px 0 110px; justify-content: flex-start; }
+  /* на телефоне карты — крупный приглушённый фон за текстом, по центру и без обрезки */
+  .hero-object { left: 50%; right: auto; top: 42%; width: 118vw; margin: calc(118vw * -0.625) 0 0 -59vw; opacity: .32; }
   .hero-meta { gap: 24px; margin-top: 32px; } .hero-meta dd { font-size: 24px; }
   .net-head { top: 84px; } .net-head h2 { font-size: 30px; } .net-last { margin-top: 10px; }
   .lg-scene { height: 300vh; }
@@ -685,5 +686,27 @@ button.review-cover:focus-visible { outline: 2px solid var(--gold); outline-offs
   .club-grid { display: flex; gap: 12px; margin-inline: -20px; padding: 2px 20px 10px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: 20px; scrollbar-width: none; }
   .club-grid::-webkit-scrollbar { display: none; }
   .club-grid > .club { flex: 0 0 84%; scroll-snap-align: start; }
-  .apply .apply-grid { width: calc(100% - 60px); }
+}
+
+/* Мобильное меню: бургер раскрывает навигацию под шапкой; на телефоне заявка — только нижней кнопкой */
+.burger, .nav-cta { display: none; }
+@media (max-width: 1020px) {
+  .bar > .head-cta { margin-left: auto; }
+  .burger { position: relative; display: grid; place-content: center; gap: 6px; width: 46px; height: 46px; margin-left: -12px; border: 1px solid var(--line-strong); border-radius: 12px; background: rgba(10, 9, 8, .5); cursor: pointer; }
+  .burger i { display: block; width: 20px; height: 2px; border-radius: 2px; background: var(--gold-hi); transition: transform .3s; }
+  .menu-open .burger i:first-child { transform: translateY(4px) rotate(45deg); }
+  .menu-open .burger i:last-child { transform: translateY(-4px) rotate(-45deg); }
+  .menu-open, .menu-open body { overflow: hidden; }
+  .menu-open .site-header { background: rgba(10, 9, 8, .97); border-bottom-color: var(--line); transform: none; }
+  .menu-open .nav { position: absolute; top: 100%; left: 0; right: 0; display: flex; flex-direction: column; gap: 0; height: calc(100svh - 76px); padding: 12px 20px 28px; overflow-y: auto; background: var(--bg); border-top: 1px solid var(--line); }
+  .menu-open .nav a:not(.btn) { padding: 16px 0; border-bottom: 1px solid var(--line); font: 600 20px/1.2 var(--display); color: var(--text); }
+  .menu-open .nav a:not(.btn)::after { content: none; }
+  .menu-open .nav .nav-cta { display: inline-flex; margin-top: 24px; padding: 17px 24px; font-size: 13px; color: #1a1406; }
+  .menu-open .sticky-cta { display: none; }
+}
+@media (max-width: 760px) {
+  .head-cta { display: none; }
+  .panel-cta { width: 100%; padding: 16px 12px; font-size: 12px; letter-spacing: .06em; }
+  .burger { margin-left: 0; }
+  .menu-open .nav { height: calc(100svh - 64px); }
 }
