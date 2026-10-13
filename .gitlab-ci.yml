@@ -24,8 +24,10 @@ workflow:
 variables:
   DEPLOY_USER: gitlab-deploy
   LANDING_BASE: /opt/poker_club_manager/landing
-  PROD_DOMAINS: "srppoker.ru www.srppoker.ru"
-  PROD_CERT: srppoker.ru
+  # Пока srppoker.ru остаётся на Тильде, боевой лендинг живёт на partners.srpclient.ru.
+  # Переезд: PROD_DOMAINS "srppoker.ru www.srppoker.ru", PROD_CERT srppoker.ru, url у deploy_prod.
+  PROD_DOMAINS: "partners.srpclient.ru"
+  PROD_CERT: partners.srpclient.ru
   STAGE_DOMAINS: "landing-stage.srpclient.ru"
   STAGE_CERT: landing-stage.srpclient.ru
   # Счётчик Яндекс.Метрики со старого сайта srppoker.ru (грузится только после согласия на cookie).
@@ -37,7 +39,7 @@ site:build:
   image: node:22-alpine
   needs: []
   script:
-    - SITE_URL=https://srppoker.ru LEAD_ENDPOINT=/api/public/franchise-leads node scripts/build.mjs
+    - SITE_URL="https://${PROD_DOMAINS%% *}" LEAD_ENDPOINT=/api/public/franchise-leads node scripts/build.mjs
     - test -f dist/index.html && test -f dist/privacy/index.html && test -f dist/consent/index.html
     - grep -q 'data-endpoint="/api/public/franchise-leads"' dist/index.html
     - "! grep -q '{{' dist/index.html"
@@ -134,7 +136,7 @@ deploy_prod:
   resource_group: landing-production
   environment:
     name: landing-production
-    url: https://srppoker.ru
+    url: https://partners.srpclient.ru
   variables:
     ENV_NAME: prod
     SSH_PRIVATE_KEY: $PROD_SSH_PRIVATE_KEY

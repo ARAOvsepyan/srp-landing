@@ -85,7 +85,7 @@ srppoker.ru ─► poker-club-manager-nginx (общий nginx сервера CRM
 
 - **CI/CD** — `.gitlab-ci.yml`: `site:build` и `docker:build` идут сами, выкладка — кнопкой: `deploy_stage` (MR и `main`) и `deploy_prod` (только `main`). Job заходит на сервер по SSH, кладёт ровно этот коммит в `/opt/poker_club_manager/landing/<env>` и запускает `deploy/deploy.sh`.
 - **`deploy/deploy.sh`** собирает образ `srp-landing:<env>` (прежний — `:<env>-prev`), пересоздаёт контейнер `<env>-landing` и ждёт healthcheck (не поднялся — откат), ставит конфиг домена в общий nginx: HTTPS, если сертификат уже выпущен, иначе HTTP; `nginx -t` не прошёл — прежний конфиг возвращается.
-- **Домены**: prod — `srppoker.ru` и `www.srppoker.ru` (сертификат `srppoker.ru`), stage — `landing-stage.srpclient.ru` (stage собирается с noindex). Меняются переменными `PROD_DOMAINS`/`PROD_CERT`/`STAGE_DOMAINS`/`STAGE_CERT` в `.gitlab-ci.yml`.
+- **Домены**: prod — пока `partners.srpclient.ru` (srppoker.ru ещё на Тильде; после переезда — `srppoker.ru` и `www.srppoker.ru`, сертификат `srppoker.ru`), stage — `landing-stage.srpclient.ru` (stage собирается с noindex). Меняются переменными `PROD_DOMAINS`/`PROD_CERT`/`STAGE_DOMAINS`/`STAGE_CERT` в `.gitlab-ci.yml`.
 - **Переменные проекта в GitLab** (Settings → CI/CD → Variables): `STAGE_SSH_PRIVATE_KEY`, `PROD_SSH_PRIVATE_KEY`, `SERVER_HOST` (или `STAGE_SERVER_HOST`/`PROD_SERVER_HOST`) — те же, что в проекте CRM.
 - **Первый запуск домена**: направить DNS (A-записи всех имён) на сервер, нажать `deploy_prod` (сайт поднимется по HTTP), выпустить сертификат командой из вывода деплоя (`certbot certonly --webroot … --cert-name srppoker.ru -d srppoker.ru -d www.srppoker.ru`) и нажать `deploy_prod` ещё раз — домен переключится на HTTPS.
 
