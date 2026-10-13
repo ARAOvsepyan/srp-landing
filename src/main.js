@@ -324,7 +324,8 @@
     themeMeta?.setAttribute("content", dark ? "#0a0908" : "#f7f1e8");
     if (map) map.setTheme(dark ? "dark" : "light");
   };
-  themeBtn?.addEventListener("click", () => { const dark = !isDark(); store.set("srp-theme", dark ? "dark" : "light"); applyTheme(dark); });
+  let onTheme = null; // запись CRM под тему (назначается ниже, у вкладок)
+  themeBtn?.addEventListener("click", () => { const dark = !isDark(); store.set("srp-theme", dark ? "dark" : "light"); applyTheme(dark); onTheme?.(); });
   applyTheme(isDark());
   watchVideo(lgVideo, true);
   watchVideo($("#app-video"), true);
@@ -338,21 +339,34 @@
     tickClock(); setInterval(tickClock, 15000);
   }
 
-  /* ---------- Видео CRM: вкладки + автопауза вне экрана ---------- */
+  /* ---------- Видео CRM: вкладки + автопауза вне экрана; у каждой темы своя запись админки ---------- */
   const video = $("#crm-video"), crmPoster = $("#crm-poster");
   const tabs = $$(".tabs button");
-  tabs.forEach((b) => b.addEventListener("click", () => {
-    tabs.forEach((x) => x.setAttribute("aria-selected", x === b ? "true" : "false"));
-    const name = b.dataset.video, box = video.closest(".vbox"), src = video.querySelector("source");
+  let crmOn = false; // блок на экране: тогда после смены темы ролик сразу продолжает играть
+  new IntersectionObserver(([e]) => { crmOn = e.isIntersecting; }, { rootMargin: "200px 0px" }).observe(video);
+  // светлая запись — «имя-light», тёмная — «имя»; кадр в кадр одинаковые, поэтому при смене темы
+  // ролик продолжается с той же секунды
+  const showCrm = (b, keepTime) => {
+    const file = isDark() ? b.dataset.video : b.dataset.video + "-light";
+    const box = video.closest(".vbox"), src = video.querySelector("source"), t = keepTime ? video.currentTime : 0;
     // пока новый ролик не пошёл — фото этой вкладки (сначала мини-копия)
     box.classList.remove("is-ready");
-    box.style.setProperty("--lq", `url(${b.dataset.lq})`);
-    crmPoster.src = `/video/${name}.webp`;
-    src.removeAttribute("data-src");
-    src.src = `/video/${name}.mp4`;
+    box.style.setProperty("--lq", `url(${isDark() ? b.dataset.lqDark : b.dataset.lq})`);
+    crmPoster.src = `/video/${file}.webp`;
+    // ещё не загружался (блок далеко) — только подменить адрес, загрузит watchVideo
+    if (src.dataset.src) { src.dataset.src = `/video/${file}.mp4`; return; }
+    src.src = `/video/${file}.mp4`;
     video.load();
-    if (!reduce) video.play().catch(() => {});
+    if (t) video.addEventListener("loadedmetadata", () => { video.currentTime = Math.min(t, video.duration - 0.05); }, { once: true });
+    if (!reduce && (!keepTime || crmOn)) video.play().catch(() => {});
+  };
+  tabs.forEach((b) => b.addEventListener("click", () => {
+    tabs.forEach((x) => x.setAttribute("aria-selected", x === b ? "true" : "false"));
+    showCrm(b, false);
   }));
+  const crmTab = () => tabs.find((b) => b.getAttribute("aria-selected") === "true") || tabs[0];
+  if (isDark() && crmTab()) showCrm(crmTab(), false);
+  onTheme = () => { if (crmTab()) showCrm(crmTab(), true); };
 
   /* ---------- Мобильное меню: бургер, закрытие по ссылке, Esc и при расширении окна ---------- */
   const burger = $("#burger"), siteNav = $("#site-nav");

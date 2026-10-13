@@ -270,9 +270,9 @@
           <li><svg class="ico"><use href="#i-check"/></svg>Интеграция с кассой iiko</li>
         </ul>
         <div class="tabs reveal" role="tablist" aria-label="Разделы CRM на экране ноутбука">
-          <button role="tab" aria-selected="true" data-video="crm-dashboard" data-lq="{{LQIP:crm-dashboard}}">Дашборд</button>
-          <button role="tab" aria-selected="false" data-video="crm-tournaments" data-lq="{{LQIP:crm-tournaments}}">Турниры</button>
-          <button role="tab" aria-selected="false" data-video="crm-leagues2" data-lq="{{LQIP:crm-leagues2}}">Лиги</button>
+          <button role="tab" aria-selected="true" data-video="crm-dashboard" data-lq="{{LQIP:crm-dashboard-light}}" data-lq-dark="{{LQIP:crm-dashboard}}">Дашборд</button>
+          <button role="tab" aria-selected="false" data-video="crm-tournaments" data-lq="{{LQIP:crm-tournaments-light}}" data-lq-dark="{{LQIP:crm-tournaments}}">Турниры</button>
+          <button role="tab" aria-selected="false" data-video="crm-leagues2" data-lq="{{LQIP:crm-leagues2-light}}" data-lq-dark="{{LQIP:crm-leagues2}}">Лиги</button>
         </div>
         <a class="btn btn--ghost platform-cta reveal" href="#apply">Показать CRM на демо</a>
       </div>
@@ -282,10 +282,11 @@
         <div class="mac" data-parallax="0.06">
           <div class="mac-screen">
             <div class="mac-bar" aria-hidden="true"><i></i><i></i><i></i></div>
-            <div class="vbox" style="--lq:url({{LQIP:crm-dashboard}})">
-              <img class="vbox-poster" id="crm-poster" src="/video/crm-dashboard.webp" alt="" width="1440" height="856" decoding="async">
+            <!-- по умолчанию светлая тема — и запись админки в светлом режиме; в тёмной main.js берёт тёмную (кадр в кадр та же) -->
+            <div class="vbox" style="--lq:url({{LQIP:crm-dashboard-light}})">
+              <img class="vbox-poster" id="crm-poster" src="/video/crm-dashboard-light.webp" alt="" width="1440" height="856" loading="lazy" decoding="async">
               <video id="crm-video" muted loop playsinline preload="none" aria-label="Запись работы CRM СРП: дашборд демо-клуба">
-                <source data-src="/video/crm-dashboard.mp4" type="video/mp4">
+                <source data-src="/video/crm-dashboard-light.mp4" type="video/mp4">
               </video>
             </div>
           </div>

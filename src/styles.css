@@ -738,7 +738,7 @@ button.review-cover:focus-visible { outline: 2px solid var(--gold); outline-offs
 .vbox.is-ready > .vbox-poster { opacity: 0; }
 .vbox.is-ready { background-image: none; }
 .lg-video .vbox { position: absolute; inset: 0; }
-.mac-screen .vbox { position: relative; aspect-ratio: 1100 / 654; overflow: hidden; border-radius: 0 0 4px 4px; background-color: #0f0d09; }
+.mac-screen .vbox { position: relative; aspect-ratio: 1100 / 654; overflow: hidden; border-radius: 0 0 4px 4px; background-color: #e3e7ef; }
 .app--real .vbox { position: relative; flex: 1; min-height: 0; background-color: #000; }
 .app--real .vbox > * { object-position: 50% 0; }
 .reveal-now .reveal { opacity: 1; --ry: 0px; transition: none; }
@@ -853,6 +853,7 @@ html[data-theme="dark"] .review-cover { background: radial-gradient(circle at 50
 html[data-theme="dark"] .review-cover::before { border: 1px dashed rgba(246, 212, 143, .28); }
 html[data-theme="dark"] .review-cover::after { background: linear-gradient(100deg, transparent, rgba(255, 240, 200, .08), transparent); }
 html[data-theme="dark"] .rc-medal { box-shadow: 0 22px 40px -14px #000, 0 0 0 6px rgba(246, 212, 143, .06), 0 0 70px rgba(220, 170, 90, .28); }
+html[data-theme="dark"] .mac-screen .vbox { background-color: #0f0d09; }
 @media (max-width: 1020px) {
   html[data-theme="dark"] .burger { background: rgba(10, 9, 8, .5); }
   html[data-theme="dark"] .burger i { background: var(--gold-hi); }
