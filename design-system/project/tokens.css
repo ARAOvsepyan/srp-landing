@@ -1,0 +1,66 @@
+/* СРП Франшиза — generated from tokens.json */
+@font-face { font-family: "Unbounded"; src: url("fonts/Unbounded-Variable.woff2") format("woff2"); font-weight: 300 900; font-style: normal; font-display: swap; }
+@font-face { font-family: "Golos Text"; src: url("fonts/GolosText-Variable.woff2") format("woff2"); font-weight: 400 900; font-style: normal; font-display: swap; }
+:root, [data-theme="dark"] {
+  --surface-0: #0a0908;
+  --surface-1: #110e0a;
+  --surface-2: #17140f;
+  --surface-3: #211c14;
+  --ink: #f3eee2;
+  --ink-muted: #aaa18d;
+  --gold: #dcc77f;
+  --gold-hi: #f6e7ac;
+  --gold-brand: #a99353;
+  --gold-lo: #8f7230;
+  --on-gold: #1a1406;
+  --burgundy: #80000e;
+  --burgundy-hi: #a3121f;
+  --on-burgundy: var(--ink);
+  --line: #dcc77f33;
+  --line-strong: #dcc77f73;
+  --control-border: #948453;
+  --focus-ring: var(--gold-hi);
+  --gold-wash: #dcc77f14;
+  --success: #7fd69a;
+  --danger: #ff8c8c;
+  --signal: #c4323f;
+  --shadow-cta: 0 10px 30px -10px rgba(220, 199, 127, 0.55);
+  --shadow-form: 0 40px 80px -30px #000000;
+  --shadow-device: 0 50px 100px -30px rgba(0, 0, 0, 0.9), 0 0 120px -30px rgba(220, 199, 127, 0.25);
+}
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 56px;
+  --space-10: 72px;
+  --space-11: 96px;
+  --space-12: 140px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-pill: 9999px;
+  --gold-metal: linear-gradient(105deg, #f6e7ac 0%, #dcc77f 38%, #b08d3c 68%, #f1dc94 100%);
+  --gold-button: linear-gradient(110deg, #f1dc94, #dcc77f 42%, #a8873d);
+  --burgundy-fill: linear-gradient(180deg, #a3121f, #80000e);
+  --container: 1180px;
+  --header-height: 76px;
+  --map-ratio: 1.92;
+  --font-display: "Unbounded", "Golos Text", system-ui, sans-serif;
+  --font-text: "Golos Text", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+.hero { font-family: var(--font-display); font-size: 62px; line-height: 1.08; font-weight: 800; letter-spacing: -0.02em; }
+.h2 { font-family: var(--font-display); font-size: 48px; line-height: 1.12; font-weight: 700; letter-spacing: -0.02em; }
+.h3 { font-family: var(--font-display); font-size: 22px; line-height: 1.2; font-weight: 700; letter-spacing: -0.02em; }
+.numeral-xl { font-family: var(--font-display); font-size: 62px; line-height: 1; font-weight: 800; letter-spacing: -0.03em; }
+.numeral { font-family: var(--font-display); font-size: 40px; line-height: 1; font-weight: 800; letter-spacing: -0.03em; }
+.lead { font-family: var(--font-text); font-size: 21px; line-height: 1.6; font-weight: 400; }
+.body { font-family: var(--font-text); font-size: 17px; line-height: 1.6; font-weight: 400; }
+.body-sm { font-family: var(--font-text); font-size: 14px; line-height: 1.55; font-weight: 400; }
+.eyebrow { font-family: var(--font-text); font-size: 12px; line-height: 1; font-weight: 700; letter-spacing: 0.2em; }
+.button { font-family: var(--font-text); font-size: 14px; line-height: 1; font-weight: 700; letter-spacing: 0.08em; }

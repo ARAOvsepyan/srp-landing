@@ -1,0 +1,41 @@
+{
+ "Clubs": {
+  "almetyevsk-srp.svg": ["f1a54e8ee59074921270e3f0d0697022", 1050, "image/svg+xml"],
+  "bryansk-river-room.webp": ["52fce655c6923920b438914a0e983905", 28114, "image/webp"],
+  "cheboksary-ace-king.webp": ["b2291e9ef80e6212c1ed863d05f0fc66", 24568, "image/webp"],
+  "chelyabinsk-river.svg": ["8e6141c12cd74abfb9e31fcecb33eec1", 59872, "image/svg+xml"],
+  "ekaterinburg-chef.svg": ["aad697d6d6d50dea4b66bf484b22d171", 4296, "image/svg+xml"],
+  "ekaterinburg-optimist.svg": ["a4bf11dcabc418448eaec76c2fe5dfa8", 4296, "image/svg+xml"],
+  "engels-phoenix.svg": ["ca38374ec1ef7b09c35a0079c62a00a1", 21048, "image/svg+xml"],
+  "izhevsk-legion.svg": ["6822001037be4305d2f2030c4066ecbb", 14062, "image/svg+xml"],
+  "kazan-milli-club.svg": ["6ade2c8484552d8b460edc257c41685d", 9571, "image/svg+xml"],
+  "lipetsk-phoenix.svg": ["2ae035d818fdde0bc525f33691bd53e4", 21048, "image/svg+xml"],
+  "moscow-aria-royale.webp": ["b77ea7c1f0e0b6ecfb0de5ce52ca6f9e", 10696, "image/webp"],
+  "moscow-river-room.svg": ["b911e2ad3d1aa6c15429ac65e7445ef8", 5075, "image/svg+xml"],
+  "naberezhnye-chelny-srp.svg": ["f172dfd37b3e05dd2d4c0da745e97acf", 17630, "image/svg+xml"],
+  "nizhny-novgorod-srp.webp": ["f205c0b7825d7085dc88fb3c2b190cc3", 13686, "image/webp"],
+  "novocherkassk-bd-bar.webp": ["a55edb990a077d930fb96b137bf711f5", 10494, "image/webp"],
+  "obninsk-big-blind.webp": ["d6431f1f52495e2c5696d3d5fe2e6d99", 31668, "image/webp"],
+  "omsk-river-room.svg": ["08a82613172b0cf07ca75c860d247dbd", 12727, "image/svg+xml"],
+  "orenburg-srp.svg": ["d9899da44b728ccb09e375bae8ecf46d", 1050, "image/svg+xml"],
+  "saint-petersburg-raise-club.webp": ["712f1c283d1213646b705271806e80e5", 13262, "image/webp"],
+  "tyumen-river.webp": ["278473c160e5397be92d1f3e30733cc0", 24518, "image/webp"],
+  "ufa-primepoker.webp": ["f2349a34a4d35da91434d73f42623b50", 24968, "image/webp"],
+  "voronezh-phoenix.svg": ["cb47e005c6ce7b7a843217215777a0fe", 21048, "image/svg+xml"],
+  "yaroslavl-fun-poker.webp": ["291f2e3afee90d6e65a7064a6a5374ca", 18530, "image/webp"],
+  "yoshkar-ola-mariage.webp": ["69deb3de42cd92b1461cda4d76cbceae", 33868, "image/webp"]
+ },
+ "Logos": { "logo-srp-wordmark.png": ["0ee2e76ed1ade4da4876633d2f3ea0f0", 19760, "image/png"] },
+ "Map": { "map-russia.svg": ["727a93f39942adf08817e7cef7d0863a", 188525, "image/svg+xml"] },
+ "Icons": {
+  "arrow.svg": ["2b586e8844e2184f2fd9b022db514388", 224, "image/svg+xml"],
+  "blocks.svg": ["1d3dc12fc7f6105292f1219b1df5f0fe", 255, "image/svg+xml"],
+  "cap.svg": ["7c0741825934c8da8775bb003515ab7b", 266, "image/svg+xml"],
+  "chart.svg": ["57be2afb8a8d8e802f926ee446419715", 238, "image/svg+xml"],
+  "check.svg": ["ef376bd032ac1dc5be807bdf583c8690", 224, "image/svg+xml"],
+  "crown.svg": ["a5ece9096371f18517221ccc512cc44a", 241, "image/svg+xml"],
+  "shield.svg": ["c26ac31ee56f5ee15486df50e88a9d05", 276, "image/svg+xml"],
+  "trophy.svg": ["e7ed0ae7c3e976ce80cb24e03d3d823a", 297, "image/svg+xml"],
+  "tv.svg": ["731201acedb3ee9747847cc024ff08e9", 232, "image/svg+xml"]
+ }
+}

@@ -1,0 +1,317 @@
+{
+ "v": 3,
+ "layout": "files",
+ "createdOnFiles": {
+  "v": 1,
+  "at": "2026-10-12T17:07:37Z"
+ },
+ "title": "СРП Франшиза",
+ "namespace": "SRPF",
+ "libraries": [
+  {
+   "name": "react",
+   "version": "18"
+  },
+  {
+   "name": "react-dom",
+   "version": "18"
+  }
+ ],
+ "sections": {},
+ "groups": [
+  "Logos",
+  "Map",
+  "Clubs",
+  "Icons"
+ ],
+ "assetGroups": {
+  "Logos": {
+   "name": "Logos",
+   "tile": "l",
+   "order": [
+    "logo-srp-wordmark.png"
+   ],
+   "files": {
+    "logo-srp-wordmark.png": {
+     "name": "logo-srp-wordmark.png",
+     "blob": "0ee2e76ed1ade4da4876633d2f3ea0f0",
+     "size": 19760,
+     "type": "image/png"
+    }
+   }
+  },
+  "Map": {
+   "name": "Map",
+   "tile": "l",
+   "order": [
+    "map-russia.svg"
+   ],
+   "files": {
+    "map-russia.svg": {
+     "name": "map-russia.svg",
+     "blob": "727a93f39942adf08817e7cef7d0863a",
+     "size": 188525,
+     "type": "image/svg+xml"
+    }
+   }
+  },
+  "Clubs": {
+   "name": "Clubs",
+   "tile": "m",
+   "order": [
+    "almetyevsk-srp.svg",
+    "bryansk-river-room.webp",
+    "cheboksary-ace-king.webp",
+    "chelyabinsk-river.svg",
+    "ekaterinburg-chef.svg",
+    "ekaterinburg-optimist.svg",
+    "engels-phoenix.svg",
+    "izhevsk-legion.svg",
+    "kazan-milli-club.svg",
+    "lipetsk-phoenix.svg",
+    "moscow-aria-royale.webp",
+    "moscow-river-room.svg",
+    "naberezhnye-chelny-srp.svg",
+    "nizhny-novgorod-srp.webp",
+    "novocherkassk-bd-bar.webp",
+    "obninsk-big-blind.webp",
+    "omsk-river-room.svg",
+    "orenburg-srp.svg",
+    "saint-petersburg-raise-club.webp",
+    "tyumen-river.webp",
+    "ufa-primepoker.webp",
+    "voronezh-phoenix.svg",
+    "yaroslavl-fun-poker.webp",
+    "yoshkar-ola-mariage.webp"
+   ],
+   "files": {
+    "almetyevsk-srp.svg": {
+     "name": "almetyevsk-srp.svg",
+     "blob": "f1a54e8ee59074921270e3f0d0697022",
+     "size": 1050,
+     "type": "image/svg+xml"
+    },
+    "bryansk-river-room.webp": {
+     "name": "bryansk-river-room.webp",
+     "blob": "52fce655c6923920b438914a0e983905",
+     "size": 28114,
+     "type": "image/webp"
+    },
+    "cheboksary-ace-king.webp": {
+     "name": "cheboksary-ace-king.webp",
+     "blob": "b2291e9ef80e6212c1ed863d05f0fc66",
+     "size": 24568,
+     "type": "image/webp"
+    },
+    "chelyabinsk-river.svg": {
+     "name": "chelyabinsk-river.svg",
+     "blob": "8e6141c12cd74abfb9e31fcecb33eec1",
+     "size": 59872,
+     "type": "image/svg+xml"
+    },
+    "ekaterinburg-chef.svg": {
+     "name": "ekaterinburg-chef.svg",
+     "blob": "aad697d6d6d50dea4b66bf484b22d171",
+     "size": 4296,
+     "type": "image/svg+xml"
+    },
+    "ekaterinburg-optimist.svg": {
+     "name": "ekaterinburg-optimist.svg",
+     "blob": "a4bf11dcabc418448eaec76c2fe5dfa8",
+     "size": 4296,
+     "type": "image/svg+xml"
+    },
+    "engels-phoenix.svg": {
+     "name": "engels-phoenix.svg",
+     "blob": "ca38374ec1ef7b09c35a0079c62a00a1",
+     "size": 21048,
+     "type": "image/svg+xml"
+    },
+    "izhevsk-legion.svg": {
+     "name": "izhevsk-legion.svg",
+     "blob": "6822001037be4305d2f2030c4066ecbb",
+     "size": 14062,
+     "type": "image/svg+xml"
+    },
+    "kazan-milli-club.svg": {
+     "name": "kazan-milli-club.svg",
+     "blob": "6ade2c8484552d8b460edc257c41685d",
+     "size": 9571,
+     "type": "image/svg+xml"
+    },
+    "lipetsk-phoenix.svg": {
+     "name": "lipetsk-phoenix.svg",
+     "blob": "2ae035d818fdde0bc525f33691bd53e4",
+     "size": 21048,
+     "type": "image/svg+xml"
+    },
+    "moscow-aria-royale.webp": {
+     "name": "moscow-aria-royale.webp",
+     "blob": "b77ea7c1f0e0b6ecfb0de5ce52ca6f9e",
+     "size": 10696,
+     "type": "image/webp"
+    },
+    "moscow-river-room.svg": {
+     "name": "moscow-river-room.svg",
+     "blob": "b911e2ad3d1aa6c15429ac65e7445ef8",
+     "size": 5075,
+     "type": "image/svg+xml"
+    },
+    "naberezhnye-chelny-srp.svg": {
+     "name": "naberezhnye-chelny-srp.svg",
+     "blob": "f172dfd37b3e05dd2d4c0da745e97acf",
+     "size": 17630,
+     "type": "image/svg+xml"
+    },
+    "nizhny-novgorod-srp.webp": {
+     "name": "nizhny-novgorod-srp.webp",
+     "blob": "f205c0b7825d7085dc88fb3c2b190cc3",
+     "size": 13686,
+     "type": "image/webp"
+    },
+    "novocherkassk-bd-bar.webp": {
+     "name": "novocherkassk-bd-bar.webp",
+     "blob": "a55edb990a077d930fb96b137bf711f5",
+     "size": 10494,
+     "type": "image/webp"
+    },
+    "obninsk-big-blind.webp": {
+     "name": "obninsk-big-blind.webp",
+     "blob": "d6431f1f52495e2c5696d3d5fe2e6d99",
+     "size": 31668,
+     "type": "image/webp"
+    },
+    "omsk-river-room.svg": {
+     "name": "omsk-river-room.svg",
+     "blob": "08a82613172b0cf07ca75c860d247dbd",
+     "size": 12727,
+     "type": "image/svg+xml"
+    },
+    "orenburg-srp.svg": {
+     "name": "orenburg-srp.svg",
+     "blob": "d9899da44b728ccb09e375bae8ecf46d",
+     "size": 1050,
+     "type": "image/svg+xml"
+    },
+    "saint-petersburg-raise-club.webp": {
+     "name": "saint-petersburg-raise-club.webp",
+     "blob": "712f1c283d1213646b705271806e80e5",
+     "size": 13262,
+     "type": "image/webp"
+    },
+    "tyumen-river.webp": {
+     "name": "tyumen-river.webp",
+     "blob": "278473c160e5397be92d1f3e30733cc0",
+     "size": 24518,
+     "type": "image/webp"
+    },
+    "ufa-primepoker.webp": {
+     "name": "ufa-primepoker.webp",
+     "blob": "f2349a34a4d35da91434d73f42623b50",
+     "size": 24968,
+     "type": "image/webp"
+    },
+    "voronezh-phoenix.svg": {
+     "name": "voronezh-phoenix.svg",
+     "blob": "cb47e005c6ce7b7a843217215777a0fe",
+     "size": 21048,
+     "type": "image/svg+xml"
+    },
+    "yaroslavl-fun-poker.webp": {
+     "name": "yaroslavl-fun-poker.webp",
+     "blob": "291f2e3afee90d6e65a7064a6a5374ca",
+     "size": 18530,
+     "type": "image/webp"
+    },
+    "yoshkar-ola-mariage.webp": {
+     "name": "yoshkar-ola-mariage.webp",
+     "blob": "69deb3de42cd92b1461cda4d76cbceae",
+     "size": 33868,
+     "type": "image/webp"
+    }
+   }
+  },
+  "Icons": {
+   "name": "Icons",
+   "tile": "s",
+   "order": [
+    "arrow.svg",
+    "blocks.svg",
+    "cap.svg",
+    "chart.svg",
+    "check.svg",
+    "crown.svg",
+    "shield.svg",
+    "trophy.svg",
+    "tv.svg"
+   ],
+   "files": {
+    "arrow.svg": {
+     "name": "arrow.svg",
+     "blob": "2b586e8844e2184f2fd9b022db514388",
+     "size": 224,
+     "type": "image/svg+xml"
+    },
+    "blocks.svg": {
+     "name": "blocks.svg",
+     "blob": "1d3dc12fc7f6105292f1219b1df5f0fe",
+     "size": 255,
+     "type": "image/svg+xml"
+    },
+    "cap.svg": {
+     "name": "cap.svg",
+     "blob": "7c0741825934c8da8775bb003515ab7b",
+     "size": 266,
+     "type": "image/svg+xml"
+    },
+    "chart.svg": {
+     "name": "chart.svg",
+     "blob": "57be2afb8a8d8e802f926ee446419715",
+     "size": 238,
+     "type": "image/svg+xml"
+    },
+    "check.svg": {
+     "name": "check.svg",
+     "blob": "ef376bd032ac1dc5be807bdf583c8690",
+     "size": 224,
+     "type": "image/svg+xml"
+    },
+    "crown.svg": {
+     "name": "crown.svg",
+     "blob": "a5ece9096371f18517221ccc512cc44a",
+     "size": 241,
+     "type": "image/svg+xml"
+    },
+    "shield.svg": {
+     "name": "shield.svg",
+     "blob": "c26ac31ee56f5ee15486df50e88a9d05",
+     "size": 276,
+     "type": "image/svg+xml"
+    },
+    "trophy.svg": {
+     "name": "trophy.svg",
+     "blob": "e7ed0ae7c3e976ce80cb24e03d3d823a",
+     "size": 297,
+     "type": "image/svg+xml"
+    },
+    "tv.svg": {
+     "name": "tv.svg",
+     "blob": "731201acedb3ee9747847cc024ff08e9",
+     "size": 232,
+     "type": "image/svg+xml"
+    }
+   }
+  }
+ },
+ "blobs": {},
+ "docs": {
+  "readme": "project/README.md",
+  "sections": []
+ },
+ "lastChange": {
+  "by": "Claude",
+  "at": "2026-10-12T17:07:37Z",
+  "via": "Claude Code",
+  "note": "Первая версия: токены, 10 компонентов, логотип, карта, клубы, иконки"
+ }
+}

@@ -1,0 +1,16 @@
+<!-- @dsCard group="Content" height=330 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>preview</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var S = window.SRPF, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20, padding: 24 } },
+      h(S.FeatureCard, { icon: 'crown', title: 'Известный бренд' }, 'Федеральное имя и комьюнити на 30 000+ игроков. Вы стартуете не с нуля.'),
+      h(S.FeatureCard, { icon: 'shield', title: 'Легальный формат', featured: true }, 'Без денежных ставок, призовых фондов и рейка. Деятельность клубов — в рамках 244-ФЗ.'),
+      h(S.FeatureCard, { icon: 'chart', title: 'CRM и приложение' }, 'Рейтинг, турниры, база игроков, финансы и аналитика в одной платформе сети.')));
+</script>
+</body>
+</html>

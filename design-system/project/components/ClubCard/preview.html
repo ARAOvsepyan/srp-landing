@@ -1,0 +1,15 @@
+<!-- @dsCard group="Network" height=290 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>preview</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var S = window.SRPF, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 18, padding: 24 } },
+      h(S.ClubCard, { logo: '/_blob/6ade2c8484552d8b460edc257c41685d', city: 'Казань', name: 'Milli Club', blurb: 'Лаунж с рестораном и баром, бильярд 24/7, школа покера для новичков и PRO.', address: 'ул. Николая Ершова, 1А, 1 этаж', phone: '+7 (969) 600-00-16' }),
+      h(S.ClubCard, { logo: '/_blob/b911e2ad3d1aa6c15429ac65e7445ef8', city: 'Москва', name: 'River Room', blurb: 'Клуб для тех, кто привык мыслить на несколько ходов вперёд.', address: 'Сретенский бул., 6/1, стр. 1', phone: '+7 (966) 117-11-62' })));
+</script>
+</body>
+</html>

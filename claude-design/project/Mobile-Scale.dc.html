@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Телефон, масштаб</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/srp-franchise/tokens.css">
+<link rel="stylesheet" href="ds/srp-franchise/components/bundle.css">
+<script src="ds/srp-franchise/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:#0a0908}
+</style>
+</helmet>
+<div style="position: relative; width: 390px; height: 844px; overflow: hidden; background: var(--surface-0); color: var(--ink); font-family: var(--font-text)">
+  <img src="/_blob/c71ac84417234cfa40fb181c74bbc58c" alt="3D-карта России со световыми столбами над городами клубов" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover">
+  <div style="position: absolute; left: 16px; right: 16px; top: 0; height: 64px; display: flex; align-items: center; justify-content: space-between">
+    <img src="/_blob/172b7557428e451ff72774b7b38eda83" alt="СРП" width="92" height="18" style="height: 18px; width: auto">
+    <x-import component-from-global-scope="SRPF.Button" variant="burgundy" size="sm">Оставить заявку</x-import>
+  </div>
+  <div style="position: absolute; left: 0; right: 0; top: 84px; text-align: center">
+    <p style="margin: 0 0 14px; font: 600 10px/1 ui-monospace, Menlo, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold)">[МАСШТАБ_СЕТИ]</p>
+    <h2 style="margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 30px; line-height: 1.05; letter-spacing: -0.02em"><span class="sf-gold-text">20</span> клубов<span style="display: block; margin-top: 6px; font-size: 16px; color: #d9d1bd">по всей <span class="sf-gold-text">России</span></span></h2>
+    <p style="display: inline-flex; align-items: center; gap: 8px; margin: 10px 0 0; padding: 7px 12px; border: 1px solid var(--line); border-radius: 9999px; background: rgba(10, 9, 8, 0.6); font: 600 10px/1 ui-monospace, Menlo, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-hi)"><i style="width: 7px; height: 7px; border-radius: 50%; background: var(--gold-hi)"></i>+ Екатеринбург</p>
+  </div>
+  <article style="position: absolute; left: 14px; top: 560px; width: 172px; padding: 14px; border-radius: 16px; border: 1px solid rgba(246, 231, 172, 0.28); background: linear-gradient(135deg, rgba(255, 245, 220, 0.16), rgba(255, 245, 220, 0.04) 45%, rgba(220, 199, 127, 0.10)); backdrop-filter: blur(16px)">
+    <p style="margin: 0 0 4px; font: 600 10px/1 ui-monospace, Menlo, monospace; letter-spacing: 0.12em; color: var(--gold)">[PLAYERS]</p>
+    <b class="sf-gold-text" style="display: block; font: 800 28px/1 var(--font-display)">30 000+</b>
+    <span style="display: block; margin-top: 6px; font-size: 12px; line-height: 1.35; color: #d8d0bd">игроков в единой рейтинговой системе</span>
+  </article>
+  <article style="position: absolute; right: 14px; top: 642px; width: 172px; padding: 14px; border-radius: 16px; border: 1px solid rgba(246, 231, 172, 0.28); background: linear-gradient(135deg, rgba(255, 245, 220, 0.16), rgba(255, 245, 220, 0.04) 45%, rgba(220, 199, 127, 0.10)); backdrop-filter: blur(16px)">
+    <p style="margin: 0 0 4px; font: 600 10px/1 ui-monospace, Menlo, monospace; letter-spacing: 0.12em; color: var(--gold)">[VISITS]</p>
+    <b class="sf-gold-text" style="display: block; font: 800 28px/1 var(--font-display)">52 000+</b>
+    <span style="display: block; margin-top: 6px; font-size: 12px; line-height: 1.35; color: #d8d0bd">посетителей в месяц во всех клубах</span>
+  </article>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

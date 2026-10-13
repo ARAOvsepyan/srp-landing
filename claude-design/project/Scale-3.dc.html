@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Масштаб, кадр 3</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/srp-franchise/tokens.css">
+<link rel="stylesheet" href="ds/srp-franchise/components/bundle.css">
+<script src="ds/srp-franchise/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:#0a0908}
+</style>
+</helmet>
+<div style="position: relative; width: 1440px; height: 900px; overflow: hidden; background: var(--surface-0); color: var(--ink); font-family: var(--font-text)">
+  <img src="/_blob/455b3dade15cd5cd82005ff397d1bee8" alt="Камера отъехала: вся Россия, пунктирные столбы над городами без клубов" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover">
+  <div aria-hidden="true" style="position: absolute; inset: 0; background: radial-gradient(ellipse 120% 90% at 50% 50%, transparent 55%, rgba(10, 9, 8, 0.85) 100%)"></div>
+  <div style="position: absolute; left: 130px; right: 130px; top: 0; height: 76px; display: flex; align-items: center; justify-content: space-between">
+    <img src="/_blob/172b7557428e451ff72774b7b38eda83" alt="СРП" width="112" height="22" style="height: 22px; width: auto">
+    <x-import component-from-global-scope="SRPF.Button" variant="burgundy" size="sm">Оставить заявку</x-import>
+  </div>
+  <div aria-hidden="true" style="position: absolute; left: 50%; top: 104px; transform: translateX(-50%); display: flex; align-items: center; gap: 12px; padding: 11px 20px; border: 1px dashed var(--line-strong); border-radius: 9999px; background: rgba(10, 9, 8, 0.7); font-weight: 700; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-hi); white-space: nowrap"><i style="width: 9px; height: 9px; border-radius: 50%; border: 1px dashed var(--gold)"></i>Новые города — здесь может быть ваш</div>
+  <div style="position: absolute; left: 130px; top: 226px; width: 440px; box-sizing: border-box; padding: 34px 32px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: rgba(17, 14, 10, 0.78); backdrop-filter: blur(14px)">
+    <p class="eyebrow sf-eyebrow" style="text-transform: uppercase">Одна сеть — один рейтинг</p>
+    <h3 style="margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 40px; line-height: 1.1; letter-spacing: -0.02em">Ваш город — <span class="sf-gold-text">следующий</span></h3>
+    <p style="margin: 16px 0 0; font-size: 16px; line-height: 1.6; color: #cfc7b3">Каждый новый клуб усиливает всю сеть: общий бренд, федеральный рейтинг и Лига городов.</p>
+    <div style="margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--line); display: grid; gap: 12px">
+      <x-import component-from-global-scope="SRPF.Field" label="Проверьте свой город" name="city" placeholder="Например, Самара"></x-import>
+      <x-import component-from-global-scope="SRPF.Button" variant="gold" size="sm" block="{{yes}}">Проверить</x-import>
+      <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #d8d0bd">В нашем списке клубов в городе «Самара» пока нет. <span style="color: var(--gold-hi); text-decoration: underline">Оставьте заявку</span> — обсудим запуск СРП у вас.</p>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+renderVals() { return { yes: true }; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!-- @dsCard group="Content" height=440 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>preview</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var S = window.SRPF, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h('ol', { style: { display: 'grid', gap: 28, padding: 24, margin: 0, maxWidth: 520 } },
+      h(S.Step, { n: 1, title: 'Заявка' }, 'Оставляете контакты и город. Мы связываемся и обсуждаем ваш проект.'),
+      h(S.Step, { n: 2, title: 'Формат клуба' }, 'Подбираем помещение, количество столов и модель работы под ваш город.'),
+      h(S.Step, { n: 3, title: 'Запуск' }, 'Обучаем команду, подключаем CRM и рейтинг, запускаем маркетинг.'),
+      h(S.Step, { n: 4, title: 'Первые турниры' }, 'Клуб входит в федеральный рейтинг и Лигу городов СРП.')));
+</script>
+</body>
+</html>

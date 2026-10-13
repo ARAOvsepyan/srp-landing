@@ -1,0 +1,14 @@
+<!-- @dsCard group="Network" height=150 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>preview</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var S = window.SRPF, h = React.createElement;
+  var logos = ["/_blob/6ade2c8484552d8b460edc257c41685d", "/_blob/b911e2ad3d1aa6c15429ac65e7445ef8", "/_blob/712f1c283d1213646b705271806e80e5", "/_blob/6822001037be4305d2f2030c4066ecbb", "/_blob/291f2e3afee90d6e65a7064a6a5374ca", "/_blob/08a82613172b0cf07ca75c860d247dbd"];
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h('div', { className: 'sf-row', style: { gap: 18 } }, logos.map(function (l, i) { return h(S.ClubMedal, { key: i, src: l, alt: 'Логотип клуба', size: i === 0 ? 112 : 84 }); })));
+</script>
+</body>
+</html>

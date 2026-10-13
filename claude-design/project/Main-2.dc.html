@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>СРП — лендинг франшизы, часть 2</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="ds/srp-franchise/tokens.css">
+<link rel="stylesheet" href="ds/srp-franchise/components/bundle.css">
+<script src="ds/srp-franchise/components/bundle.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+body{margin:0;background:#0a0908}
+a{color:#f3eee2;text-decoration:none}a:hover{color:#f6e7ac}
+details>summary{list-style:none;cursor:pointer}
+details>summary::-webkit-details-marker{display:none}
+</style>
+</helmet>
+<div style="background: var(--surface-0); color: var(--ink); font-family: var(--font-text); overflow-x: hidden">
+
+<a href="Main.dc.html" style="display: flex; align-items: center; justify-content: center; gap: 12px; padding: 26px 20px; border-bottom: 1px solid var(--line); font: 600 13px/1 ui-monospace, Menlo, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold)">← Начало страницы: hero, масштаб, лига, IT</a>
+
+<!-- ===== ОТКРЫТЬ КЛУБ ===== -->
+<section id="partners" style="padding: 110px 0; background: linear-gradient(180deg, var(--surface-1), var(--surface-0))">
+  <div style="width: min(1180px, 100% - 40px); margin: 0 auto">
+    <x-import component-from-global-scope="SRPF.SectionHeader" eyebrow="Для партнёров" title="Откройте клуб СРП" accent="в вашем городе"></x-import>
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 64px; margin-top: 56px">
+      <div style="flex: 1 1 460px; padding: 38px; border: 1px solid var(--line-strong); border-radius: var(--radius-lg); background: var(--surface-2)">
+        <h3 style="margin: 0 0 22px; font-family: var(--font-display); font-size: 22px; color: var(--ink)">Что входит в партнёрство</h3>
+        <ul style="display: grid; gap: 15px; margin: 0 0 32px; padding: 0; list-style: none; font-size: 15px">
+          <li style="display: flex; align-items: flex-start; gap: 12px"><span style="color: var(--gold); margin-top: 2px"><x-import component-from-global-scope="SRPF.Icon" name="check" size="20"></x-import></span><span>Известный федеральный бренд</span></li>
+          <li style="display: flex; align-items: flex-start; gap: 12px"><span style="color: var(--gold); margin-top: 2px"><x-import component-from-global-scope="SRPF.Icon" name="check" size="20"></x-import></span><span>Готовая бизнес-модель и структура мероприятий</span></li>
+          <li style="display: flex; align-items: flex-start; gap: 12px"><span style="color: var(--gold); margin-top: 2px"><x-import component-from-global-scope="SRPF.Icon" name="check" size="20"></x-import></span><span>Маркетинговая поддержка и медиа</span></li>
+          <li style="display: flex; align-items: flex-start; gap: 12px"><span style="color: var(--gold); margin-top: 2px"><x-import component-from-global-scope="SRPF.Icon" name="check" size="20"></x-import></span><span>CRM, приложение и внутренние процессы</span></li>
+          <li style="display: flex; align-items: flex-start; gap: 12px"><span style="color: var(--gold); margin-top: 2px"><x-import component-from-global-scope="SRPF.Icon" name="check" size="20"></x-import></span><span>Турнирная система и участие в Лиге городов</span></li>
+          <li style="display: flex; align-items: flex-start; gap: 12px"><span style="color: var(--gold); margin-top: 2px"><x-import component-from-global-scope="SRPF.Icon" name="check" size="20"></x-import></span><span>Обучение команды</span></li>
+          <li style="display: flex; align-items: flex-start; gap: 12px"><span style="color: var(--gold); margin-top: 2px"><x-import component-from-global-scope="SRPF.Icon" name="check" size="20"></x-import></span><span>Поддержка на каждом этапе запуска</span></li>
+          <li style="display: flex; align-items: flex-start; gap: 12px"><span style="color: var(--gold); margin-top: 2px"><x-import component-from-global-scope="SRPF.Icon" name="check" size="20"></x-import></span><span>Возможность ТВ-трансляций из вашего клуба</span></li>
+        </ul>
+        <x-import component-from-global-scope="SRPF.Button" variant="gold" icon="arrow" href="#apply">Получить условия</x-import>
+      </div>
+      <ol style="flex: 1 1 380px; display: grid; gap: 34px; margin: 0; padding: 0; list-style: none">
+        <x-import component-from-global-scope="SRPF.Step" n="1" title="Заявка">Оставляете контакты и город. Мы связываемся и обсуждаем ваш проект.</x-import>
+        <x-import component-from-global-scope="SRPF.Step" n="2" title="Формат клуба">Подбираем помещение, количество столов и модель работы под ваш город.</x-import>
+        <x-import component-from-global-scope="SRPF.Step" n="3" title="Запуск">Обучаем команду, подключаем CRM и рейтинг, запускаем маркетинг.</x-import>
+        <x-import component-from-global-scope="SRPF.Step" n="4" title="Первые турниры">Клуб входит в федеральный рейтинг и Лигу городов СРП.</x-import>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ===== КЛУБЫ ===== -->
+<section id="clubs" style="padding: 90px 0 110px; overflow: hidden; background: var(--surface-0)">
+  <div aria-hidden="true" style="display: flex; gap: 18px; width: max-content; margin: 0 0 80px -60px">
+    <x-import component-from-global-scope="SRPF.ClubMedal" src="/_blob/28b720674251b483254b2170b817a320" size="84"></x-import>
+    <x-import component-from-global-scope="SRPF.ClubMedal" src="/_blob/3136c1bb88c3c42206be3be7732d641c" size="84"></x-import>
+    <x-import component-from-global-scope="SRPF.ClubMedal" src="/_blob/04d218f1b56ce0854274090de9c65866" size="84"></x-import>
+    <x-import component-from-global-scope="SRPF.ClubMedal" src="/_blob/3760d6e394e30e948c056927be5d1c92" size="84"></x-import>
+    <x-import component-from-global-scope="SRPF.ClubMedal" src="/_blob/d9975c28fa319f6b487c04315ab590cb" size="84"></x-import>
+    <x-import component-from-global-scope="SRPF.ClubMedal" src="/_blob/dd2e7a67484e764fde09e018f7b25462" size="84"></x-import>
+    <x-import component-from-global-scope="SRPF.ClubMedal" src="/_blob/dd2f928aba66397b70f17a2fa1ad5580" size="84"></x-import>
+    <x-import component-from-global-scope="SRPF.ClubMedal" src="/_blob/3c3e268e1dced0d608a7af2392d45a6f" size="84"></x-import>
+    <x-import component-from-global-scope="SRPF.ClubMedal" src="/_blob/24427b229a1911d492028267b867bc68" size="84"></x-import>
+    <x-import component-from-global-scope="SRPF.ClubMedal" src="/_blob/bae7925bab58cb30fb6f4068b313a298" size="84"></x-import>
+    <x-import component-from-global-scope="SRPF.ClubMedal" src="/_blob/b3c86b584837face2a2c5428d31a2790" size="84"></x-import>
+    <x-import component-from-global-scope="SRPF.ClubMedal" src="/_blob/29275029186535f659282ecfa0e233d3" size="84"></x-import>
+    <x-import component-from-global-scope="SRPF.ClubMedal" src="/_blob/d12d2c377225e42a03eacda93dc1624c" size="84"></x-import>
+    <x-import component-from-global-scope="SRPF.ClubMedal" src="/_blob/480dfb8ad1ad8ba2892f7d7a662bf005" size="84"></x-import>
+    <x-import component-from-global-scope="SRPF.ClubMedal" src="/_blob/f5863149a6f17e1980b0c647da69c6ef" size="84"></x-import>
+    <x-import component-from-global-scope="SRPF.ClubMedal" src="/_blob/fd937ad26e63799e8c3667330c0b908d" size="84"></x-import>
+  </div>
+  <div style="width: min(1180px, 100% - 40px); margin: 0 auto">
+    <x-import component-from-global-scope="SRPF.SectionHeader" eyebrow="Клубы сети" title="Найдите клуб СРП" accent="рядом с вами" sub="Хотите играть — выберите город и приходите. Все клубы работают без денежных ставок и призовых фондов, вход с 18 лет."></x-import>
+    <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 36px">
+      <span style="padding: 9px 16px; border-radius: 9999px; background: var(--gold); color: var(--on-gold); font-weight: 600; font-size: 14px; line-height: 1">Все клубы <b>24</b></span>
+      <span style="padding: 8px 16px; border-radius: 9999px; border: 1px solid var(--control-border); color: var(--ink-muted); font-weight: 600; font-size: 14px; line-height: 1">Москва <b style="color: var(--gold)">2</b></span>
+      <span style="padding: 8px 16px; border-radius: 9999px; border: 1px solid var(--control-border); color: var(--ink-muted); font-weight: 600; font-size: 14px; line-height: 1">Екатеринбург <b style="color: var(--gold)">2</b></span>
+      <span style="padding: 8px 16px; border-radius: 9999px; border: 1px solid var(--control-border); color: var(--ink-muted); font-weight: 600; font-size: 14px; line-height: 1">Казань</span>
+      <span style="padding: 8px 16px; border-radius: 9999px; border: 1px solid var(--control-border); color: var(--ink-muted); font-weight: 600; font-size: 14px; line-height: 1">Санкт-Петербург</span>
+      <span style="padding: 8px 16px; border-radius: 9999px; border: 1px solid var(--control-border); color: var(--ink-muted); font-weight: 600; font-size: 14px; line-height: 1">Омск</span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 18px; margin-top: 32px">
+      <x-import component-from-global-scope="SRPF.ClubCard" logo="/_blob/28b720674251b483254b2170b817a320" city="Казань" name="Milli Club" blurb="Лаунж с рестораном и баром, бильярд 24/7, школа покера для новичков и PRO." address="ул. Николая Ершова, 1А, 1 этаж" phone="+7 (969) 600-00-16"></x-import>
+      <x-import component-from-global-scope="SRPF.ClubCard" logo="/_blob/3136c1bb88c3c42206be3be7732d641c" city="Москва" name="River Room" blurb="Клуб для тех, кто привык мыслить на несколько ходов вперёд." address="Сретенский бул., 6/1, стр. 1" phone="+7 (966) 117-11-62"></x-import>
+      <x-import component-from-global-scope="SRPF.ClubCard" logo="/_blob/04d218f1b56ce0854274090de9c65866" city="Санкт-Петербург" name="Raise Club" blurb="6 столов и своя тусовка. Вошёл в сеть 18 мая 2026 года." address="Кожевенная линия, 30, BROSKO LOFT" phone="+7 (981) 044-42-55"></x-import>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ОТЗЫВЫ ===== -->
+<section id="reviews" style="padding: 100px 0; background: linear-gradient(180deg, var(--surface-0), var(--surface-1))">
+  <div style="width: min(1180px, 100% - 40px); margin: 0 auto">
+    <x-import component-from-global-scope="SRPF.SectionHeader" eyebrow="Отзывы партнёров" title="Говорят владельцы клубов" accent="сети"></x-import>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 48px">
+      <figure style="display: flex; flex-direction: column; justify-content: space-between; gap: 28px; min-height: 240px; margin: 0; padding: 30px 28px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface-2)">
+        <blockquote style="margin: 0; font-size: 17px; line-height: 1.55">«Сотрудничество с СРП открыло для нашего клуба новые возможности и дало мощный импульс развитию»</blockquote>
+        <figcaption style="font-weight: 700; font-size: 15px">Партнёр клуба СРП<span style="display: block; margin-top: 3px; color: var(--gold); font-weight: 600; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase">Москва</span></figcaption>
+      </figure>
+      <figure style="display: flex; flex-direction: column; justify-content: space-between; gap: 28px; min-height: 240px; margin: 0; padding: 30px 28px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface-2)">
+        <blockquote style="margin: 0; font-size: 17px; line-height: 1.55">«СРП — это профессионализм, поддержка и сильное комьюнити. Гордимся быть частью единой федеральной сети»</blockquote>
+        <figcaption style="font-weight: 700; font-size: 15px">Партнёр клуба СРП<span style="display: block; margin-top: 3px; color: var(--gold); font-weight: 600; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase">Екатеринбург</span></figcaption>
+      </figure>
+      <figure style="display: flex; flex-direction: column; justify-content: space-between; gap: 28px; min-height: 240px; margin: 0; padding: 30px 28px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface-2)">
+        <blockquote style="margin: 0; font-size: 17px; line-height: 1.55">«Благодаря СРП мы вышли на новый уровень организации турниров и работы с игроками»</blockquote>
+        <figcaption style="font-weight: 700; font-size: 15px">Партнёр клуба СРП<span style="display: block; margin-top: 3px; color: var(--gold); font-weight: 600; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase">Тюмень</span></figcaption>
+      </figure>
+      <figure style="display: flex; flex-direction: column; justify-content: space-between; gap: 28px; min-height: 240px; margin: 0; padding: 30px 28px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface-2)">
+        <blockquote style="margin: 0; font-size: 17px; line-height: 1.55">«Поддержка, обучение и готовые решения от СРП помогают нам двигаться вперёд и достигать отличных результатов»</blockquote>
+        <figcaption style="font-weight: 700; font-size: 15px">Партнёр клуба СРП<span style="display: block; margin-top: 3px; color: var(--gold); font-weight: 600; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase">Ижевск</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section id="faq" style="padding: 100px 0; background: var(--surface-1)">
+  <div style="width: min(1180px, 100% - 40px); margin: 0 auto; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 64px">
+    <div style="flex: 1 1 320px">
+      <x-import component-from-global-scope="SRPF.SectionHeader" eyebrow="FAQ" title="Частые вопросы" sub="Не нашли ответ? Оставьте заявку — мы всё расскажем лично."></x-import>
+      <div style="margin-top: 28px"><x-import component-from-global-scope="SRPF.Button" variant="ghost" href="#apply">Задать вопрос</x-import></div>
+    </div>
+    <div style="flex: 1.4 1 480px">
+      <details open="open" style="border-bottom: 1px solid var(--line)"><summary style="display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 24px 0; font-weight: 600; font-size: 19px; line-height: 1.35">Это законно?<span style="color: var(--gold); font-size: 24px; line-height: 1">×</span></summary><p style="margin: 0; padding: 0 0 26px; max-width: 62ch; color: var(--ink-muted); line-height: 1.6">Да. Деятельность клубов СРП соответствует требованиям Федерального закона № 244-ФЗ. В клубах отсутствуют ставки, денежные выигрыши и азартные игры. Формат основан на спортивно-развлекательном покере, рейтингах и клубных соревнованиях.</p></details>
+      <details style="border-bottom: 1px solid var(--line)"><summary style="display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 24px 0; font-weight: 600; font-size: 19px; line-height: 1.35">Играют ли в клубах на деньги?<span style="color: var(--gold); font-size: 24px; line-height: 1">+</span></summary><p style="margin: 0; padding: 0 0 26px; color: var(--ink-muted); line-height: 1.6">Нет. В клубах СРП запрещены игры на деньги, денежные ставки, призовые фонды, рейк и любые формы азартных игр с материальным вознаграждением.</p></details>
+      <details style="border-bottom: 1px solid var(--line)"><summary style="display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 24px 0; font-weight: 600; font-size: 19px; line-height: 1.35">С какого возраста можно играть?<span style="color: var(--gold); font-size: 24px; line-height: 1">+</span></summary><p style="margin: 0; padding: 0 0 26px; color: var(--ink-muted); line-height: 1.6">Посещение клубов и участие в мероприятиях СРП доступно только совершеннолетним — с 18 лет.</p></details>
+      <details style="border-bottom: 1px solid var(--line)"><summary style="display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 24px 0; font-weight: 600; font-size: 19px; line-height: 1.35">Что нужно, чтобы открыть клуб?<span style="color: var(--gold); font-size: 24px; line-height: 1">+</span></summary><p style="margin: 0; padding: 0 0 26px; color: var(--ink-muted); line-height: 1.6">Желание развивать покер в своём городе. Остальное обсудим на консультации: оставьте заявку, и мы расскажем о форматах запуска и условиях партнёрства.</p></details>
+      <details style="border-bottom: 1px solid var(--line)"><summary style="display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 24px 0; font-weight: 600; font-size: 19px; line-height: 1.35">Какая целевая аудитория у клуба?<span style="color: var(--gold); font-size: 24px; line-height: 1">+</span></summary><p style="margin: 0; padding: 0 0 26px; color: var(--ink-muted); line-height: 1.6">Основная аудитория СРП — мужчины и женщины от 25 до 55 лет с активной жизненной позицией, которым интересны интеллектуальные соревнования, общение, новые знакомства и участие в клубном сообществе.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ЗАЯВКА ===== -->
+<section id="apply" style="position: relative; padding: 110px 0; overflow: hidden; background: radial-gradient(ellipse 80% 70% at 20% 30%, #1c1509, var(--surface-0) 70%)">
+  <div style="position: relative; width: min(1180px, 100% - 40px); margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 64px">
+    <div style="flex: 1.1 1 440px">
+      <x-import component-from-global-scope="SRPF.SectionHeader" eyebrow="Стань лидером в своём городе" title="Получите консультацию по запуску" accent="СРП в вашем городе"></x-import>
+      <ul style="display: grid; gap: 16px; margin: 32px 0 0; padding: 0; list-style: none; color: #d9d1bd">
+        <li style="display: flex; align-items: flex-start; gap: 12px"><span style="color: var(--gold); margin-top: 3px"><x-import component-from-global-scope="SRPF.Icon" name="check" size="20"></x-import></span><span>Расскажем об условиях партнёрства и формате клуба</span></li>
+        <li style="display: flex; align-items: flex-start; gap: 12px"><span style="color: var(--gold); margin-top: 3px"><x-import component-from-global-scope="SRPF.Icon" name="check" size="20"></x-import></span><span>Проверим ваш город и подберём модель запуска</span></li>
+        <li style="display: flex; align-items: flex-start; gap: 12px"><span style="color: var(--gold); margin-top: 3px"><x-import component-from-global-scope="SRPF.Icon" name="check" size="20"></x-import></span><span>Покажем CRM и приложение в работе</span></li>
+      </ul>
+    </div>
+    <form style="flex: 0.9 1 380px; display: grid; gap: 16px; padding: 36px; border: 1px solid var(--line-strong); border-radius: var(--radius-lg); background: rgba(23, 20, 15, 0.9); box-shadow: var(--shadow-form)">
+      <h3 style="margin: 0; font-family: var(--font-display); font-size: 24px; color: var(--ink)">Оставить заявку</h3>
+      <x-import component-from-global-scope="SRPF.Field" label="Имя" name="name" placeholder="Как к вам обращаться"></x-import>
+      <x-import component-from-global-scope="SRPF.Field" label="Телефон или Telegram" name="contact" placeholder="+7 ___ ___-__-__ или @username"></x-import>
+      <x-import component-from-global-scope="SRPF.Field" label="Город" name="city" placeholder="Где хотите открыть клуб"></x-import>
+      <x-import component-from-global-scope="SRPF.Field" label="Что вас интересует" name="intent" options="{{intentOptions}}"></x-import>
+      <label style="display: flex; align-items: flex-start; gap: 12px; font-size: 13px; line-height: 1.5; color: var(--ink-muted); cursor: pointer"><input type="checkbox" style="flex: none; width: 20px; height: 20px; margin-top: 1px; accent-color: #dcc77f"><span>Я согласен(на) на обработку персональных данных и принимаю <a href="https://srppoker.ru/consent" style="color: var(--gold-hi); text-decoration: underline">политику обработки</a> и <a href="https://srppoker.ru/privacy" style="color: var(--gold-hi); text-decoration: underline">конфиденциальности</a></span></label>
+      <x-import component-from-global-scope="SRPF.Button" variant="gold" icon="arrow" block="{{yes}}">Получить консультацию</x-import>
+    </form>
+  </div>
+</section>
+
+<!-- ===== ПОДВАЛ ===== -->
+<footer style="padding: 56px 0 72px; border-top: 1px solid var(--line); background: #070605">
+  <div style="width: min(1180px, 100% - 40px); margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px">
+    <div style="max-width: 46ch">
+      <img src="/_blob/172b7557428e451ff72774b7b38eda83" alt="СРП" width="96" height="19" style="display: block; height: 19px; width: auto">
+      <p style="margin: 20px 0 0; color: var(--ink-muted); font-size: 13px; line-height: 1.6">В клубах СРП запрещены игры на деньги, денежные ставки, призовые фонды, рейк и любые формы азартных игр с материальным вознаграждением. Вход с 18 лет.</p>
+    </div>
+    <div style="display: grid; gap: 10px; font-size: 14px; color: var(--ink-muted)">
+      <a href="https://srppoker.ru/privacy" style="color: var(--ink-muted)">Политика конфиденциальности</a>
+      <a href="https://srppoker.ru/consent" style="color: var(--ink-muted)">Политика обработки персональных данных</a>
+      <p style="margin: 10px 0 0; line-height: 1.7">ИП Тимофеев Максим Сергеевич<br>ИНН: 761102874409<br>ОГРН: 322169000229692</p>
+    </div>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":5000}}'>
+class Component extends DCLogic {
+renderVals() {
+return {
+yes: true,
+intentOptions: [
+{ value: 'open', label: 'Открыть новый клуб СРП' },
+{ value: 'have', label: 'Подключить действующий клуб' },
+{ value: 'other', label: 'Другой вопрос' }
+]
+};
+}
+}
+</script>
+</body>
+</html>

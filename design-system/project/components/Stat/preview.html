@@ -1,0 +1,17 @@
+<!-- @dsCard group="Content" height=400 -->
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><title>preview</title></head>
+<body>
+<div id="root"></div>
+<script>
+  var S = window.SRPF, h = React.createElement;
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    h('div', { style: { display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 12, padding: 24 } },
+      h(S.Stat, { value: '20+', label: 'клубов сети', note: 'от Санкт-Петербурга до Сибири' }),
+      h(S.Stat, { value: '30 000+', label: 'игроков в сети СРП', note: 'единый федеральный рейтинг' }),
+      h(S.Stat, { value: '52 000+', label: 'посетителей в месяц', note: 'во всех клубах сети' }),
+      h(S.Stat, { value: '69%', label: 'удержание игроков', note: 'возвращаются в клубы сети' })));
+</script>
+</body>
+</html>

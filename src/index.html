@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>СРП — федеральная сеть спортивно-развлекательного покера | Открыть клуб</title>
+  <meta name="description" content="Федеральная сеть клубов спортивно-развлекательного покера: 20+ клубов, 30 000+ игроков, Лига городов, собственная CRM и приложение. Откройте клуб СРП или подключите свой.">
+  <meta name="theme-color" content="#0a0908">
+  <link rel="canonical" href="{{SITE_URL}}/">
+  <link rel="icon" type="image/png" href="/img/icon-192.png">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="СРП">
+  <meta property="og:url" content="{{SITE_URL}}/">
+  <meta property="og:title" content="СРП — федеральная сеть спортивно-развлекательного покера">
+  <meta property="og:description" content="20+ клубов по всей России, Лига городов, своя CRM и приложение. Стань лидером в своём городе.">
+  <meta property="og:image" content="{{SITE_URL}}/img/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="metrika-id" content="{{METRIKA_ID}}">
+  <link rel="preload" href="/fonts/Unbounded-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/GolosText-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/styles.css">
+  <script>document.documentElement.classList.add("js");</script>
+  <!--@jsonld-->
+</head>
+<body>
+<a class="skip" href="#main">К содержанию</a>
+<div class="progress" aria-hidden="true"><i></i></div>
+
+<!-- Общие градиенты и иллюстрации (фишки, карты) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="goldG" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f6e7ac"/><stop offset=".45" stop-color="#dcc77f"/><stop offset="1" stop-color="#8f7230"/>
+    </linearGradient>
+    <linearGradient id="arcG" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f6e7ac" stop-opacity=".9"/><stop offset="1" stop-color="#dcc77f" stop-opacity=".25"/>
+    </linearGradient>
+    <symbol id="i-chip" viewBox="0 0 120 120">
+      <circle cx="60" cy="60" r="57" fill="#15110a" stroke="url(#goldG)" stroke-width="3"/>
+      <circle cx="60" cy="60" r="46" fill="none" stroke="url(#goldG)" stroke-width="11" stroke-dasharray="15.1 15.1"/>
+      <circle cx="60" cy="60" r="33" fill="#0d0a06" stroke="url(#goldG)" stroke-width="1.6"/>
+      <text x="60" y="71" text-anchor="middle" font-size="32" fill="url(#goldG)" font-family="serif">♠</text>
+    </symbol>
+    <symbol id="i-chip-red" viewBox="0 0 120 120">
+      <circle cx="60" cy="60" r="57" fill="#4a0710" stroke="url(#goldG)" stroke-width="3"/>
+      <circle cx="60" cy="60" r="46" fill="none" stroke="#f3eee2" stroke-opacity=".85" stroke-width="11" stroke-dasharray="15.1 15.1"/>
+      <circle cx="60" cy="60" r="33" fill="#3a050c" stroke="url(#goldG)" stroke-width="1.6"/>
+      <text x="60" y="71" text-anchor="middle" font-size="32" fill="url(#goldG)" font-family="serif">♥</text>
+    </symbol>
+    <symbol id="i-card-a" viewBox="0 0 90 126">
+      <rect x="1.5" y="1.5" width="87" height="123" rx="10" fill="#16120b" stroke="url(#goldG)" stroke-width="2"/>
+      <text x="12" y="30" font-size="24" font-weight="700" fill="url(#goldG)" font-family="Georgia,serif">A</text>
+      <text x="45" y="80" text-anchor="middle" font-size="52" fill="url(#goldG)" font-family="serif">♠</text>
+    </symbol>
+    <symbol id="i-card-k" viewBox="0 0 90 126">
+      <rect x="1.5" y="1.5" width="87" height="123" rx="10" fill="#16120b" stroke="url(#goldG)" stroke-width="2"/>
+      <text x="12" y="30" font-size="24" font-weight="700" fill="#c4323f" font-family="Georgia,serif">K</text>
+      <text x="45" y="80" text-anchor="middle" font-size="52" fill="#c4323f" font-family="serif">♥</text>
+    </symbol>
+    <symbol id="i-crown" viewBox="0 0 24 24"><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5L3 8z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.2 8-8 9-4.8-1-8-4.5-8-9V6l8-3z M8.5 12l2.5 2.5 4.5-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+    <symbol id="i-blocks" viewBox="0 0 24 24"><path d="M4 4h7v7H4z M13 4h7v7h-7z M4 13h7v7H4z M13 13h7v7h-7z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10 M10 20V4 M16 20v-7 M22 20H2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-tv" viewBox="0 0 24 24"><path d="M3 6h18v11H3z M8 21h8 M12 17v4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+    <symbol id="i-cap" viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5L2 9z M6 11.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+    <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M7 4h10v5a5 5 0 01-10 0V4z M7 6H4v2a3 3 0 003 3 M17 6h3v2a3 3 0 01-3 3 M12 14v4 M8 21h8 M9 18h6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+    <!-- Фирменные иконки «Почему СРП»: гравировка золотом -->
+    <symbol id="c-legal" viewBox="0 0 64 64">
+      <path d="M32 5l21 7.5V30c0 13.4-9 23-21 28.5C20 53 11 43.4 11 30V12.5L32 5z" fill="rgba(220,199,127,.07)" stroke="url(#goldG)" stroke-width="2.2" stroke-linejoin="round"/>
+      <path d="M32 11.2l15.6 5.6V30c0 10-6.4 17.6-15.6 22-9.2-4.4-15.6-12-15.6-22V16.8L32 11.2z" fill="none" stroke="url(#goldG)" stroke-opacity=".38" stroke-width="1"/>
+      <path d="M32 19.5c4.4 5.2 9.6 8.4 9.6 13.6 0 3.7-2.6 5.8-5.4 5.8-1.5 0-2.6-.6-3.4-1.6.4 2.6 1.4 4.6 3 6.2h-7.6c1.6-1.6 2.6-3.6 3-6.2-.8 1-1.9 1.6-3.4 1.6-2.8 0-5.4-2.1-5.4-5.8 0-5.2 5.2-8.4 9.6-13.6z" fill="url(#goldG)"/>
+    </symbol>
+    <symbol id="c-finance" viewBox="0 0 64 64">
+      <g fill="rgba(220,199,127,.08)" stroke="url(#goldG)" stroke-width="2">
+        <rect x="8" y="42" width="13" height="14" rx="3.5"/><rect x="25.5" y="33" width="13" height="23" rx="3.5"/><rect x="43" y="22" width="13" height="34" rx="3.5"/>
+      </g>
+      <path d="M8 47h13M8 51.5h13M25.5 38h13M25.5 43h13M25.5 48h13M25.5 52h13M43 27h13M43 32h13M43 37h13M43 42h13M43 47h13M43 52h13" stroke="url(#goldG)" stroke-opacity=".45" stroke-width="1"/>
+      <path d="M7 32l12-9 8 4.5L48 9" fill="none" stroke="url(#goldG)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M40.5 8.5H49v8.5" fill="none" stroke="url(#goldG)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="c-league" viewBox="0 0 64 64">
+      <path d="M19 8h26v15.5C45 31.5 39.2 37 32 37s-13-5.5-13-13.5V8z" fill="rgba(220,199,127,.08)" stroke="url(#goldG)" stroke-width="2.2" stroke-linejoin="round"/>
+      <path d="M19 12.5h-7v5c0 5.4 3.8 9 9 9.5M45 12.5h7v5c0 5.4-3.8 9-9 9.5M32 37v8M23 56h18v-5.5a2.5 2.5 0 00-2.5-2.5h-13a2.5 2.5 0 00-2.5 2.5V56z" fill="none" stroke="url(#goldG)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M32 14.5l2.4 4.9 5.4.8-3.9 3.8.9 5.4-4.8-2.6-4.8 2.6.9-5.4-3.9-3.8 5.4-.8z" fill="url(#goldG)"/>
+      <path d="M6 30c2.5 6 6.5 10.5 12 13M58 30c-2.5 6-6.5 10.5-12 13" fill="none" stroke="url(#goldG)" stroke-opacity=".5" stroke-width="1.4" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="c-tv" viewBox="0 0 64 64">
+      <rect x="6" y="16" width="44" height="31" rx="5" fill="rgba(220,199,127,.08)" stroke="url(#goldG)" stroke-width="2.2"/>
+      <path d="M20 56h16M28 47v9" stroke="url(#goldG)" stroke-width="2.2" stroke-linecap="round"/>
+      <path d="M24 25.5l11 6-11 6z" fill="url(#goldG)"/>
+      <circle cx="13.5" cy="22.5" r="2.2" fill="#d2394a"/>
+      <path d="M52 15.5a9 9 0 017.5 7.5M52 8.5a16 16 0 0114.5 14.5" fill="none" stroke="url(#goldG)" stroke-width="2" stroke-linecap="round" transform="translate(-4 0)"/>
+    </symbol>
+    <symbol id="c-nomoney" viewBox="0 0 48 48">
+      <circle cx="24" cy="24" r="19" fill="rgba(220,199,127,.07)" stroke="url(#goldG)" stroke-width="2"/>
+      <circle cx="24" cy="24" r="14.5" fill="none" stroke="url(#goldG)" stroke-opacity=".45" stroke-width="1" stroke-dasharray="3 3"/>
+      <path d="M20.5 14v20M20.5 14h6.5a5.5 5.5 0 010 11h-9.5M17.5 29.5h10" fill="none" stroke="url(#goldG)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M8 40L40 8" stroke="#d2394a" stroke-width="3" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="c-spark" viewBox="-1 -1 2 2" overflow="visible"><path d="M0 -1Q.1 -.1 1 0Q.1 .1 0 1Q-.1 .1 -1 0Q-.1 -.1 0 -1Z"/></symbol>
+    <linearGradient id="sparkG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8a5a24"/><stop offset=".5" stop-color="#f6d48f"/><stop offset="1" stop-color="#9c6a2c"/></linearGradient>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14 M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<header class="site-header" id="header">
+  <div class="container bar">
+    <a class="brand" href="#top" aria-label="СРП — на главную"><img src="/img/logo-srp.png" alt="СРП" width="112" height="22"></a>
+    <nav class="nav" aria-label="Основная навигация">
+      <a href="#about">О СРП</a>
+      <a href="#league">Лига городов</a>
+      <a href="#why">Преимущества</a>
+      <a href="#platform">IT-инфраструктура</a>
+      <a href="#clubs">Клубы</a>
+      <a href="#reviews">Отзывы</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn--burgundy btn--sm" href="#apply">Оставить заявку</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <div class="hero-bg" aria-hidden="true">
+      <div class="layer hero-pattern" data-parallax="0.12"></div>
+      <div class="hero-object" data-parallax="-0.1" data-mouse="16">
+        <!-- Ролик с прозрачным фоном: HEVC с альфой для Safari, VP9 с альфой для остальных (выбирает main.js) -->
+        <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto" poster="/video/hero-cards.webp" data-alpha-webm="/video/hero-cards.webm" data-alpha-hevc="/video/hero-cards.mov"></video>
+      </div>
+      <div class="hero-arc" data-parallax="-0.3"></div>
+    </div>
+    <div class="container hero-inner">
+      <h1 id="hero-title" class="reveal" style="--d:80ms">Федеральная сеть <span class="gold-text">спортивно-развлекательного</span> покера в России</h1>
+      <p class="lead reveal" style="--d:160ms">Стань лидером в своём городе: открой клуб СРП или подключи уже работающий.</p>
+      <div class="cta-row reveal" style="--d:240ms">
+        <a class="btn btn--gold" href="#apply" data-magnetic>Узнать условия запуска <svg class="ico"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn--ghost" href="#network" data-magnetic>Смотреть сеть</a>
+      </div>
+      <dl class="hero-meta reveal" style="--d:320ms">
+        <div><dt>клубов сети</dt><dd>20+</dd></div>
+        <div><dt>участников комьюнити</dt><dd>30&nbsp;000+</dd></div>
+        <div><dt>городов</dt><dd>{{CITIES_TOTAL}}</dd></div>
+      </dl>
+      <ul class="hero-badges reveal" style="--d:400ms">
+        <li class="age" aria-label="Только для лиц старше 18 лет">18+</li>
+        <li><svg class="ico"><use href="#i-check"/></svg>Федеральная Лига городов</li>
+        <li><svg class="ico"><use href="#i-check"/></svg>Собственная IT-инфраструктура</li>
+      </ul>
+    </div>
+    <a class="scroll-cue" href="#about" aria-label="Прокрутить дальше"><i></i></a>
+  </section>
+
+  <!-- ============ О СРП: больше, чем покерный клуб ============ -->
+  <section class="section about" id="about" aria-labelledby="about-title">
+    <div class="about-mark" aria-hidden="true" data-parallax="0.08"><img src="/img/logo-srp.png" alt="" width="1200" height="236"></div>
+    <div class="container about-grid">
+      <div>
+        <p class="eyebrow reveal">О СРП</p>
+        <h2 class="reveal" id="about-title">СРП — это больше, <span class="gold-text">чем покерный клуб</span></h2>
+      </div>
+      <div class="about-copy">
+        <p class="about-lead reveal">Это федеральная сеть спортивно-развлекательного покера. Мы развиваем интеллектуальный формат досуга, общения и соревнований.</p>
+        <div class="nomoney reveal" style="--d:120ms">
+          <span class="nomoney-ico" aria-hidden="true"><svg viewBox="0 0 48 48"><use href="#c-nomoney"/></svg></span>
+          <p>В наших клубах запрещены игры на деньги, денежные ставки, призовые фонды, рейк и любые формы азартных игр с материальным вознаграждением.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ МАСШТАБ: 3D-КАРТА РОССИИ (закреплённая сцена) ============ -->
+  <section class="orbit" id="network" style="--hp:0;--c1:0;--c2:0;--c3:0;--pp:0" aria-labelledby="network-title">
+    <div class="orbit-sticky">
+      <canvas class="orbit-canvas" id="map3d" aria-hidden="true"></canvas>
+      <div class="orbit-vignette" aria-hidden="true"></div>
+
+      <div class="net-head">
+        <p class="mono-tag">[МАСШТАБ_СЕТИ]</p>
+        <h2 id="network-title"><span class="net-count"><b id="lit">1</b> <span id="lit-word">клуб</span></span> <span class="net-line">по всей <span class="gold-text">России</span></span></h2>
+        <p class="net-last" aria-hidden="true"><i></i><span id="lit-city">+ Набережные Челны</span></p>
+      </div>
+
+      <div class="orbit-cards">
+        <article class="gcard gcard--1" data-depth="1">
+          <p class="mono-tag">[ИГРОКИ]</p>
+          <b><span data-count="30000" data-suffix="+">30&nbsp;000+</span></b>
+          <span>игроков в сети СРП</span>
+        </article>
+        <article class="gcard gcard--2" data-depth="2">
+          <p class="mono-tag">[ПОСЕЩЕНИЯ]</p>
+          <b><span data-count="52000" data-suffix="+">52&nbsp;000+</span></b>
+          <span>посетителей ежемесячно в наших клубах</span>
+        </article>
+        <article class="gcard gcard--3" data-depth="3">
+          <p class="mono-tag">[УДЕРЖАНИЕ]</p>
+          <b><span data-count="69" data-suffix="%">69%</span></b>
+          <span>удержание игроков в сети СРП</span>
+        </article>
+      </div>
+
+      <div class="orbit-panel glass">
+        <p class="eyebrow">Одна сеть — один рейтинг</p>
+        <h3 class="panel-title">Ваш город — <span class="gold-text">следующий</span></h3>
+        <p class="scene-lead">Каждый новый клуб усиливает всю сеть: общий бренд, федеральный рейтинг и Лига городов.</p>
+<a class="btn btn--gold panel-cta" href="#apply" data-city-intent="open" data-magnetic>Открыть клуб в своём городе <svg class="ico"><use href="#i-arrow"/></svg></a>
+      </div>
+
+      <div class="ghost-hint" aria-hidden="true"><i></i>Новые города — здесь может быть ваш</div>
+      <p class="sr-only">Карта России с клубами СРП в {{CITIES_TOTAL}} городах. Полный список клубов и адреса — в разделе «Клубы сети».</p>
+    </div>
+  </section>
+
+  <!-- ============ ТИКЕР ГОРОДОВ ============ -->
+  <div class="ticker" id="ticker" aria-label="Города, где работают клубы СРП">
+    <div class="ticker-track" aria-hidden="true"><!--@ticker--></div>
+  </div>
+
+  <!-- ============ ПОЧЕМУ СРП ============ -->
+  <section class="section why" id="why">
+    <div class="container">
+      <p class="eyebrow reveal">Преимущества СРП</p>
+      <h2 class="reveal">Почему <span class="gold-text">СРП?</span></h2>
+      <div class="cards cards--4">
+        <article class="card tilt reveal"><span class="cico"><svg viewBox="0 0 64 64"><use href="#c-legal"/></svg></span><h3>Абсолютно легально</h3><p>Мы ведём исключительно легальную деятельность в формате настольных игр. Это интеллектуальный вид досуга, не связанный с азартными играми и денежными ставками.</p></article>
+        <article class="card tilt reveal" style="--d:80ms"><span class="cico"><svg viewBox="0 0 64 64"><use href="#c-finance"/></svg></span><h3>Финансовая стабильность</h3><p>Наша бизнес-модель предполагает окупаемость в течение первого года. Мы поддерживаем партнёров на каждом этапе.</p></article>
+        <article class="card tilt reveal" style="--d:160ms"><span class="cico"><svg viewBox="0 0 64 64"><use href="#c-league"/></svg></span><h3>Лига городов</h3><p>Федеральный турнир, объединяющий клубы. Это мощный инструмент повышения узнаваемости и удержания аудитории.</p></article>
+        <article class="card tilt reveal" style="--d:240ms"><span class="cico"><svg viewBox="0 0 64 64"><use href="#c-tv"/></svg></span><h3>ТВ-трансляция</h3><p>Все клубы СРП получают медийную поддержку и возможность проведения трансляции в собственном клубе.</p></article>
+      </div>
+      <p class="why-total reveal"><span>Как итог:</span> <b class="gold-text">охваты, узнаваемость и статус</b></p>
+    </div>
+  </section>
+
+  <!-- ============ ЛИГА ГОРОДОВ: видео финала раскрывается на весь экран (закреплённая сцена) ============ -->
+  <section class="lg-scene" id="league" aria-labelledby="league-title">
+    <div class="lg-sticky">
+      <div class="lg-word" aria-hidden="true"><span>ЛИГА ГОРОДОВ</span></div>
+      <figure class="lg-photo lg-photo--1" data-d="1"><img src="/img/photos/cities-hero-1.webp" alt="Команда клуба СРП в Казани" width="1200" height="800" loading="lazy" decoding="async"></figure>
+      <figure class="lg-photo lg-photo--2" data-d="2"><img src="/img/photos/rating-hero-1.webp" alt="Игроки за столом клуба Milli Club" width="1200" height="800" loading="lazy" decoding="async"></figure>
+      <figure class="lg-photo lg-photo--3" data-d="3"><img src="/img/photos/champions-hero-1.webp" alt="Дилер за игровым столом клуба СРП" width="1200" height="800" loading="lazy" decoding="async"></figure>
+      <div class="lg-video">
+        <video id="league-video" muted loop playsinline preload="none" poster="/video/league-final.webp" aria-label="Финал Лиги городов в клубе Milli Club">
+          <source data-src="/video/league-final.mp4" type="video/mp4">
+        </video>
+        <div class="lg-shade"></div>
+      </div>
+      <p class="lg-caption mono-tag" aria-hidden="true">[LIVE] Финал Лиги городов · Milli Club</p>
+      <div class="lg-content container">
+        <p class="eyebrow">Лига городов</p>
+        <h2 id="league-title">Ваши игроки выходят на <span class="gold-text">всероссийскую сцену</span></h2>
+        <p class="sub">Лига городов — федеральная система соревнований.</p>
+        <ul class="lg-points">
+          <li><svg class="ico"><use href="#i-check"/></svg>Повышает вовлечённость игроков</li>
+          <li><svg class="ico"><use href="#i-check"/></svg>Мотивирует игроков регулярно возвращаться в клуб</li>
+          <li><svg class="ico"><use href="#i-check"/></svg>Даёт возможность представлять свой город на всероссийском финале</li>
+        </ul>
+        <div class="lg-cards">
+          <article class="lg-glass lgc--1"><svg class="ico-lg"><use href="#i-chart"/></svg><h3>Лига Рейтинга</h3><p>Каждый месяц — чемпион рейтинга и турнир среди сильнейших игроков клуба.</p></article>
+          <article class="lg-glass lgc--2"><svg class="ico-lg"><use href="#i-trophy"/></svg><h3>Лига Чемпионов</h3><p>Серия этапов внутри клуба и финал победителей.</p></article>
+          <article class="lg-glass lg-glass--main lgc--3"><svg class="ico-lg"><use href="#i-crown"/></svg><h3>Лига Городов</h3><p>Играют все клубы сети. Финал принимает один из городов — может быть, ваш.</p></article>
+        </div>
+        <a class="btn btn--gold lg-cta" href="#apply" data-magnetic>Привести Лигу в свой город <svg class="ico"><use href="#i-arrow"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ПРЕИМУЩЕСТВА: для действующих клубов и для партнёров ============ -->
+  <section class="section benefits" id="benefits">
+    <div class="container">
+      <p class="eyebrow reveal">Преимущества СРП</p>
+      <h2 class="reveal">Два пути в сеть: <span class="gold-text">подключить свой клуб или открыть новый</span></h2>
+      <div class="benefits-grid">
+        <article class="bpanel reveal">
+          <p class="bpanel-tag mono-tag">[01] Для действующих клубов</p>
+          <h3>Подключите свой клуб к федеральной сети</h3>
+          <ol class="blist">
+            <li>Сохранение идентичности клуба</li>
+            <li>Доверие игроков</li>
+            <li>CRM и внутренние процессы</li>
+            <li>Лига городов</li>
+            <li>Обмен опытом</li>
+            <li>Отсутствие конкуренции внутри сети</li>
+            <li>Представлять свой клуб на регулярных всероссийских турнирах</li>
+          </ol>
+          <a class="btn btn--ghost" href="#apply" data-city-intent="have">Подключить свой клуб</a>
+        </article>
+        <article class="bpanel bpanel--gold reveal" style="--d:120ms">
+          <p class="bpanel-tag mono-tag">[02] Для партнёров</p>
+          <h3>Откройте клуб СРП в своём городе</h3>
+          <ol class="blist blist--2">
+            <li>Известный бренд</li>
+            <li>Готовая бизнес-модель</li>
+            <li>Маркетинговая поддержка</li>
+            <li>CRM и внутренние процессы</li>
+            <li>Турнирная система</li>
+            <li>Лига городов</li>
+            <li>Обучение команды</li>
+            <li>Поддержка на каждом этапе запуска</li>
+            <li>Турнирные лиги</li>
+            <li>Структура мероприятий</li>
+          </ol>
+          <a class="btn btn--gold" href="#apply" data-city-intent="open" data-magnetic>Открыть клуб СРП <svg class="ico"><use href="#i-arrow"/></svg></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ПЛАТФОРМА: живые Mac и iPhone ============ -->
+  <section class="section platform" id="platform">
+    <div class="container platform-grid">
+      <div class="platform-copy">
+        <p class="eyebrow reveal">IT-инфраструктура СРП</p>
+        <h2 class="reveal">Собственная CRM и приложение — <span class="gold-text">всё под контролем</span></h2>
+        <p class="sub reveal">Мы разработали удобное приложение и CRM-систему для взаимодействия между участниками СРП. Клуб управляет игроками, турнирами и финансами в CRM, а игроки видят рейтинг, расписание и свою карту в приложении.</p>
+        <ul class="feat reveal">
+          <li><svg class="ico"><use href="#i-check"/></svg>Дашборд, метрики и финансовая аналитика</li>
+          <li><svg class="ico"><use href="#i-check"/></svg>База игроков, рейтинг и карта лояльности</li>
+          <li><svg class="ico"><use href="#i-check"/></svg>Турниры, расписание, шаблоны и лиги</li>
+          <li><svg class="ico"><use href="#i-check"/></svg>Рассылки, модерация и аудит-лог</li>
+          <li><svg class="ico"><use href="#i-check"/></svg>Интеграция с кассой iiko</li>
+        </ul>
+        <div class="tabs reveal" role="tablist" aria-label="Разделы CRM на экране ноутбука">
+          <button role="tab" aria-selected="true" data-video="crm-dashboard">Дашборд</button>
+          <button role="tab" aria-selected="false" data-video="crm-tournaments">Турниры</button>
+          <button role="tab" aria-selected="false" data-video="crm-leagues2">Лиги</button>
+        </div>
+        <a class="btn btn--ghost platform-cta reveal" href="#apply">Показать CRM на демо</a>
+      </div>
+
+      <div class="devices" id="devices">
+        <div class="devices-glow" aria-hidden="true"></div>
+        <div class="mac" data-parallax="0.06">
+          <div class="mac-screen">
+            <div class="mac-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+            <video id="crm-video" muted loop playsinline preload="metadata" poster="/video/crm-dashboard.webp" aria-label="Запись работы CRM СРП: дашборд демо-клуба">
+              <source src="/video/crm-dashboard.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="mac-base" aria-hidden="true"></div>
+          <p class="device-label mono-tag">[CRM] для владельца клуба</p>
+        </div>
+
+        <div class="iphone" data-parallax="-0.16">
+          <div class="iphone-frame">
+            <div class="island" aria-hidden="true"></div>
+            <div class="app app--real">
+              <div class="app-status" aria-hidden="true"><span id="app-time">19:42</span><span class="app-sig"><i></i><i></i><i></i><i></i></span></div>
+              <video class="app-video" id="app-video" muted loop playsinline preload="none" poster="/video/app-real.webp" aria-label="Запись приложения игрока СРП: главная, рейтинг клуба, Лига городов">
+                <source data-src="/video/app-real.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+          <p class="device-label mono-tag">[APP] для игрока</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ОТКРЫТЬ КЛУБ ============ -->
+  <section class="section partners" id="partners">
+    <div class="container">
+      <p class="eyebrow reveal">Как открыть клуб</p>
+      <h2 class="reveal">Запуск клуба СРП <span class="gold-text">в вашем городе</span></h2>
+      <div class="partners-grid">
+        <div class="launch reveal">
+          <p class="launch-lead">От заявки до первого турнира — четыре шага. Мы ведём вас на каждом этапе: помещение, команда, CRM, маркетинг и включение в федеральный рейтинг.</p>
+          <dl class="launch-facts">
+            <div><dt>Обучение</dt><dd>команды клуба</dd></div>
+            <div><dt>Поддержка</dt><dd>на каждом этапе запуска</dd></div>
+            <div><dt>Лига городов</dt><dd>с первого сезона</dd></div>
+          </dl>
+          <a class="btn btn--gold" href="#apply" data-magnetic>Получить условия <svg class="ico"><use href="#i-arrow"/></svg></a>
+        </div>
+        <ol class="steps" id="steps">
+          <li class="reveal"><b>1</b><div><h4>Заявка</h4><p>Оставляете контакты и город. Мы связываемся и обсуждаем ваш проект.</p></div></li>
+          <li class="reveal" style="--d:100ms"><b>2</b><div><h4>Формат клуба</h4><p>Подбираем помещение, количество столов и модель работы под ваш город.</p></div></li>
+          <li class="reveal" style="--d:200ms"><b>3</b><div><h4>Запуск</h4><p>Обучаем команду, подключаем CRM и рейтинг, запускаем маркетинг.</p></div></li>
+          <li class="reveal" style="--d:300ms"><b>4</b><div><h4>Первые турниры</h4><p>Клуб входит в федеральный рейтинг и Лигу городов СРП.</p></div></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ КЛУБЫ ============ -->
+  <section class="section clubs" id="clubs">
+    <div class="wall" aria-hidden="false"><!--@logo-wall--></div>
+    <div class="container">
+      <p class="eyebrow reveal">Клубы СРП</p>
+      <h2 class="reveal">Лучшие клубы <span class="gold-text">России</span></h2>
+      <p class="sub reveal">20+ клубов — от Санкт-Петербурга до Омска. Хотите играть — выберите город и приходите. Все клубы работают без денежных ставок и призовых фондов, вход с 18 лет.</p>
+      <dl class="best-stats reveal">
+        <div><dd><span data-count="20" data-suffix="+">20+</span></dd><dt>клубов сети</dt></div>
+        <div><dd><span data-count="52000" data-suffix="+">52&nbsp;000+</span></dd><dt>посетителей ежемесячно в наших клубах</dt></div>
+        <div><dd><span data-count="30000" data-suffix="+">30&nbsp;000+</span></dd><dt>игроков в сети СРП</dt></div>
+        <div><dd><span data-count="69" data-suffix="%">69%</span></dd><dt>удержание игроков в сети СРП</dt></div>
+      </dl>
+      <div class="best-cta reveal"><a class="btn btn--ghost" href="#club-grid">Смотреть список</a><a class="btn btn--gold" href="#apply" data-magnetic>Связаться <svg class="ico"><use href="#i-arrow"/></svg></a></div>
+      <div class="finder reveal">
+        <label class="sr-only" for="club-search">Поиск клуба</label>
+        <input id="club-search" type="search" placeholder="Город, название или улица" autocomplete="off">
+        <div class="chips" id="chips" role="group" aria-label="Фильтр по городу">
+          <!--@city-chips-->
+        </div>
+      </div>
+      <div class="club-grid" id="club-grid"><!--@club-cards--></div>
+      <p class="empty" id="club-empty" hidden>Ничего не найдено. Возможно, в этом городе клуба ещё нет — <a href="#apply" data-city-intent="open">оставьте заявку на открытие</a>.</p>
+    </div>
+  </section>
+
+  <!-- ============ ОТЗЫВЫ ============ -->
+  <section class="section reviews" id="reviews">
+    <div class="container">
+      <p class="eyebrow reveal">Отзывы партнёров</p>
+      <h2 class="reveal">Говорят владельцы клубов <span class="gold-text">сети</span></h2>
+      <p class="sub reveal">Видео-отзывы партнёров СРП из разных городов России.</p>
+    </div>
+    <div class="rail-wrap">
+      <div class="rail" id="rail" tabindex="0" aria-label="Видео-отзывы партнёров, прокручиваются горизонтально">
+      <figure class="review review--video">
+        <div class="review-video">
+          <button class="review-cover" type="button" data-vk="456239583" aria-label="Смотреть видео-отзыв: River Room, Москва">
+            <span class="rc-tag">[ВИДЕО-ОТЗЫВ]</span>
+            <span class="rc-medals"><span class="rc-medal"><img src="/img/clubs/moscow-river-room.svg" alt="" width="96" height="96" loading="lazy" decoding="async"></span></span>
+            <span class="rc-name">River Room</span>
+            <span class="rc-city">Москва</span>
+            <span class="rc-play" aria-hidden="true"></span>
+          </button>
+        </div>
+        <blockquote>«Сотрудничество с СРП открыло для нашего клуба новые возможности и дало мощный импульс развитию»</blockquote>
+        <figcaption><span class="rc-minis"><span class="rc-mini"><img src="/img/clubs/moscow-river-room.svg" alt="" width="28" height="28" loading="lazy"></span></span><span class="rc-cap"><b>River Room</b><span>Москва</span></span></figcaption>
+      </figure>
+      <figure class="review review--video">
+        <div class="review-video">
+          <button class="review-cover" type="button" data-vk="456239587" aria-label="Смотреть видео-отзыв: СРП «Шеф» и «Оптимист», Екатеринбург">
+            <span class="rc-tag">[ВИДЕО-ОТЗЫВ]</span>
+            <span class="rc-medals"><span class="rc-medal"><img src="/img/clubs/ekaterinburg-chef.svg" alt="" width="96" height="96" loading="lazy" decoding="async"></span><span class="rc-medal"><img src="/img/clubs/ekaterinburg-optimist.webp" alt="" width="96" height="96" loading="lazy" decoding="async"></span></span>
+            <span class="rc-name">СРП «Шеф» и «Оптимист»</span>
+            <span class="rc-city">Екатеринбург</span>
+            <span class="rc-play" aria-hidden="true"></span>
+          </button>
+        </div>
+        <blockquote>«СРП — это профессионализм, поддержка и сильное комьюнити. Гордимся быть частью единой федеральной сети»</blockquote>
+        <figcaption><span class="rc-minis"><span class="rc-mini"><img src="/img/clubs/ekaterinburg-chef.svg" alt="" width="28" height="28" loading="lazy"></span><span class="rc-mini"><img src="/img/clubs/ekaterinburg-optimist.webp" alt="" width="28" height="28" loading="lazy"></span></span><span class="rc-cap"><b>СРП «Шеф» и «Оптимист»</b><span>Екатеринбург</span></span></figcaption>
+      </figure>
+      <figure class="review review--video">
+        <div class="review-video">
+          <button class="review-cover" type="button" data-vk="456239585" aria-label="Смотреть видео-отзыв: River Room, Тюмень">
+            <span class="rc-tag">[ВИДЕО-ОТЗЫВ]</span>
+            <span class="rc-medals"><span class="rc-medal"><img src="/img/clubs/tyumen-river.webp" alt="" width="96" height="96" loading="lazy" decoding="async"></span></span>
+            <span class="rc-name">River Room</span>
+            <span class="rc-city">Тюмень</span>
+            <span class="rc-play" aria-hidden="true"></span>
+          </button>
+        </div>
+        <blockquote>«Благодаря СРП мы вышли на новый уровень организации турниров и работы с игроками»</blockquote>
+        <figcaption><span class="rc-minis"><span class="rc-mini"><img src="/img/clubs/tyumen-river.webp" alt="" width="28" height="28" loading="lazy"></span></span><span class="rc-cap"><b>River Room</b><span>Тюмень</span></span></figcaption>
+      </figure>
+      <figure class="review review--video">
+        <div class="review-video">
+          <button class="review-cover" type="button" data-vk="456239572" aria-label="Смотреть видео-отзыв: СРП Легион, Ижевск">
+            <span class="rc-tag">[ВИДЕО-ОТЗЫВ]</span>
+            <span class="rc-medals"><span class="rc-medal"><img src="/img/clubs/izhevsk-legion.svg" alt="" width="96" height="96" loading="lazy" decoding="async"></span></span>
+            <span class="rc-name">СРП Легион</span>
+            <span class="rc-city">Ижевск</span>
+            <span class="rc-play" aria-hidden="true"></span>
+          </button>
+        </div>
+        <blockquote>«Поддержка, обучение и готовые решения от СРП помогают нам двигаться вперёд и достигать отличных результатов»</blockquote>
+        <figcaption><span class="rc-minis"><span class="rc-mini"><img src="/img/clubs/izhevsk-legion.svg" alt="" width="28" height="28" loading="lazy"></span></span><span class="rc-cap"><b>СРП Легион</b><span>Ижевск</span></span></figcaption>
+      </figure>
+      <figure class="review review--video">
+        <div class="review-video">
+          <div class="review-cover review-cover--static">
+            <span class="rc-tag">[ОТЗЫВ ПАРТНЁРА]</span>
+            <span class="rc-medals"><span class="rc-medal"><img src="/img/clubs/omsk-river-room.svg" alt="" width="96" height="96" loading="lazy" decoding="async"></span></span>
+            <span class="rc-name">River Room</span>
+            <span class="rc-city">Омск</span>
+            <span class="rc-soon">Видео готовится</span>
+          </div>
+        </div>
+        <blockquote>«Именно начав работу с СРП, мы смогли воплотить в жизнь мечту — наш покерный клуб»</blockquote>
+        <figcaption><span class="rc-minis"><span class="rc-mini"><img src="/img/clubs/omsk-river-room.svg" alt="" width="28" height="28" loading="lazy"></span></span><span class="rc-cap"><b>River Room</b><span>Омск</span></span></figcaption>
+      </figure>
+      <figure class="review review--video">
+        <div class="review-video">
+          <button class="review-cover" type="button" data-vk="456239575" aria-label="Смотреть видео-отзыв: СРП Феникс, Воронеж">
+            <span class="rc-tag">[ВИДЕО-ОТЗЫВ]</span>
+            <span class="rc-medals"><span class="rc-medal"><img src="/img/clubs/voronezh-phoenix.svg" alt="" width="96" height="96" loading="lazy" decoding="async"></span></span>
+            <span class="rc-name">СРП Феникс</span>
+            <span class="rc-city">Воронеж</span>
+            <span class="rc-play" aria-hidden="true"></span>
+          </button>
+        </div>
+        <blockquote>«Очень порадовали огромный опыт СРП и система помощи региональным клубам по любым техническим вопросам»</blockquote>
+        <figcaption><span class="rc-minis"><span class="rc-mini"><img src="/img/clubs/voronezh-phoenix.svg" alt="" width="28" height="28" loading="lazy"></span></span><span class="rc-cap"><b>СРП Феникс</b><span>Воронеж</span></span></figcaption>
+      </figure>
+      <figure class="review review--video">
+        <div class="review-video">
+          <button class="review-cover" type="button" data-vk="456239579" aria-label="Смотреть видео-отзыв: Raise Club, Санкт-Петербург">
+            <span class="rc-tag">[ВИДЕО-ОТЗЫВ]</span>
+            <span class="rc-medals"><span class="rc-medal"><img src="/img/clubs/saint-petersburg-raise-club.webp" alt="" width="96" height="96" loading="lazy" decoding="async"></span></span>
+            <span class="rc-name">Raise Club</span>
+            <span class="rc-city">Санкт-Петербург</span>
+            <span class="rc-play" aria-hidden="true"></span>
+          </button>
+        </div>
+        <blockquote>«СРП привлекает самую лучшую аудиторию, уважающую и любящую спортивную составляющую игры»</blockquote>
+        <figcaption><span class="rc-minis"><span class="rc-mini"><img src="/img/clubs/saint-petersburg-raise-club.webp" alt="" width="28" height="28" loading="lazy"></span></span><span class="rc-cap"><b>Raise Club</b><span>Санкт-Петербург</span></span></figcaption>
+      </figure>
+      <figure class="review review--video">
+        <div class="review-video">
+          <button class="review-cover" type="button" data-vk="456239588" aria-label="Смотреть видео-отзыв: СРП СЕВЕН, Набережные Челны">
+            <span class="rc-tag">[ВИДЕО-ОТЗЫВ]</span>
+            <span class="rc-medals"><span class="rc-medal"><img src="/img/clubs/naberezhnye-chelny-srp.svg" alt="" width="96" height="96" loading="lazy" decoding="async"></span></span>
+            <span class="rc-name">СРП СЕВЕН</span>
+            <span class="rc-city">Набережные Челны</span>
+            <span class="rc-play" aria-hidden="true"></span>
+          </button>
+        </div>
+        <blockquote>«Большое спасибо партнёрам из СРП за всю оказанную поддержку и незабываемый опыт работы»</blockquote>
+        <figcaption><span class="rc-minis"><span class="rc-mini"><img src="/img/clubs/naberezhnye-chelny-srp.svg" alt="" width="28" height="28" loading="lazy"></span></span><span class="rc-cap"><b>СРП СЕВЕН</b><span>Набережные Челны</span></span></figcaption>
+      </figure>
+      </div>
+      <div class="rail-nav container" aria-hidden="false">
+        <button class="rail-btn" type="button" data-rail="-1" aria-label="Предыдущие отзывы"><svg class="ico"><use href="#i-arrow"/></svg></button>
+        <button class="rail-btn" type="button" data-rail="1" aria-label="Следующие отзывы"><svg class="ico"><use href="#i-arrow"/></svg></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="section faq" id="faq">
+    <div class="container faq-grid">
+      <div>
+        <p class="eyebrow reveal">FAQ</p>
+        <h2 class="reveal">Частые вопросы</h2>
+        <p class="sub reveal">Подготовили для вас ответы на частые вопросы. Не нашли ответ? Оставьте заявку — мы всё расскажем лично.</p>
+        <a class="btn btn--ghost reveal" href="#apply">Задать вопрос</a>
+      </div>
+      <div class="acc reveal">
+        <details open><summary>Это законно?</summary><p>Да. Деятельность клубов СРП соответствует требованиям Федерального закона № 244-ФЗ. В клубах отсутствуют ставки, денежные выигрыши и азартные игры. Формат основан на спортивно-развлекательном покере, рейтингах и клубных соревнованиях.</p></details>
+        <details><summary>Играют ли в клубах на деньги?</summary><p>Нет. В клубах СРП запрещены игры на деньги, денежные ставки, призовые фонды, рейк и любые формы азартных игр с материальным вознаграждением. Игроки соревнуются за рейтинг, статус и место в Лиге городов.</p></details>
+        <details><summary>С какого возраста можно играть?</summary><p>Посещение клубов и участие в мероприятиях СРП доступно только совершеннолетним — с 18 лет.</p></details>
+        <details><summary>Что нужно, чтобы открыть клуб?</summary><p>Любовь к покеру и связаться с нами. Остальное обсудим на консультации: расскажем о форматах запуска и условиях партнёрства.</p></details>
+        <details><summary>Какая целевая аудитория у клуба?</summary><p>Основная аудитория СРП — мужчины и женщины от 25 до 55 лет с активной жизненной позицией, которым интересны интеллектуальные соревнования, общение, новые знакомства и участие в клубном сообществе.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ЗАЯВКА ============ -->
+  <section class="section apply" id="apply" aria-labelledby="apply-title">
+    <div class="apply-bg" aria-hidden="true">
+      <div class="apply-map" data-parallax="0.05"></div>
+      <svg class="apply-flares" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" data-parallax="-0.06">
+        <use href="#c-spark" transform="translate(180 120) rotate(0) scale(120 26)" fill="url(#sparkG)"/>
+        <use href="#c-spark" transform="translate(560 110) rotate(0) scale(110 24)" fill="url(#sparkG)"/>
+        <use href="#c-spark" transform="translate(900 120) rotate(0) scale(120 26)" fill="url(#sparkG)"/>
+        <use href="#c-spark" transform="translate(1270 150) rotate(28) scale(54 70)" fill="url(#sparkG)"/>
+        <use href="#c-spark" transform="translate(70 330) rotate(-32) scale(40 90)" fill="url(#sparkG)"/>
+        <use href="#c-spark" transform="translate(1390 420) rotate(30) scale(46 96)" fill="url(#sparkG)"/>
+        <use href="#c-spark" transform="translate(110 640) rotate(-30) scale(60 26)" fill="url(#sparkG)"/>
+        <use href="#c-spark" transform="translate(1320 720) rotate(0) scale(120 24)" fill="url(#sparkG)"/>
+        <use href="#c-spark" transform="translate(300 820) rotate(0) scale(110 22)" fill="url(#sparkG)"/>
+        <use href="#c-spark" transform="translate(1150 860) rotate(0) scale(90 20)" fill="url(#sparkG)"/>
+        <use href="#c-spark" transform="translate(240 210) scale(9 9)" fill="#f2c879" opacity=".75"/>
+        <use href="#c-spark" transform="translate(470 70) scale(9 9)" fill="#f2c879" opacity=".75"/>
+        <use href="#c-spark" transform="translate(760 180) scale(9 9)" fill="#f2c879" opacity=".75"/>
+        <use href="#c-spark" transform="translate(1080 70) scale(9 9)" fill="#f2c879" opacity=".75"/>
+        <use href="#c-spark" transform="translate(1200 260) scale(9 9)" fill="#f2c879" opacity=".75"/>
+        <use href="#c-spark" transform="translate(60 520) scale(9 9)" fill="#f2c879" opacity=".75"/>
+        <use href="#c-spark" transform="translate(1360 600) scale(9 9)" fill="#f2c879" opacity=".75"/>
+        <use href="#c-spark" transform="translate(220 760) scale(9 9)" fill="#f2c879" opacity=".75"/>
+        <use href="#c-spark" transform="translate(1010 780) scale(9 9)" fill="#f2c879" opacity=".75"/>
+        <use href="#c-spark" transform="translate(1410 260) scale(9 9)" fill="#f2c879" opacity=".75"/>
+        <use href="#c-spark" transform="translate(640 860) scale(9 9)" fill="#f2c879" opacity=".75"/>
+        <use href="#c-spark" transform="translate(40 860) scale(9 9)" fill="#f2c879" opacity=".75"/>
+      </svg>
+      <svg class="apply-table" id="apply-table" data-parallax="-0.03"></svg>
+    </div>
+    <div class="container apply-grid">
+      <div class="apply-copy">
+        <p class="eyebrow reveal">Стань лидером в своём городе с СРП!</p>
+        <h2 class="reveal" id="apply-title">Получите консультацию по запуску <span class="gold-text">СРП в вашем городе</span></h2>
+        <ul class="apply-points reveal">
+          <li><svg class="ico"><use href="#i-check"/></svg>Расскажем об условиях партнёрства и формате клуба</li>
+          <li><svg class="ico"><use href="#i-check"/></svg>Проверим ваш город и подберём модель запуска</li>
+          <li><svg class="ico"><use href="#i-check"/></svg>Покажем CRM и приложение в работе</li>
+        </ul>
+      </div>
+      <form class="form glass reveal" id="lead" data-endpoint="{{LEAD_ENDPOINT}}" novalidate>
+        <h3>Оставить заявку</h3>
+        <div class="field"><label for="f-name">Имя</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
+        <div class="field"><label for="f-phone">Телефон или Telegram</label><input id="f-phone" name="contact" type="text" autocomplete="tel" placeholder="+7 ___ ___-__-__ или @username" required></div>
+        <div class="field"><label for="f-city">Город</label><input id="f-city" name="city" type="text" autocomplete="address-level2" required></div>
+        <div class="field"><label for="f-intent">Что вас интересует</label>
+          <select id="f-intent" name="intent">
+            <option value="open">Открыть новый клуб СРП</option>
+            <option value="have">Подключить действующий клуб</option>
+            <option value="other">Другой вопрос</option>
+          </select>
+        </div>
+        <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <label class="consent"><input type="checkbox" name="consent" required><span>Я согласен(на) на обработку персональных данных и принимаю <a href="https://srppoker.ru/consent" target="_blank" rel="noopener">политику обработки</a> и <a href="https://srppoker.ru/privacy" target="_blank" rel="noopener">конфиденциальности</a></span></label>
+        <button class="btn btn--gold btn--block" type="submit" data-magnetic>Получить консультацию <svg class="ico"><use href="#i-arrow"/></svg></button>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container foot">
+    <div>
+      <img src="/img/logo-srp.png" alt="СРП" width="96" height="19">
+      <p class="legal">В клубах СРП запрещены игры на деньги, денежные ставки, призовые фонды, рейк и любые формы азартных игр с материальным вознаграждением. Вход с 18 лет.</p>
+    </div>
+    <div class="foot-links">
+      <a href="https://srppoker.ru/privacy" target="_blank" rel="noopener">Политика конфиденциальности</a>
+      <a href="https://srppoker.ru/consent" target="_blank" rel="noopener">Политика обработки персональных данных</a>
+      <p>ИП Тимофеев Максим Сергеевич<br>ИНН: 761102874409<br>ОГРН: 322169000229692</p>
+    </div>
+  </div>
+</footer>
+
+<dialog class="club-modal" id="club-modal" aria-labelledby="cm-title">
+  <div class="cm-inner">
+    <button class="cm-close" type="button" aria-label="Закрыть" data-cm-close>&times;</button>
+    <div class="cm-gallery" id="cm-gallery"></div>
+    <div class="cm-body">
+      <div class="cm-head">
+        <span class="cm-logo"><img id="cm-logo" src="" alt="" width="84" height="84"></span>
+        <div><p class="club-city" id="cm-city"></p><h3 id="cm-title"></h3></div>
+      </div>
+      <div class="cm-about" id="cm-about"></div>
+      <ul class="club-meta cm-meta" id="cm-meta"></ul>
+      <div class="cm-cta"><a class="btn btn--gold" href="#apply" data-cm-close data-city-intent="open">Открыть клуб СРП в своём городе <svg class="ico"><use href="#i-arrow"/></svg></a></div>
+    </div>
+  </div>
+</dialog>
+
+<a class="sticky-cta" href="#apply">Оставить заявку <svg class="ico"><use href="#i-arrow"/></svg></a>
+
+<div class="cookie" id="cookie" hidden>
+  <p>Мы используем необходимые cookie для работы сайта. С вашего согласия — также аналитические cookie для статистики.</p>
+  <div><button class="btn btn--gold btn--sm" type="button" data-cookie="yes">Принимаю</button> <button class="btn btn--ghost btn--sm" type="button" data-cookie="no">Только необходимые</button></div>
+</div>
+
+<script>window.SRP_CLUBS = {{CLUBS_JSON}}; window.SRP_GHOSTS = {{GHOSTS_JSON}}; window.SRP_CLUB_INFO = {{CLUB_INFO_JSON}};</script>
+<script src="/map3d.js" defer></script>
+<script src="/main.js" defer></script>
+</body>
+</html>
