@@ -309,6 +309,10 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .cico--img img { width: 84px; height: 84px; }
 .nomoney-ico img { width: 64px; height: 64px; }
 img.ico-lg { width: 60px; height: 60px; margin-left: -6px; }
+/* миниатюра России: широкая, поэтому своя ширина, высота по пропорции */
+.cico--map { width: 150px; justify-items: start; }
+.cico--map img { width: 150px; height: auto; }
+img.ico-lg--map { width: 118px; height: 60px; object-fit: contain; object-position: left center; margin-left: -4px; }
 .panel-ico { position: absolute; top: -34px; right: 24px; width: 72px; height: 72px; }
 .card h3 { margin-top: 16px; }
 .why-total { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: 12px; margin-top: 30px; text-align: center; font: 700 clamp(20px, 2.4vw, 32px)/1.2 var(--display); letter-spacing: -.02em; }
@@ -509,6 +513,7 @@ img.ico-lg { width: 60px; height: 60px; margin-left: -6px; }
   .lg-cards { grid-template-columns: 1fr; gap: 10px; margin-top: 22px; }
   .lg-glass { display: grid; grid-template-columns: 34px 1fr; column-gap: 12px; padding: 14px 16px; }
   .lg-glass .ico-lg { width: 42px; height: 42px; grid-row: span 2; }
+  .lg-glass .ico-lg--map { width: 90px; height: 42px; }
   .panel-ico { top: -26px; right: 16px; width: 54px; height: 54px; }
   .lg-glass h3 { margin: 0 0 4px; font-size: 16px; } .lg-glass p { font-size: 13px; }
   .lg-cta { margin-top: 18px; width: 100%; }
