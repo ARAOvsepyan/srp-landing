@@ -1,0 +1,25 @@
+# Контейнер лендинга на сервере СРП. Запускает deploy/deploy.sh:
+#   LANDING_ENV=prod docker compose -p landing-prod -f deploy/docker-compose.yml up -d
+# Порты наружу не публикуются: трафик приходит от общего nginx (poker-club-manager-nginx) по сети poker_club_manager.
+services:
+  landing:
+    image: srp-landing:${LANDING_ENV:?LANDING_ENV is required}
+    container_name: ${LANDING_ENV}-landing
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx
+      - /var/run
+      - /tmp
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/healthz"]
+      interval: 10s
+      timeout: 3s
+      retries: 6
+      start_period: 5s
+    networks:
+      - poker_club_manager
+
+networks:
+  poker_club_manager:
+    external: true

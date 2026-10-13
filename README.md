@@ -17,7 +17,7 @@ npm run build   # сборка в dist/
 BASE_PATH=/srp-landing/ DEMO=1 npm run build   # демо в подпапке, noindex (так собирает GitHub Pages)
 ```
 
-Демо на GitHub Pages собирается и выкладывается workflow `.github/workflows/pages.yml` при пуше в `main`.
+Боевой сайт srppoker.ru живёт на сервере СРП рядом с CRM (см. «Хостинг и выкладка»). Демо на GitHub Pages по-прежнему собирается workflow `.github/workflows/pages.yml` при пуше в `main`.
 
 ## Структура
 
@@ -38,7 +38,7 @@ public/                шрифты, логотипы клубов, карта, 
 | Переменная | Что делает |
 |---|---|
 | `SITE_URL` | канонический адрес, OG, sitemap (по умолчанию `https://srppoker.ru`) |
-| `LEAD_ENDPOINT` | URL, куда форма шлёт `POST` JSON: `name, contact, city, intent, consent, page, utm, at`. **Без него форма не отправляется** |
+| `LEAD_ENDPOINT` | куда форма шлёт `POST` JSON: `name, contact, city, intent, consent, page, utm, at`. На сервере — `/api/public/franchise-leads` (тот же домен, nginx проксирует в бэкенд CRM). **Без него форма не отправляется** |
 | `METRIKA_ID` | счётчик Яндекс.Метрики; грузится только после согласия на cookie |
 
 ```bash
@@ -74,9 +74,27 @@ cp scripts/og.html dist/og.html && "/Applications/Google Chrome.app/Contents/Mac
 - `prefers-reduced-motion`: параллакс, бегущие строки и анимации отключаются.
 - Без JS контент виден (скрытие блоков включает `html.js`).
 
+## Хостинг и выкладка
+
+```
+srppoker.ru ─► poker-club-manager-nginx (общий nginx сервера CRM, TLS)
+                 ├─ /                              ─► <env>-landing:80   (этот репозиторий, Dockerfile: сборка → nginx со статикой)
+                 └─ POST /api/public/franchise-leads ─► <env>-backend:4000 (CRM: заявка → вкладка «Клубы» → «Заявки с сайта»,
+                                                                           уведомления в бота @srp_franchise_bot и на почту)
+```
+
+- **CI/CD** — `.gitlab-ci.yml`: `site:build` и `docker:build` идут сами, выкладка — кнопкой: `deploy_stage` (MR и `main`) и `deploy_prod` (только `main`). Job заходит на сервер по SSH, кладёт ровно этот коммит в `/opt/poker_club_manager/landing/<env>` и запускает `deploy/deploy.sh`.
+- **`deploy/deploy.sh`** собирает образ `srp-landing:<env>` (прежний — `:<env>-prev`), пересоздаёт контейнер `<env>-landing` и ждёт healthcheck (не поднялся — откат), ставит конфиг домена в общий nginx: HTTPS, если сертификат уже выпущен, иначе HTTP; `nginx -t` не прошёл — прежний конфиг возвращается.
+- **Домены**: prod — `srppoker.ru` и `www.srppoker.ru` (сертификат `srppoker.ru`), stage — `landing-stage.srpclient.ru` (stage собирается с noindex). Меняются переменными `PROD_DOMAINS`/`PROD_CERT`/`STAGE_DOMAINS`/`STAGE_CERT` в `.gitlab-ci.yml`.
+- **Переменные проекта в GitLab** (Settings → CI/CD → Variables): `STAGE_SSH_PRIVATE_KEY`, `PROD_SSH_PRIVATE_KEY`, `SERVER_HOST` (или `STAGE_SERVER_HOST`/`PROD_SERVER_HOST`) — те же, что в проекте CRM.
+- **Первый запуск домена**: направить DNS (A-записи всех имён) на сервер, нажать `deploy_prod` (сайт поднимется по HTTP), выпустить сертификат командой из вывода деплоя (`certbot certonly --webroot … --cert-name srppoker.ru -d srppoker.ru -d www.srppoker.ru`) и нажать `deploy_prod` ещё раз — домен переключится на HTTPS.
+
+## Политика и согласие
+
+`public/privacy/index.html` и `public/consent/index.html` — тексты, перенесённые дословно со страниц Тильды (srppoker.ru/privacy, /consent), чтобы ссылки формы и подвала не сломались после переезда домена. Правки — только с согласия владельца/юриста.
+
 ## Что ещё не подключено
 
-- Приёмник заявок (`LEAD_ENDPOINT`).
-- Политики конфиденциальности/ПДн ведут на `srppoker.ru/privacy` и `/consent`; при переезде домена перенести тексты.
+- Тексты политики и согласия требуют правок владельца: в них остались черновые пометки и описание обработки через Тильду.
 - Реальные фото клубов и имена в отзывах.
 - Страницы городов для SEO (`/kazan` и т. д.): сборка готова к расширению, шаблона пока нет.

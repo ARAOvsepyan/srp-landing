@@ -1,0 +1,12 @@
+# Контекст сборки лендинга: только то, что нужно scripts/build.mjs и nginx.
+.git
+.github
+.gitlab-ci.yml
+.local
+dist
+node_modules
+design-system
+claude-design
+docs
+README.md
+**/.DS_Store

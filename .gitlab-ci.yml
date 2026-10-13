@@ -1,0 +1,150 @@
+# Лендинг srppoker.ru: CI/CD.
+#
+#   site:build ─┬─► deploy_stage (ручной: MR и main)
+#   docker:build┘─► deploy_prod  (ручной: только main)
+#
+# Проверки идут сами; выкладка — только кнопкой «Run», как у CRM. Сервер тот же, что у CRM:
+# контейнер <env>-landing за общим nginx (poker-club-manager-nginx), заявки уходят в <env>-backend.
+# Нужные переменные проекта (Settings → CI/CD → Variables): STAGE_SSH_PRIVATE_KEY, PROD_SSH_PRIVATE_KEY,
+# STAGE_SERVER_HOST / PROD_SERVER_HOST (или общий SERVER_HOST) — те же значения, что в проекте CRM.
+
+stages:
+  - build
+  - deploy_stage
+  - deploy_prod
+
+default:
+  interruptible: true
+
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == "main"
+
+variables:
+  DEPLOY_USER: gitlab-deploy
+  LANDING_BASE: /opt/poker_club_manager/landing
+  PROD_DOMAINS: "srppoker.ru www.srppoker.ru"
+  PROD_CERT: srppoker.ru
+  STAGE_DOMAINS: "landing-stage.srpclient.ru"
+  STAGE_CERT: landing-stage.srpclient.ru
+  # Счётчик Яндекс.Метрики со старого сайта srppoker.ru (грузится только после согласия на cookie).
+  PROD_METRIKA_ID: "110446705"
+
+# Сборка статики как в Dockerfile: без зависимостей, Node 22.
+site:build:
+  stage: build
+  image: node:22-alpine
+  needs: []
+  script:
+    - SITE_URL=https://srppoker.ru LEAD_ENDPOINT=/api/public/franchise-leads node scripts/build.mjs
+    - test -f dist/index.html && test -f dist/privacy/index.html && test -f dist/consent/index.html
+    - grep -q 'data-endpoint="/api/public/franchise-leads"' dist/index.html
+    - "! grep -q '{{' dist/index.html"
+
+# Сам образ: собираем так же, как на сервере (без push).
+docker:build:
+  stage: build
+  image: docker:28
+  needs: []
+  services:
+    - docker:28-dind
+  variables:
+    DOCKER_TLS_CERTDIR: /certs
+    DOCKER_BUILDKIT: "1"
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      changes:
+        - Dockerfile
+        - .dockerignore
+        - deploy/**/*
+        - scripts/**/*
+        - .gitlab-ci.yml
+  script:
+    - docker build --pull -t srp-landing:ci .
+    - docker run -d --name landing-ci srp-landing:ci
+    - sleep 2
+    - docker exec landing-ci wget -qO- http://127.0.0.1/healthz
+    - docker exec landing-ci wget -qO /dev/null http://127.0.0.1/privacy/
+
+.ssh_setup:
+  before_script:
+    - apk add --no-cache openssh-client
+    - eval $(ssh-agent -s)
+    - mkdir -p ~/.ssh && chmod 700 ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/deploy_key
+    - chmod 600 ~/.ssh/deploy_key
+    - ssh-add ~/.ssh/deploy_key
+
+# На сервере: свой чекаут на окружение, ровно этот коммит, затем deploy/deploy.sh.
+.deploy_base:
+  image: alpine:3.22
+  extends: .ssh_setup
+  interruptible: false
+  needs:
+    - site:build
+    - job: docker:build
+      optional: true
+  script:
+    - 'test -n "$HOST" || (echo "ERROR: не задан адрес сервера ($ENV_NAME): STAGE_SERVER_HOST / PROD_SERVER_HOST или SERVER_HOST" && exit 1)'
+    - ssh-keyscan -H "$HOST" >> ~/.ssh/known_hosts
+    - >
+      ssh "$DEPLOY_USER@$HOST" "
+        set -e
+        mkdir -p \"$LANDING_BASE/$ENV_NAME\"
+        cd \"$LANDING_BASE/$ENV_NAME\"
+        [ -d .git ] || git init -q
+        git remote remove origin 2>/dev/null || true
+        git remote add origin \"$CI_REPOSITORY_URL\"
+        GIT_TERMINAL_PROMPT=0 git -c gc.auto=0 fetch -q --depth 1 origin \"$CI_COMMIT_SHA\"
+        git checkout -qf \"$CI_COMMIT_SHA\"
+        git clean -ffdxq
+        git remote remove origin
+        METRIKA_ID=\"$METRIKA\" sh deploy/deploy.sh \"$ENV_NAME\" \"$DOMAINS\" \"$CERT\"
+      "
+
+deploy_stage:
+  extends: .deploy_base
+  stage: deploy_stage
+  resource_group: landing-stage
+  environment:
+    name: landing-staging
+    url: https://landing-stage.srpclient.ru
+  variables:
+    ENV_NAME: stage
+    SSH_PRIVATE_KEY: $STAGE_SSH_PRIVATE_KEY
+    DOMAINS: $STAGE_DOMAINS
+    CERT: $STAGE_CERT
+    METRIKA: ""
+  before_script:
+    - !reference [.ssh_setup, before_script]
+    - HOST="${STAGE_SERVER_HOST:-${SERVER_HOST:-}}"
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_SOURCE_PROJECT_ID == $CI_PROJECT_ID
+      when: manual
+      allow_failure: true
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: manual
+      allow_failure: true
+
+deploy_prod:
+  extends: .deploy_base
+  stage: deploy_prod
+  resource_group: landing-production
+  environment:
+    name: landing-production
+    url: https://srppoker.ru
+  variables:
+    ENV_NAME: prod
+    SSH_PRIVATE_KEY: $PROD_SSH_PRIVATE_KEY
+    DOMAINS: $PROD_DOMAINS
+    CERT: $PROD_CERT
+    METRIKA: $PROD_METRIKA_ID
+  before_script:
+    - !reference [.ssh_setup, before_script]
+    - HOST="${PROD_SERVER_HOST:-${SERVER_HOST:-}}"
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: manual
+      allow_failure: false
