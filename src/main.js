@@ -403,40 +403,98 @@
   }));
   search.addEventListener("input", applyFilter);
 
-  /* ---------- Отзывы: перетаскивание мышью ---------- */
-  const rail = $("#rail");
-  let drag = null;
-  rail.addEventListener("pointerdown", (e) => { if (e.pointerType !== "mouse") return; drag = { x: e.clientX, s: rail.scrollLeft }; rail.classList.add("drag"); });
-  addEventListener("pointermove", (e) => { if (drag) rail.scrollLeft = drag.s - (e.clientX - drag.x); });
-  addEventListener("pointerup", () => { drag = null; rail.classList.remove("drag"); });
-
-  /* ---------- Видео-отзывы: плееры VK грузим, когда карусель подъезжает к экрану ---------- */
-  const vkFrames = $$("#rail iframe[data-src]");
-  if (vkFrames.length) {
-    const vkIO = new IntersectionObserver((entries) => {
-      if (!entries.some((e) => e.isIntersecting)) return;
-      vkFrames.forEach((f) => { f.src = f.dataset.src; f.removeAttribute("data-src"); });
-      vkIO.disconnect();
-    }, { rootMargin: "500px 0px" });
-    vkIO.observe(rail);
+  /* ---------- Отзывы: колода карт — цитата, выбор клуба, автолистание; видео VK по клику (до клика к VK не обращаемся) ---------- */
+  const rv = $("#rv");
+  if (rv) {
+    const deck = $("#rv-deck"), cards = $$(".rv-card", rv), quotes = $$(".rv-q", rv), picks = $$(".rv-pick", rv);
+    const watch = $(".rv-watch", rv), soon = $(".rv-soon", rv), num = $("#rv-n"), live = $(".rv-quotes", rv);
+    const n = cards.length;
+    let cur = 0, inView = false, hover = false, swipedAt = 0;
+    const playing = () => deck.classList.contains("is-playing");
+    // кольцо вокруг активного логотипа — таймер: на паузе (не на экране, курсор над блоком, видео, фокус с клавиатуры) оно стоит
+    const sync = () => rv.classList.toggle("is-paused", !inView || hover || document.hidden || playing() || !!rv.querySelector(":focus-visible"));
+    const stop = () => { $("iframe", deck)?.remove(); deck.classList.remove("is-playing"); sync(); };
+    const layout = () => cards.forEach((c, i) => {
+      const k = (i - cur + n) % n;
+      c.style.setProperty("--k", Math.min(k, 3));
+      c.classList.toggle("is-front", k === 0);
+      c.classList.toggle("is-hidden", k > 2);
+      c.setAttribute("aria-hidden", String(k !== 0));
+      $(".rv-play", c)?.setAttribute("tabindex", k === 0 ? "0" : "-1");
+    });
+    const go = (to, manual) => {
+      const i = (to + n) % n;
+      if (i === cur) return;
+      const fwd = (i - cur + n) % n <= n / 2, out = fwd ? cards[cur] : cards[i];
+      stop();
+      // вперёд: верхняя карта уходит со стола влево; назад: новая прилетает оттуда же
+      if (!reduce) {
+        out.style.transition = fwd ? "" : "none";
+        out.classList.add("is-out");
+        if (!fwd) { void out.offsetWidth; out.style.transition = ""; }
+        setTimeout(() => out.classList.remove("is-out"), fwd ? 650 : 30);
+      }
+      cur = i;
+      layout();
+      quotes.forEach((q, j) => q.classList.toggle("is-active", j === i));
+      picks.forEach((p, j) => { p.classList.toggle("is-active", j === i); p.setAttribute("aria-current", String(j === i)); });
+      num.textContent = String(i + 1).padStart(2, "0");
+      const vk = cards[i].dataset.vk;
+      watch.hidden = !vk; soon.hidden = !!vk;
+      live.setAttribute("aria-live", manual ? "polite" : "off");
+      if (manual) picks[i].scrollIntoView({ block: "nearest", inline: "nearest", behavior: reduce ? "auto" : "smooth" });
+    };
+    const play = () => {
+      const c = cards[cur];
+      if (!c.dataset.vk) return;
+      stop();
+      const f = document.createElement("iframe");
+      f.src = `https://vkvideo.ru/video_ext.php?oid=-226719145&id=${c.dataset.vk}&hd=2&autoplay=1&js_api=1`;
+      f.title = "Видео-отзыв: " + c.dataset.title;
+      f.allow = "autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock";
+      f.allowFullscreen = true;
+      c.appendChild(f);
+      deck.classList.add("is-playing");
+      sync();
+    };
+    cards.forEach((c, i) => {
+      // клик по карте сзади — вынуть её наверх (кроме клика, которым закончился свайп)
+      c.addEventListener("click", () => { if (i !== cur && performance.now() - swipedAt > 400) go(i, true); });
+      $(".rv-play", c)?.addEventListener("click", (e) => { e.stopPropagation(); if (i === cur) play(); });
+    });
+    watch.addEventListener("click", play);
+    picks.forEach((p, i) => {
+      p.addEventListener("click", () => go(i, true));
+      // таймер кольца дошёл до конца — следующий отзыв
+      $("circle", p).addEventListener("animationend", () => { if (i === cur) go(cur + 1, false); });
+    });
+    $$("[data-rv]", rv).forEach((b) => b.addEventListener("click", () => go(cur + Number(b.dataset.rv), true)));
+    $(".rv-picker", rv).addEventListener("keydown", (e) => {
+      if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+      e.preventDefault(); go(cur + (e.key === "ArrowRight" ? 1 : -1), true); picks[cur].focus();
+    });
+    // свайп по колоде (касание и мышь); вертикальная прокрутка страницы остаётся за браузером
+    let sx = null;
+    deck.addEventListener("pointerdown", (e) => { if (!playing()) sx = e.clientX; });
+    deck.addEventListener("pointercancel", () => { sx = null; });
+    deck.addEventListener("dragstart", (e) => e.preventDefault()); // иначе мышь тащит картинку логотипа, а не карту
+    deck.addEventListener("pointerup", (e) => {
+      if (sx === null) return;
+      const dx = e.clientX - sx; sx = null;
+      if (Math.abs(dx) > 40) { swipedAt = performance.now(); go(cur + (dx < 0 ? 1 : -1), true); }
+    });
+    rv.addEventListener("mouseenter", () => { hover = true; sync(); });
+    rv.addEventListener("mouseleave", () => { hover = false; sync(); });
+    rv.addEventListener("focusin", sync);
+    rv.addEventListener("focusout", () => setTimeout(sync));
+    document.addEventListener("visibilitychange", sync);
+    new IntersectionObserver(([e]) => { inView = e.isIntersecting; sync(); }, { threshold: 0.35 }).observe(rv);
+    layout();
+    sync();
+    if (!reduce) rv.classList.add("is-auto");
   }
-  // заставка клуба -> плеер VK по клику (до клика к VK не обращаемся)
-  $$(".review-cover[data-vk]").forEach((btn) => btn.addEventListener("click", () => {
-    const f = document.createElement("iframe");
-    f.src = `https://vkvideo.ru/video_ext.php?oid=-226719145&id=${btn.dataset.vk}&hd=2&autoplay=1&js_api=1`;
-    f.title = btn.getAttribute("aria-label") || "Видео-отзыв партнёра СРП";
-    f.allow = "autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock";
-    f.allowFullscreen = true;
-    btn.parentElement.classList.add("is-playing");
-    btn.replaceWith(f);
-  }));
-  $$("[data-rail]").forEach((b) => b.addEventListener("click", () => {
-    const card = rail.querySelector(".review");
-    const step = card ? card.getBoundingClientRect().width + 16 : 320;
-    rail.scrollBy({ left: step * 2 * +b.dataset.rail, behavior: reduce ? "auto" : "smooth" });
-  }));
 
-  /* ---------- Карусели на мобильном (клубы, отзывы): бесконечно по кругу; касание, попап или видео — пауза ----------
+  /* ---------- Карусель клубов на мобильном: бесконечно по кругу; касание, попап или видео — пауза ----------
      Ушедшая влево карточка переезжает в конец ленты, а прокрутка сдвигается на её ширину — шов не виден. */
   const mobileMq = matchMedia("(max-width: 760px)");
   const autoRail = (el, itemSel) => {
@@ -487,7 +545,6 @@
     }, 3000);
   };
   autoRail($("#club-grid"), ".club");
-  autoRail(rail, ".review");
 
   /* ---------- Стол СРП фоном финального блока: столешница обрамляет текст и форму, «ножка» уходит вниз ---------- */
   const applySecEl = $("#apply"), tableSvg = $("#apply-table"), applyGrid = $(".apply-grid");
