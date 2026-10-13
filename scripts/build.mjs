@@ -30,6 +30,7 @@ const ghosts = [
 ];
 
 const cities = [...new Set(clubs.map((c) => c.city))];
+const plural = (n, f) => f[(n % 10 === 1 && n % 100 !== 11) ? 0 : (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)) ? 1 : 2];
 if (cities.length < 2) throw new Error("data/clubs.json пуст или повреждён");
 
 const logoSrc = (c) => `/img/clubs/${c.logo}`;
@@ -124,6 +125,9 @@ const tokens = {
   "{{METRIKA_ID}}": esc(METRIKA_ID),
   "{{CLUBS_TOTAL}}": String(clubs.length),
   "{{CITIES_TOTAL}}": String(cities.length),
+  // слово к числу: 21 город, 22 города, 25 городов; «в 21 городе», «в 22 городах»
+  "{{CITIES_WORD}}": plural(cities.length, ["город", "города", "городов"]),
+  "{{CITIES_IN}}": plural(cities.length, ["городе", "городах", "городах"]),
   "{{CLUBS_JSON}}": JSON.stringify(clubs.map((c) => ({ id: c.id, city: c.city, name: c.name, lat: c.lat, lon: c.lon }))).replace(/</g, "\\u003c"),
   "{{GHOSTS_JSON}}": JSON.stringify(ghosts),
   "{{CLUB_INFO_JSON}}": JSON.stringify(
@@ -156,5 +160,5 @@ writeFileSync(
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${SITE_URL}/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url></urlset>\n`,
 );
 
-console.log(`build ok: ${clubs.length} клубов, ${cities.length} городов -> dist/`);
+console.log(`build ok: ${clubs.length} ${plural(clubs.length, ["клуб", "клуба", "клубов"])}, ${cities.length} ${plural(cities.length, ["город", "города", "городов"])} -> dist/`);
 if (!LEAD_ENDPOINT) console.warn("! LEAD_ENDPOINT не задан: форма заявки не будет отправляться (для продакшена обязательно).");
