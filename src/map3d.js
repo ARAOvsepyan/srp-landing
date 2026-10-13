@@ -19,6 +19,16 @@
     return [S * rho * Math.sin(th) + TX, S * rho * Math.cos(th) + TY];
   };
   var clamp = function (v, a, b) { return Math.min(b === undefined ? 1 : b, Math.max(a || 0, v)); };
+  /* палитра светлой темы: на слоновой кости свечение через "lighter" не видно, поэтому тёмное золото,
+     винные столбы и светлые плашки подписей */
+  var PAL = {
+    dust: ["#a07a2c", "#c8ae7a"], glow: ["rgba(255,236,205,0.6)", "rgba(255,236,205,0)"],
+    dots: ["#7d5a1b", "#a07a2c", "#cdb98f"], arc: "rgba(125,90,27,0.42)",
+    pillar: "rgba(122,36,67,0.95)", pillarHit: "rgba(91,26,53,1)", pillarEnd: "rgba(122,36,67,0)",
+    base: "rgba(201,150,70,0.5)", ring: "150,112,42", top: "#5b1a35", topHit: "#3d0f24",
+    labelBg: "rgba(255,252,246,0.95)", labelLine: "rgba(150,112,42,0.35)", label: "#231b15", labelFirst: "#7d5a1b",
+    ghost: "rgba(125,90,27,0.7)", blend: "source-over"
+  };
 
   function Map3D(canvas, opts) {
     this.c = canvas; this.ctx = canvas.getContext("2d"); this.opts = opts;
@@ -113,15 +123,15 @@
       var q = this.dust[i], dz = 0.2 + q.z * 0.8;
       var y = ((q.y * H - P.scroll * H * 1.4 * dz) % H + H) % H;
       ctx.globalAlpha = P.alpha * (0.06 + 0.3 * dz) * (0.5 + 0.5 * Math.sin(t * (0.5 + q.z) + q.ph));
-      ctx.fillStyle = q.z > 0.75 ? "#f6e7ac" : "#bfae7a";
+      ctx.fillStyle = q.z > 0.75 ? PAL.dust[0] : PAL.dust[1];
       ctx.fillRect(q.x * W, y, q.s * dz * 1.3, q.s * dz * 1.3);
     }
 
     /* мягкое тёплое свечение над картой */
     var far = this.proj(this.focus.net[0], this.focus.net[1] - 260, 0), gr = Math.max(W, H) * 0.6 * P.glow;
-    ctx.globalCompositeOperation = "lighter"; ctx.globalAlpha = P.alpha;
+    ctx.globalCompositeOperation = PAL.blend; ctx.globalAlpha = P.alpha;
     var g = ctx.createRadialGradient(far[0], far[1], 0, far[0], far[1], gr);
-    g.addColorStop(0, "rgba(255,196,110,0.12)"); g.addColorStop(0.45, "rgba(220,160,80,0.04)"); g.addColorStop(1, "rgba(220,160,80,0)");
+    g.addColorStop(0, PAL.glow[0]); g.addColorStop(1, PAL.glow[1]);
     ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
     ctx.globalCompositeOperation = "source-over";
 
@@ -133,7 +143,7 @@
       var lit = clamp(litF - d.nc, 0, 1), near = lit * Math.pow(clamp(1 - d.nd / 70, 0, 1), 1.6);
       var a = 0.4 + near * 0.5;
       ctx.globalAlpha = P.alpha * clamp(a * (0.86 + 0.14 * Math.sin(t * 1.1 + d.r * 40)), 0, 1) * clamp(pr[2] * 1.05, 0.3, 1);
-      ctx.fillStyle = near > 0.5 ? "#f1dc94" : near > 0.15 ? "#d6bd74" : "#a88f50";
+      ctx.fillStyle = near > 0.5 ? PAL.dots[0] : near > 0.15 ? PAL.dots[1] : PAL.dots[2];
       var sz = base * pr[2];
       ctx.fillRect(pr[0] - sz / 2, pr[1] - sz / 2, sz, sz);
     }
@@ -151,7 +161,7 @@
         var pp = this.proj(uu, vv, 4 * h * tt * (1 - tt));
         if (k2) ctx.lineTo(pp[0], pp[1]); else ctx.moveTo(pp[0], pp[1]);
       }
-      ctx.strokeStyle = "rgba(246,231,172,0.42)"; ctx.lineWidth = 1 * s0; ctx.stroke();
+      ctx.strokeStyle = PAL.arc; ctx.lineWidth = 1 * s0; ctx.stroke();
     }
 
     /* световые столбы над городами */
@@ -162,34 +172,35 @@
       var hit = !!this.hit[c.id]; if (ap <= 0 && !hit) continue; if (hit) ap = 1;
       var b = this.proj(c.u, c.v, 0), top = this.proj(c.u, c.v, c.h * ap * (hit ? 1.4 : 1));
       var lw = 1.8 * b[2] * s0;
-      ctx.globalCompositeOperation = "lighter";
+      ctx.globalCompositeOperation = PAL.blend;
       var lg = ctx.createLinearGradient(b[0], b[1], top[0], top[1]);
-      lg.addColorStop(0, hit ? "rgba(255,255,255,0.95)" : "rgba(255,236,180,0.9)"); lg.addColorStop(1, "rgba(220,199,127,0)");
+      lg.addColorStop(0, hit ? PAL.pillarHit : PAL.pillar); lg.addColorStop(1, PAL.pillarEnd);
       ctx.strokeStyle = lg; ctx.lineWidth = lw * 4; ctx.globalAlpha = P.alpha * 0.14 * ap;
       ctx.beginPath(); ctx.moveTo(b[0], b[1]); ctx.lineTo(top[0], top[1]); ctx.stroke();
       ctx.lineWidth = lw; ctx.globalAlpha = P.alpha * ap;
       ctx.beginPath(); ctx.moveTo(b[0], b[1]); ctx.lineTo(top[0], top[1]); ctx.stroke();
       var rr = 12 * b[2] * s0 * ap, pulse = (t * 0.5 + c.i * 0.17) % 1;
       var bg = ctx.createRadialGradient(b[0], b[1], 0, b[0], b[1], rr * 1.6);
-      bg.addColorStop(0, "rgba(255,230,160,0.7)"); bg.addColorStop(1, "rgba(255,230,160,0)");
+      bg.addColorStop(0, PAL.base); bg.addColorStop(1, "rgba(201,150,70,0)");
       ctx.fillStyle = bg; ctx.save(); ctx.translate(b[0], b[1]); ctx.scale(1, Math.max(0.25, Math.cos(P.tilt)));
       ctx.beginPath(); ctx.arc(0, 0, rr * 1.6, 0, 6.2832); ctx.fill();
       if (i < 4 || hit) {
-        ctx.strokeStyle = "rgba(246,231,172," + (0.45 * (1 - pulse) * ap) + ")"; ctx.lineWidth = 1;
+        ctx.strokeStyle = "rgba(" + PAL.ring + "," + (0.55 * (1 - pulse) * ap) + ")"; ctx.lineWidth = 1;
         ctx.beginPath(); ctx.arc(0, 0, rr * (0.6 + pulse * 1.6), 0, 6.2832); ctx.stroke();
       }
       ctx.restore();
       ctx.globalCompositeOperation = "source-over";
-      ctx.fillStyle = hit ? "#ffffff" : "#fff3c8"; ctx.beginPath(); ctx.arc(top[0], top[1], 2.2 * b[2] * s0, 0, 6.2832); ctx.fill();
+      ctx.fillStyle = hit ? PAL.topHit : PAL.top; ctx.beginPath(); ctx.arc(top[0], top[1], 2.4 * b[2] * s0, 0, 6.2832); ctx.fill();
       if ((c.label || hit) && ap > 0.7) {
         var txt = c.city.toUpperCase(), tw = ctx.measureText(txt).width, bx = top[0] - tw / 2, by = top[1] - 22 * s0, bh = 16;
         var clash = false;
         for (var bi = 0; bi < boxes.length; bi++) { var o = boxes[bi]; if (bx - 7 < o[0] + o[2] + 7 && bx + tw + 7 > o[0] - 7 && by < o[1] + o[3] + 2 && by + bh + 2 > o[1]) { clash = true; break; } }
         if (!clash || hit) {
           boxes.push([bx, by, tw, bh]);
-          ctx.globalAlpha = P.alpha * (ap - 0.7) / 0.3; ctx.fillStyle = "rgba(10,9,8,0.72)";
+          ctx.globalAlpha = P.alpha * (ap - 0.7) / 0.3; ctx.fillStyle = PAL.labelBg;
           ctx.fillRect(bx - 7, by - 1, tw + 14, bh + 4);
-          ctx.fillStyle = i === 0 ? "#f6e7ac" : "#f3eee2"; ctx.fillText(txt, bx, by + 12);
+          ctx.strokeStyle = PAL.labelLine; ctx.lineWidth = 1; ctx.strokeRect(bx - 6.5, by - 0.5, tw + 13, bh + 3);
+          ctx.fillStyle = i === 0 ? PAL.labelFirst : PAL.label; ctx.fillText(txt, bx, by + 12);
           ctx.globalAlpha = P.alpha;
         }
       }
@@ -202,11 +213,11 @@
         var gh = this.ghosts[i], gb = this.proj(gh.u, gh.v, 0), gt = this.proj(gh.u, gh.v, 60 * P.ghostOn);
         var ph = (t * 0.4 + i * 0.23) % 1;
         ctx.globalAlpha = P.alpha * P.ghostOn;
-        ctx.strokeStyle = "rgba(246,231,172,0.75)"; ctx.lineWidth = 1.3;
+        ctx.strokeStyle = PAL.ghost; ctx.lineWidth = 1.3;
         ctx.beginPath(); ctx.moveTo(gb[0], gb[1]); ctx.lineTo(gt[0], gt[1]); ctx.stroke();
         ctx.save(); ctx.translate(gb[0], gb[1]); ctx.scale(1, Math.max(0.25, Math.cos(P.tilt)));
         ctx.beginPath(); ctx.arc(0, 0, 8 * gb[2] * s0, 0, 6.2832); ctx.stroke();
-        ctx.strokeStyle = "rgba(220,199,127," + (0.45 * (1 - ph)) + ")";
+        ctx.strokeStyle = "rgba(" + PAL.ring + "," + (0.45 * (1 - ph)) + ")";
         ctx.beginPath(); ctx.arc(0, 0, (8 + ph * 20) * gb[2] * s0, 0, 6.2832); ctx.stroke(); ctx.restore();
       }
       ctx.setLineDash([]);

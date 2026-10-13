@@ -530,7 +530,7 @@
     tableSvg.setAttribute("viewBox", `0 0 ${W.toFixed(0)} ${H.toFixed(0)}`);
     tableSvg.innerHTML = `<defs>
         <linearGradient id="ptRim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7a4a1c"/><stop offset=".22" stop-color="#f3cf8a"/><stop offset=".5" stop-color="#9a6528"/><stop offset=".78" stop-color="#f6d896"/><stop offset="1" stop-color="#8a5a24"/></linearGradient>
-        <radialGradient id="ptFelt" cx="50%" cy="30%" r="75%"><stop offset="0" stop-color="#211d1a"/><stop offset=".55" stop-color="#131110"/><stop offset="1" stop-color="#0a0908"/></radialGradient>
+        <radialGradient id="ptFelt" cx="50%" cy="30%" r="75%"><stop offset="0" stop-color="#6a2444"/><stop offset=".55" stop-color="#4a1630"/><stop offset="1" stop-color="#2e0c1d"/></radialGradient>
         <clipPath id="ptClip"><path d="${path(0)}"/></clipPath>
       </defs>
       <g class="pt-flares">${flares}</g>
