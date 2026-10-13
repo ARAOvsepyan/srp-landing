@@ -126,8 +126,13 @@
   };
 
   let vh = innerHeight, vw = innerWidth, docH = 1, sceneTop = 0, sceneH = 1, lgTop = 0, lgH = 1, mx = 0, my = 0, tx = 0, ty = 0, raf = 0, lastLit = -1;
+  let devTop = 0, stepsTop = 0, stepsH = 1, secBounds = [];
+  const progressBar = $(".progress i");
 
-  const measure = () => {
+  /* Положения блоков снимаются только здесь. В кадре прокрутки getBoundingClientRect нельзя:
+     после записи CSS-переменных он заставляет браузер пересчитать вёрстку всей страницы
+     прямо в кадре (над картой кадр доходил до 70–140 мс). */
+  const measure = (layoutOnly = false) => {
     vh = innerHeight; vw = innerWidth;
     docH = document.documentElement.scrollHeight;
     items.forEach((it) => {
@@ -137,7 +142,10 @@
     });
     const sr = scene.getBoundingClientRect(); sceneTop = sr.top + scrollY; sceneH = sr.height;
     const lr = lgScene.getBoundingClientRect(); lgTop = lr.top + scrollY; lgH = lr.height;
-    if (map) map.resize();
+    if (devices) devTop = devices.getBoundingClientRect().top + scrollY;
+    if (steps) { const r = steps.getBoundingClientRect(); stepsTop = r.top + scrollY; stepsH = Math.max(1, r.height); }
+    secBounds = sectionByLink.map((s) => { if (!s) return null; const r = s.getBoundingClientRect(); return [r.top + scrollY, r.bottom + scrollY]; });
+    if (map && layoutOnly !== true) map.resize();
     request();
   };
 
@@ -226,7 +234,8 @@
     raf = 0;
     const y = scrollY;
     header.classList.toggle("is-solid", y > 24);
-    document.documentElement.style.setProperty("--sp", clamp(y / Math.max(1, docH - vh)).toFixed(4));
+    // прогресс — на самой полоске: переменная на <html> пересчитывала бы стили всей страницы каждый кадр
+    if (progressBar) progressBar.style.setProperty("--sp", clamp(y / Math.max(1, docH - vh)).toFixed(4));
     const inScene = (y >= sceneTop + vh * 0.2 && y <= sceneTop + sceneH - vh * 0.8) || (y >= lgTop && y <= lgTop + lgH - vh);
     sticky.classList.toggle("show", y > vh * 0.8 && !applyVisible && !inScene);
 
@@ -247,20 +256,14 @@
     if (y > lgTop - vh && y < lgTop + lgH) driveLeague(clamp((y - lgTop) / Math.max(1, lgH - vh)));
 
     // Mac и iPhone выезжают из глубины: наклон уходит по мере приближения к центру экрана
-    if (devices) {
-      const r = devices.getBoundingClientRect();
-      devices.style.setProperty("--dk", clamp((vh - r.top) / (vh * 0.9)).toFixed(3));
-    }
+    if (devices) devices.style.setProperty("--dk", clamp((vh - (devTop - y)) / (vh * 0.9)).toFixed(3));
 
     // Линия «как запуститься» рисуется по мере прокрутки
-    if (steps) {
-      const r = steps.getBoundingClientRect();
-      steps.style.setProperty("--sp2", clamp((vh * 0.65 - r.top) / r.height).toFixed(3));
-    }
+    if (steps) steps.style.setProperty("--sp2", clamp((vh * 0.65 - (stepsTop - y)) / stepsH).toFixed(3));
 
     // Активный пункт меню
     let active = -1;
-    sectionByLink.forEach((s, i) => { if (s) { const r = s.getBoundingClientRect(); if (r.top < vh * 0.4 && r.bottom > vh * 0.4) active = i; } });
+    secBounds.forEach((b, i) => { if (b && b[0] - y < vh * 0.4 && b[1] - y > vh * 0.4) active = i; });
     navLinks.forEach((a, i) => a.classList.toggle("is-active", i === active));
 
     if (Math.abs(tx - mx) > 0.002 || Math.abs(ty - my) > 0.002) request();
@@ -269,8 +272,15 @@
 
   addEventListener("scroll", request, { passive: true });
   addEventListener("resize", () => { measure(); }, { passive: true });
-  addEventListener("load", measure);
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+  addEventListener("load", () => measure());
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => measure());
+  // высота страницы поменялась (FAQ раскрылся, догрузились картинки) — снять положения заново
+  let bodyH = 0, remeasure = 0;
+  new ResizeObserver(([e]) => {
+    const h = Math.round(e.contentRect.height);
+    if (h === bodyH) return;
+    bodyH = h; clearTimeout(remeasure); remeasure = setTimeout(() => measure(true), 120);
+  }).observe(document.body);
   if (finePointer && !reduce) {
     addEventListener("pointermove", (e) => {
       tx = (e.clientX / innerWidth - 0.5) * 2; ty = (e.clientY / innerHeight - 0.5) * 2;

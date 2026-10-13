@@ -44,6 +44,7 @@
     this.reduce = !!opts.reduceMotion;
     this.P = { cx: 0, cy: 0, k: 1, tilt: 1.1, fu: MW / 2, fv: MH / 2, reveal: 0, ghostOn: 0, alpha: 1, scroll: 0, glow: 1 };
     this.hit = {}; this.running = false; this.t0 = performance.now(); this.dots = [];
+    this.ct = Math.cos(this.P.tilt); this.st = Math.sin(this.P.tilt);
     var all = (opts.clubs || []).map(function (c) { var uv = toUV(c.lat, c.lon); return { id: c.id, city: c.city, u: uv[0], v: uv[1] }; });
     var hubC = all.filter(function (c) { return c.city === FIRST[0]; })[0] || all[0] || { u: MW / 2, v: MH / 2 };
     var hub = [hubC.u, hubC.v]; this.hub = hub;
@@ -105,7 +106,11 @@
     this.f = Math.max(this.W, this.H) * 1.15;
     if (!this.running) this.draw();
   };
-  Map3D.prototype.set = function (p) { for (var k in p) this.P[k] = p[k]; if (!this.running) this.draw(); };
+  Map3D.prototype.set = function (p) {
+    for (var k in p) this.P[k] = p[k];
+    this.ct = Math.cos(this.P.tilt); this.st = Math.sin(this.P.tilt); // proj зовётся ~10 тыс. раз за кадр
+    if (!this.running) this.draw();
+  };
   Map3D.prototype.setHit = function (ids) { this.hit = {}; for (var i = 0; i < ids.length; i++) this.hit[ids[i]] = 1; if (!this.running) this.draw(); };
   Map3D.prototype.start = function () {
     if (this.reduce || this.running) return; this.running = true; var self = this;
@@ -116,7 +121,7 @@
 
   /* точка карты (u, v) на высоте z → [sx, sy, масштаб перспективы]; (fu, fv) — точка, на которую смотрит камера */
   Map3D.prototype.proj = function (u, v, z) {
-    var P = this.P, ct = Math.cos(P.tilt), st = Math.sin(P.tilt);
+    var P = this.P, ct = this.ct, st = this.st;
     var x = (u - P.fu) * P.k, y = (v - P.fv) * P.k, zz = (z || 0) * P.k;
     var depth = -y * st - zz * ct, s = this.f / Math.max(60, this.f + depth);
     return [P.cx + x * s, P.cy + (y * ct - zz * st) * s, s];
