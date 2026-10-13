@@ -18,10 +18,12 @@
   <meta property="og:image" content="{{SITE_URL}}/img/og.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="metrika-id" content="{{METRIKA_ID}}">
+  <!-- до стилей: встроенный скрипт после <link rel=stylesheet> ждал бы загрузки CSS -->
+  <script>document.documentElement.classList.add("js");setTimeout(function(){if(!window.SRP_BOOT)document.documentElement.classList.add("reveal-now")},3000);</script>
+  <link rel="preload" href="/video/hero-cards.webp" as="image" fetchpriority="high">
   <link rel="preload" href="/fonts/Unbounded-Variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/GolosText-Variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/styles.css">
-  <script>document.documentElement.classList.add("js");</script>
   <!--@jsonld-->
 </head>
 <body>
@@ -69,9 +71,10 @@
   <section class="hero" id="top" aria-labelledby="hero-title">
     <div class="hero-bg" aria-hidden="true">
       <div class="layer hero-pattern" data-parallax="0.12"></div>
-      <div class="hero-object" data-parallax="-0.1" data-mouse="16">
+      <div class="hero-object vbox" data-parallax="-0.1" data-mouse="16" style="--lq:url({{LQIP:hero-cards}})">
+        <img class="vbox-poster" src="/video/hero-cards.webp" alt="" width="640" height="800" decoding="async">
         <!-- Ролик с прозрачным фоном: HEVC с альфой для Safari, VP9 с альфой для остальных (выбирает main.js) -->
-        <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto" poster="/video/hero-cards.webp" data-alpha-webm="/video/hero-cards.webm" data-alpha-hevc="/video/hero-cards.mov"></video>
+        <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto" data-alpha-webm="/video/hero-cards.webm" data-alpha-hevc="/video/hero-cards.mov"></video>
       </div>
     </div>
     <div class="container hero-inner">
@@ -180,13 +183,16 @@
   <section class="lg-scene" id="league" aria-labelledby="league-title">
     <div class="lg-sticky">
       <div class="lg-word" aria-hidden="true"><span>ЛИГА ГОРОДОВ</span></div>
-      <figure class="lg-photo lg-photo--1" data-d="1"><img src="/img/photos/cities-hero-1.webp" alt="Команда клуба СРП в Казани" width="1200" height="800" loading="lazy" decoding="async"></figure>
-      <figure class="lg-photo lg-photo--2" data-d="2"><img src="/img/photos/rating-hero-1.webp" alt="Игроки за столом клуба Milli Club" width="1200" height="800" loading="lazy" decoding="async"></figure>
-      <figure class="lg-photo lg-photo--3" data-d="3"><img src="/img/photos/champions-hero-1.webp" alt="Дилер за игровым столом клуба СРП" width="1200" height="800" loading="lazy" decoding="async"></figure>
+      <figure class="lg-photo lg-photo--1" data-d="1"><img src="/img/photos/cities-hero-1.webp" alt="Команда клуба СРП в Казани" width="640" height="427" loading="lazy" decoding="async"></figure>
+      <figure class="lg-photo lg-photo--2" data-d="2"><img src="/img/photos/rating-hero-1.webp" alt="Игроки за столом клуба Milli Club" width="640" height="427" loading="lazy" decoding="async"></figure>
+      <figure class="lg-photo lg-photo--3" data-d="3"><img src="/img/photos/champions-hero-1.webp" alt="Дилер за игровым столом клуба СРП" width="640" height="427" loading="lazy" decoding="async"></figure>
       <div class="lg-video">
-        <video id="league-video" muted loop playsinline preload="none" poster="/video/league-final.webp" aria-label="Финал Лиги городов в клубе Milli Club">
-          <source data-src="/video/league-final.mp4" type="video/mp4">
-        </video>
+        <div class="vbox" style="--lq:url({{LQIP:league-final}})">
+          <img class="vbox-poster" src="/video/league-final.webp" alt="" width="1280" height="720" decoding="async">
+          <video id="league-video" muted loop playsinline preload="none" aria-label="Финал Лиги городов в клубе Milli Club">
+            <source data-src="/video/league-final.mp4" type="video/mp4">
+          </video>
+        </div>
         <div class="lg-shade"></div>
       </div>
       <p class="lg-caption mono-tag" aria-hidden="true">[LIVE] Финал Лиги городов · Milli Club</p>
@@ -265,9 +271,9 @@
           <li><svg class="ico"><use href="#i-check"/></svg>Интеграция с кассой iiko</li>
         </ul>
         <div class="tabs reveal" role="tablist" aria-label="Разделы CRM на экране ноутбука">
-          <button role="tab" aria-selected="true" data-video="crm-dashboard">Дашборд</button>
-          <button role="tab" aria-selected="false" data-video="crm-tournaments">Турниры</button>
-          <button role="tab" aria-selected="false" data-video="crm-leagues2">Лиги</button>
+          <button role="tab" aria-selected="true" data-video="crm-dashboard" data-lq="{{LQIP:crm-dashboard}}">Дашборд</button>
+          <button role="tab" aria-selected="false" data-video="crm-tournaments" data-lq="{{LQIP:crm-tournaments}}">Турниры</button>
+          <button role="tab" aria-selected="false" data-video="crm-leagues2" data-lq="{{LQIP:crm-leagues2}}">Лиги</button>
         </div>
         <a class="btn btn--ghost platform-cta reveal" href="#apply">Показать CRM на демо</a>
       </div>
@@ -277,9 +283,12 @@
         <div class="mac" data-parallax="0.06">
           <div class="mac-screen">
             <div class="mac-bar" aria-hidden="true"><i></i><i></i><i></i></div>
-            <video id="crm-video" muted loop playsinline preload="metadata" poster="/video/crm-dashboard.webp" aria-label="Запись работы CRM СРП: дашборд демо-клуба">
-              <source src="/video/crm-dashboard.mp4" type="video/mp4">
-            </video>
+            <div class="vbox" style="--lq:url({{LQIP:crm-dashboard}})">
+              <img class="vbox-poster" id="crm-poster" src="/video/crm-dashboard.webp" alt="" width="1440" height="856" decoding="async">
+              <video id="crm-video" muted loop playsinline preload="none" aria-label="Запись работы CRM СРП: дашборд демо-клуба">
+                <source data-src="/video/crm-dashboard.mp4" type="video/mp4">
+              </video>
+            </div>
           </div>
           <div class="mac-base" aria-hidden="true"></div>
           <p class="device-label mono-tag">[CRM] для владельца клуба</p>
@@ -290,9 +299,12 @@
             <div class="island" aria-hidden="true"></div>
             <div class="app app--real">
               <div class="app-status" aria-hidden="true"><span id="app-time">19:42</span><span class="app-sig"><i></i><i></i><i></i><i></i></span></div>
-              <video class="app-video" id="app-video" muted loop playsinline preload="none" poster="/video/app-real.webp" aria-label="Запись приложения игрока СРП: главная, рейтинг клуба, Лига городов">
-                <source data-src="/video/app-real.mp4" type="video/mp4">
-              </video>
+              <div class="vbox" style="--lq:url({{LQIP:app-real}})">
+                <img class="vbox-poster" src="/video/app-real.webp" alt="" width="586" height="1198" decoding="async">
+                <video class="app-video" id="app-video" muted loop playsinline preload="none" aria-label="Запись приложения игрока СРП: главная, рейтинг клуба, Лига городов">
+                  <source data-src="/video/app-real.mp4" type="video/mp4">
+                </video>
+              </div>
             </div>
           </div>
           <p class="device-label mono-tag">[APP] для игрока</p>

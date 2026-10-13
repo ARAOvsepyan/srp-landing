@@ -1,5 +1,6 @@
 (() => {
   "use strict";
+  window.SRP_BOOT = 1; // скрипт успел: страховка «reveal-now» из <head> не нужна
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
@@ -21,8 +22,8 @@
   let applyVisible = false;
   new IntersectionObserver(([e]) => { applyVisible = e.isIntersecting; }, { threshold: 0.15 }).observe(applySec);
 
-  /* ---------- Заголовки по словам ---------- */
-  if (!reduce) {
+  /* ---------- Заголовки по словам (не делим, если контент уже показан без анимации) ---------- */
+  if (!reduce && !document.documentElement.classList.contains("reveal-now")) {
     let wi = 0;
     const wrap = (node, gold) => {
       [...node.childNodes].forEach((ch) => {
@@ -298,9 +299,17 @@
     });
   }
 
-  /* ---------- Видео: играют только на экране ---------- */
+  /* ---------- Видео: играют только на экране; поверх фото-подложки — только когда пошли кадры ---------- */
+  const markReady = (v) => {
+    const box = v && v.closest(".vbox");
+    if (!box) return;
+    const on = () => { if (v.currentTime > 0.04 || !v.paused) box.classList.add("is-ready"); };
+    v.addEventListener("playing", on);
+    v.addEventListener("timeupdate", on);
+  };
   const watchVideo = (v, lazy) => {
     if (!v) return;
+    markReady(v);
     new IntersectionObserver(([e]) => {
       if (e.isIntersecting) {
         if (lazy) { const src = v.querySelector("source[data-src]"); if (src) { src.src = src.dataset.src; src.removeAttribute("data-src"); v.load(); } }
@@ -310,7 +319,7 @@
   };
   // Ролик hero с прозрачным фоном: Safari и iOS понимают HEVC с альфой, остальные браузеры — VP9 с альфой
   const heroVideo = $("#hero-video");
-  if (heroVideo && heroVideo.dataset.alphaWebm) {
+  const startHero = () => {
     const ua = navigator.userAgent;
     const apple = /iPhone|iPad|iPod/.test(ua) || /^((?!chrome|chromium|android|edg).)*safari/i.test(ua);
     const src = document.createElement("source");
@@ -318,10 +327,15 @@
     src.type = apple ? 'video/mp4; codecs="hvc1"' : "video/webm";
     heroVideo.appendChild(src);
     heroVideo.load();
+    if (!reduce) heroVideo.play().catch(() => {});
+  };
+  if (heroVideo && heroVideo.dataset.alphaWebm) {
+    if (document.readyState === "complete") startHero(); else addEventListener("load", startHero, { once: true });
   }
   watchVideo(heroVideo, false);
   watchVideo(lgVideo, true);
   watchVideo($("#app-video"), true);
+  watchVideo($("#crm-video"), true);
 
   /* ---------- Часы в статус-баре iPhone ---------- */
   const appTime = $("#app-time");
@@ -332,19 +346,20 @@
   }
 
   /* ---------- Видео CRM: вкладки + автопауза вне экрана ---------- */
-  const video = $("#crm-video");
+  const video = $("#crm-video"), crmPoster = $("#crm-poster");
   const tabs = $$(".tabs button");
   tabs.forEach((b) => b.addEventListener("click", () => {
     tabs.forEach((x) => x.setAttribute("aria-selected", x === b ? "true" : "false"));
-    const name = b.dataset.video;
-    video.poster = `/video/${name}.webp`;
-    video.querySelector("source").src = `/video/${name}.mp4`;
+    const name = b.dataset.video, box = video.closest(".vbox"), src = video.querySelector("source");
+    // пока новый ролик не пошёл — фото этой вкладки (сначала мини-копия)
+    box.classList.remove("is-ready");
+    box.style.setProperty("--lq", `url(${b.dataset.lq})`);
+    crmPoster.src = `/video/${name}.webp`;
+    src.removeAttribute("data-src");
+    src.src = `/video/${name}.mp4`;
     video.load();
     if (!reduce) video.play().catch(() => {});
   }));
-  if (!reduce) {
-    new IntersectionObserver(([e]) => { e.isIntersecting ? video.play().catch(() => {}) : video.pause(); }, { threshold: 0.35 }).observe(video);
-  }
 
   /* ---------- Мобильное меню: бургер, закрытие по ссылке, Esc и при расширении окна ---------- */
   const burger = $("#burger"), siteNav = $("#site-nav");
@@ -414,23 +429,55 @@
     rail.scrollBy({ left: step * 2 * +b.dataset.rail, behavior: reduce ? "auto" : "smooth" });
   }));
 
-  /* ---------- Карусели на мобильном (клубы, отзывы) листаются сами; касание, открытый попап или видео — пауза ---------- */
+  /* ---------- Карусели на мобильном (клубы, отзывы): бесконечно по кругу; касание, попап или видео — пауза ----------
+     Ушедшая влево карточка переезжает в конец ленты, а прокрутка сдвигается на её ширину — шов не виден. */
   const mobileMq = matchMedia("(max-width: 760px)");
   const autoRail = (el, itemSel) => {
     if (!el || reduce) return;
-    let inView = false, holdUntil = 0;
-    new IntersectionObserver(([e]) => { inView = e.isIntersecting; }, { threshold: 0.4 }).observe(el);
-    const hold = () => { holdUntil = Date.now() + 8000; };
+    let inView = false, holdUntil = 0, busy = false, idle = 0;
+    new IntersectionObserver(([e]) => { inView = e.isIntersecting; }, { threshold: 0.3 }).observe(el);
+    const hold = () => { holdUntil = Date.now() + 4000; };
     ["pointerdown", "touchstart", "wheel", "focusin"].forEach((t) => el.addEventListener(t, hold, { passive: true }));
+    const gap = () => parseFloat(getComputedStyle(el).columnGap) || 12;
+    const items = () => [...el.children].filter((n) => n.matches(itemSel));
+    // переносим в конец все карточки, полностью ушедшие за левый край
+    const rotate = () => {
+      if (!mobileMq.matches || el.querySelector(".is-playing")) return;
+      let first = items()[0];
+      while (first) {
+        if (first.hidden) { el.appendChild(first); first = items()[0]; if (items().every((n) => n.hidden)) return; continue; }
+        const w = first.getBoundingClientRect().width + gap();
+        if (el.scrollLeft < w - 2) return;
+        el.style.scrollSnapType = "none";
+        el.appendChild(first);
+        el.scrollLeft -= w;
+        first = items()[0];
+      }
+    };
+    const restoreSnap = () => requestAnimationFrame(() => { el.style.scrollSnapType = ""; });
+    // ручная прокрутка тоже бесконечная: после остановки ленты переставляем карточки
+    el.addEventListener("scroll", () => {
+      if (busy) return;
+      clearTimeout(idle);
+      idle = setTimeout(() => { rotate(); restoreSnap(); }, 160);
+    }, { passive: true });
     setInterval(() => {
-      if (!mobileMq.matches || !inView || document.hidden || Date.now() < holdUntil) return;
+      if (!mobileMq.matches || !inView || document.hidden || Date.now() < holdUntil || busy) return;
       if (el.querySelector(".is-playing") || document.documentElement.classList.contains("modal-open")) return;
-      const item = [...el.querySelectorAll(itemSel)].find((n) => !n.hidden);
-      if (!item) return;
-      const step = item.getBoundingClientRect().width + (parseFloat(getComputedStyle(el).columnGap) || 12);
-      const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 8;
-      el.scrollTo({ left: atEnd ? 0 : el.scrollLeft + step, behavior: "smooth" });
-    }, 3500);
+      const item = items().find((n) => !n.hidden);
+      if (!item || items().filter((n) => !n.hidden).length < 2) return;
+      // своя анимация вместо behavior: "smooth": та в Safari и при mandatory-снапе иногда не доезжает
+      busy = true;
+      el.style.scrollSnapType = "none";
+      const from = el.scrollLeft, dist = item.getBoundingClientRect().width + gap(), t0 = performance.now();
+      const step = (now) => {
+        const k = Math.min(1, (now - t0) / 650);
+        el.scrollLeft = from + dist * (1 - Math.pow(1 - k, 3));
+        if (k < 1) return requestAnimationFrame(step);
+        rotate(); restoreSnap(); busy = false;
+      };
+      requestAnimationFrame(step);
+    }, 3000);
   };
   autoRail($("#club-grid"), ".club");
   autoRail(rail, ".review");

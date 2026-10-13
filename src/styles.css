@@ -420,7 +420,7 @@ img.ico-lg--map { width: 118px; height: 60px; object-fit: contain; object-positi
 
 /* ============ Reviews ============ */
 .reviews { background: linear-gradient(180deg, var(--bg), var(--bg2)); overflow: hidden; }
-.rail { display: flex; gap: 14px; margin-top: 30px; padding: 6px max(20px, calc((100vw - 1180px) / 2)) 24px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; cursor: grab; }
+.rail { display: flex; gap: 14px; margin-top: 30px; padding: 6px max(20px, calc((100vw - 1180px) / 2)) 24px; overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain; overflow-anchor: none; scroll-snap-type: x mandatory; scrollbar-width: none; cursor: grab; }
 .rail::-webkit-scrollbar { display: none; }
 .rail.drag { cursor: grabbing; scroll-snap-type: none; }
 .review { flex: none; width: min(380px, 82vw); margin: 0; padding: 32px 30px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); scroll-snap-align: start; display: flex; flex-direction: column; justify-content: space-between; gap: 28px; min-height: 280px; position: relative; }
@@ -501,7 +501,7 @@ img.ico-lg--map { width: 118px; height: 60px; object-fit: contain; object-positi
   .orbit { height: 420vh; }
   .hero { padding: 104px 0 110px; justify-content: flex-start; }
   /* на телефоне карты — крупный приглушённый фон за текстом, по центру и без обрезки */
-  .hero-object { left: 50%; right: auto; top: 42%; width: 118vw; margin: calc(118vw * -0.625) 0 0 -59vw; opacity: .32; }
+  .hero-object { left: 50%; right: auto; top: 42%; width: 118vw; margin: calc(118vw * -0.625) 0 0 -59vw; opacity: .16; }
   .hero-meta { gap: 24px; margin-top: 32px; } .hero-meta dd { font-size: 24px; }
   .net-head { top: 84px; } .net-head h2 { font-size: 30px; } .net-last { margin-top: 10px; }
   .lg-scene { height: 300vh; }
@@ -683,7 +683,9 @@ button.review-cover:focus-visible { outline: 2px solid var(--gold); outline-offs
 
 /* Клубы на мобильном: горизонтальная карусель вместо длинного списка (листается сама, см. main.js) */
 @media (max-width: 760px) {
-  .club-grid { display: flex; gap: 12px; margin-inline: -20px; padding: 2px 20px 10px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: 20px; scrollbar-width: none; }
+  .club-grid { display: flex; gap: 12px; margin-inline: -20px; padding: 2px 20px 10px; overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain; overflow-anchor: none; scroll-snap-type: x mandatory; scroll-padding-inline: 20px; scrollbar-width: none; }
+  /* в карусели карточки видны сразу: «всплытие» снизу у каждой новой карточки выглядело как дрожание */
+  .club-grid > .club.reveal { opacity: 1; --ry: 0px; transition: none; }
   .club-grid::-webkit-scrollbar { display: none; }
   .club-grid > .club { flex: 0 0 84%; scroll-snap-align: start; }
 }
@@ -710,3 +712,21 @@ button.review-cover:focus-visible { outline: 2px solid var(--gold); outline-offs
   .burger { margin-left: 0; }
   .menu-open .nav { height: calc(100svh - 64px); }
 }
+
+/* Видео с подложкой: размытая мини-копия прямо в HTML -> фото-постер -> ролик, когда реально пошли кадры.
+   На плохой связи и в iOS (чёрный кадр до загрузки) вместо пустого блока всегда видно фото. */
+.vbox { background: var(--lq, none) center / cover no-repeat; }
+.vbox > .vbox-poster, .vbox > video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.vbox > video { opacity: 0; transition: opacity .6s ease; }
+.vbox.is-ready > video { opacity: 1; }
+/* когда ролик пошёл — фото и мини-копия гаснут: у карт в hero прозрачный фон, иначе сквозь него видно постер */
+.vbox > .vbox-poster { transition: opacity .6s ease; }
+.vbox.is-ready > .vbox-poster { opacity: 0; }
+.vbox.is-ready { background-image: none; }
+.lg-video .vbox { position: absolute; inset: 0; }
+.mac-screen .vbox { position: relative; aspect-ratio: 1100 / 654; overflow: hidden; border-radius: 0 0 4px 4px; background-color: #0f0d09; }
+.app--real .vbox { position: relative; flex: 1; min-height: 0; background-color: #000; }
+.app--real .vbox > * { object-position: 50% 0; }
+.hero-object.vbox { background-size: contain; }
+.hero-object.vbox > * { object-fit: contain; }
+.reveal-now .reveal { opacity: 1; --ry: 0px; transition: none; }

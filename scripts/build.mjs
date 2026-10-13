@@ -142,9 +142,11 @@ if (existsSync(join(root, "public"))) cpSync(join(root, "public"), dist, { recur
 
 let html = readFileSync(join(root, "src/index.html"), "utf8");
 for (const [k, v] of Object.entries(tokens)) html = html.split(k).join(v);
+// мини-копии постеров (data/lqip/*.webp, ~0.5 КБ) встраиваем прямо в HTML — видны до загрузки чего-либо
+html = html.replace(/\{\{LQIP:([a-z0-9-]+)\}\}/g, (_, n) => `data:image/webp;base64,${readFileSync(join(root, "data/lqip", `${n}.webp`)).toString("base64")}`);
 if (DEMO) html = html.replace("<head>", '<head>\n  <meta name="robots" content="noindex, nofollow">');
 // пути от корня (/img, /video, /fonts, скрипты и стили) переносим в подпапку BASE_PATH
-const rebase = (s) => (BASE_PATH === "/" ? s : s.replace(/(["'(])\/(img|video|fonts|styles\.css|main\.js|map3d\.js)\b/g, `$1${BASE_PATH}$2`));
+const rebase = (s) => (BASE_PATH === "/" ? s : s.replace(/(["'(`])\/(img|video|fonts|styles\.css|main\.js|map3d\.js)\b/g, `$1${BASE_PATH}$2`));
 writeFileSync(join(dist, "index.html"), rebase(html));
 for (const f of ["styles.css", "main.js", "map3d.js"]) writeFileSync(join(dist, f), rebase(readFileSync(join(root, "src", f), "utf8")));
 
