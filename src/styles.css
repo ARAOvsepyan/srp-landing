@@ -292,8 +292,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .about h2 { max-width: 14ch; font-size: clamp(30px, 4.4vw, 60px); }
 .about-lead { font-size: clamp(18px, 1.6vw, 22px); line-height: 1.55; color: #e6dfcd; }
 .nomoney { display: flex; gap: 18px; align-items: flex-start; margin-top: 28px; padding: 22px 24px; border: 1px solid rgba(210, 57, 74, .35); border-radius: 18px; background: linear-gradient(135deg, rgba(128, 0, 14, .22), rgba(128, 0, 14, .06)); }
-.nomoney-ico { flex: none; width: 48px; height: 48px; }
-.nomoney-ico svg { width: 48px; height: 48px; }
+.nomoney-ico { flex: none; width: 64px; height: 64px; margin: -6px 0 -6px -4px; }
 .nomoney p { color: #e3d9c6; font-size: 15.5px; }
 
 /* ============ Why ============ */
@@ -303,6 +302,14 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .cico::before { content: ""; position: absolute; inset: 5px; border-radius: 50%; border: 2px dashed rgba(220, 199, 127, .32); transition: transform 1.2s cubic-bezier(.2, .7, .2, 1); }
 .cico svg { width: 44px; height: 44px; filter: drop-shadow(0 2px 6px rgba(220, 199, 127, .25)); }
 .card:hover .cico::before { transform: rotate(90deg); }
+/* 3D-иконки из пака: объёмный предмет без кружка-подложки */
+.cico--img { width: 84px; height: 84px; background: none; box-shadow: none; }
+.cico--img::before { content: none; }
+.cico--img img, .nomoney-ico img, img.ico-lg, .panel-ico { filter: drop-shadow(0 10px 16px rgba(0, 0, 0, .65)); }
+.cico--img img { width: 84px; height: 84px; }
+.nomoney-ico img { width: 64px; height: 64px; }
+img.ico-lg { width: 60px; height: 60px; margin-left: -6px; }
+.panel-ico { position: absolute; top: -34px; right: 24px; width: 72px; height: 72px; }
 .card h3 { margin-top: 16px; }
 .why-total { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: 12px; margin-top: 30px; text-align: center; font: 700 clamp(20px, 2.4vw, 32px)/1.2 var(--display); letter-spacing: -.02em; }
 .why-total > span { color: #d9d1bd; }
@@ -501,7 +508,8 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   .lg-content h2 { font-size: 26px; } .lg-content .sub { display: none; }
   .lg-cards { grid-template-columns: 1fr; gap: 10px; margin-top: 22px; }
   .lg-glass { display: grid; grid-template-columns: 34px 1fr; column-gap: 12px; padding: 14px 16px; }
-  .lg-glass .ico-lg { width: 30px; height: 30px; grid-row: span 2; }
+  .lg-glass .ico-lg { width: 42px; height: 42px; grid-row: span 2; }
+  .panel-ico { top: -26px; right: 16px; width: 54px; height: 54px; }
   .lg-glass h3 { margin: 0 0 4px; font-size: 16px; } .lg-glass p { font-size: 13px; }
   .lg-cta { margin-top: 18px; width: 100%; }
   .devices { padding: 10px 0 70px 14%; }
