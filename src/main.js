@@ -20,7 +20,8 @@
   const navLinks = $$(".nav a");
   const sectionByLink = navLinks.map((a) => $(a.getAttribute("href")));
   let applyVisible = false;
-  new IntersectionObserver(([e]) => { applyVisible = e.isIntersecting; }, { threshold: 0.15 }).observe(applySec);
+  // форма на экране — нижняя кнопка «Оставить заявку» прячется сразу, не дожидаясь следующего кадра прокрутки
+  new IntersectionObserver(([e]) => { applyVisible = e.isIntersecting; if (applyVisible) sticky.classList.remove("show"); }, { threshold: 0.15 }).observe(applySec);
 
   /* ---------- Заголовки по словам (не делим, если контент уже показан без анимации) ---------- */
   if (!reduce && !document.documentElement.classList.contains("reveal-now")) {
