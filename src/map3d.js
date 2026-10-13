@@ -19,16 +19,25 @@
     return [S * rho * Math.sin(th) + TX, S * rho * Math.cos(th) + TY];
   };
   var clamp = function (v, a, b) { return Math.min(b === undefined ? 1 : b, Math.max(a || 0, v)); };
-  /* палитра светлой темы: на слоновой кости свечение через "lighter" не видно, поэтому тёмное золото,
-     винные столбы и светлые плашки подписей */
-  var PAL = {
+  /* палитры: на светлой теме свечение через "lighter" не видно, поэтому тёмное золото, винные столбы
+     и светлые плашки подписей; тёмная — прежнее золото со свечением */
+  var PAL_LIGHT = {
     dust: ["#a07a2c", "#c8ae7a"], glow: ["rgba(255,236,205,0.6)", "rgba(255,236,205,0)"],
-    dots: ["#7d5a1b", "#a07a2c", "#cdb98f"], arc: "rgba(125,90,27,0.42)",
+    dots: ["#5e4314", "#86621f", "#a98a52"], dotA: 0.62, arc: "rgba(125,90,27,0.42)",
     pillar: "rgba(122,36,67,0.95)", pillarHit: "rgba(91,26,53,1)", pillarEnd: "rgba(122,36,67,0)",
     base: "rgba(201,150,70,0.5)", ring: "150,112,42", top: "#5b1a35", topHit: "#3d0f24",
     labelBg: "rgba(255,252,246,0.95)", labelLine: "rgba(150,112,42,0.35)", label: "#231b15", labelFirst: "#7d5a1b",
     ghost: "rgba(125,90,27,0.7)", blend: "source-over"
   };
+  var PAL_DARK = {
+    dust: ["#f6e7ac", "#bfae7a"], glow: ["rgba(255,196,110,0.12)", "rgba(220,160,80,0)"],
+    dots: ["#f1dc94", "#d6bd74", "#a88f50"], dotA: 0.4, arc: "rgba(246,231,172,0.42)",
+    pillar: "rgba(255,236,180,0.9)", pillarHit: "rgba(255,255,255,0.95)", pillarEnd: "rgba(220,199,127,0)",
+    base: "rgba(255,230,160,0.7)", ring: "246,231,172", top: "#fff3c8", topHit: "#ffffff",
+    labelBg: "rgba(10,9,8,0.72)", labelLine: "rgba(220,199,127,0)", label: "#f3eee2", labelFirst: "#f6e7ac",
+    ghost: "rgba(246,231,172,0.75)", blend: "lighter"
+  };
+  var PAL = document.documentElement.dataset.theme === "dark" ? PAL_DARK : PAL_LIGHT;
 
   function Map3D(canvas, opts) {
     this.c = canvas; this.ctx = canvas.getContext("2d"); this.opts = opts;
@@ -103,6 +112,7 @@
     (function loop() { if (!self.running) return; self.draw(); requestAnimationFrame(loop); })();
   };
   Map3D.prototype.stop = function () { this.running = false; };
+  Map3D.prototype.setTheme = function () { this.draw(); };
 
   /* точка карты (u, v) на высоте z → [sx, sy, масштаб перспективы]; (fu, fv) — точка, на которую смотрит камера */
   Map3D.prototype.proj = function (u, v, z) {
@@ -114,6 +124,7 @@
 
   Map3D.prototype.draw = function () {
     var ctx = this.ctx, W = this.W, H = this.H, P = this.P, t = (performance.now() - this.t0) / 1000;
+    PAL = document.documentElement.dataset.theme === "dark" ? PAL_DARK : PAL_LIGHT;
     ctx.clearRect(0, 0, W, H);
     if (P.alpha <= 0.005) return;
     ctx.save(); ctx.globalAlpha = P.alpha;
@@ -141,7 +152,7 @@
       var d = this.dots[i], pr = this.proj(d.u, d.v, 0);
       if (pr[0] < -10 || pr[0] > W + 10 || pr[1] < -10 || pr[1] > H + 10) continue;
       var lit = clamp(litF - d.nc, 0, 1), near = lit * Math.pow(clamp(1 - d.nd / 70, 0, 1), 1.6);
-      var a = 0.4 + near * 0.5;
+      var a = PAL.dotA + near * 0.5;
       ctx.globalAlpha = P.alpha * clamp(a * (0.86 + 0.14 * Math.sin(t * 1.1 + d.r * 40)), 0, 1) * clamp(pr[2] * 1.05, 0.3, 1);
       ctx.fillStyle = near > 0.5 ? PAL.dots[0] : near > 0.15 ? PAL.dots[1] : PAL.dots[2];
       var sz = base * pr[2];

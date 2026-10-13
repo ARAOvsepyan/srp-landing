@@ -19,9 +19,9 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="metrika-id" content="{{METRIKA_ID}}">
   <!-- до стилей: встроенный скрипт после <link rel=stylesheet> ждал бы загрузки CSS -->
-  <script>document.documentElement.classList.add("js");setTimeout(function(){if(!window.SRP_BOOT)document.documentElement.classList.add("reveal-now")},3000);</script>
-  <link rel="preload" href="/video/hero-cards.webp" as="image" fetchpriority="high">
-  <link rel="preload" href="/fonts/PlayfairDisplay-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+  <script>try{if(localStorage.getItem("srp-theme")==="dark")document.documentElement.dataset.theme="dark"}catch(e){}document.documentElement.classList.add("js");setTimeout(function(){if(!window.SRP_BOOT)document.documentElement.classList.add("reveal-now")},3000);</script>
+  <link rel="preload" href="/img/hero-light.webp" as="image" fetchpriority="high">
+  <link rel="preload" href="/fonts/Unbounded-Variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/GolosText-Variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/styles.css">
   <!--@jsonld-->
@@ -60,8 +60,11 @@
       <a href="#faq">FAQ</a>
       <a class="btn btn--gold nav-cta" href="#apply">Оставить заявку <svg class="ico"><use href="#i-arrow"/></svg></a>
     </nav>
-    <a class="btn btn--burgundy btn--sm head-cta" href="#apply">Оставить заявку</a>
-    <button class="burger" id="burger" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Открыть меню"><i></i><i></i></button>
+    <div class="bar-end">
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Тёмная тема"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7Z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg></button>
+      <a class="btn btn--burgundy btn--sm head-cta" href="#apply">Оставить заявку</a>
+      <button class="burger" id="burger" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Открыть меню"><i></i><i></i></button>
+    </div>
   </div>
 </header>
 
@@ -70,9 +73,10 @@
   <!-- ============ HERO ============ -->
   <section class="hero" id="top" aria-labelledby="hero-title">
     <div class="hero-bg" aria-hidden="true">
+      <img class="hero-photo" src="/img/hero-light.webp" alt="" width="2560" height="1440" fetchpriority="high" decoding="async">
       <div class="layer hero-pattern" data-parallax="0.12"></div>
       <div class="hero-object vbox" data-parallax="-0.1" data-mouse="16" style="--lq:url({{LQIP:hero-cards}})">
-        <img class="vbox-poster" src="/video/hero-cards.webp" alt="" width="640" height="800" decoding="async">
+        <img class="vbox-poster" src="/video/hero-cards.webp" alt="" width="640" height="800" loading="lazy" decoding="async">
         <!-- Ролик с прозрачным фоном: HEVC с альфой для Safari, VP9 с альфой для остальных (выбирает main.js) -->
         <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto" data-alpha-webm="/video/hero-cards.webm" data-alpha-hevc="/video/hero-cards.mov"></video>
       </div>
@@ -81,8 +85,8 @@
       <h1 id="hero-title" class="reveal" style="--d:80ms">Федеральная сеть <span class="gold-text">спортивно-развлекательного</span> покера в России</h1>
       <p class="lead reveal" style="--d:160ms">Стань лидером в своём городе: открой клуб СРП или подключи уже работающий.</p>
       <div class="cta-row reveal" style="--d:240ms">
-        <a class="btn btn--gold" href="#apply" data-magnetic>Узнать условия запуска <svg class="ico"><use href="#i-arrow"/></svg></a>
-        <a class="btn btn--ghost" href="#network" data-magnetic>Смотреть сеть</a>
+        <a class="btn btn--gold" href="#apply">Узнать условия запуска <svg class="ico"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn--ghost" href="#network">Смотреть сеть</a>
       </div>
       <dl class="hero-meta reveal" style="--d:320ms">
         <div><dt>клубов сети</dt><dd>20+</dd></div>
@@ -151,7 +155,7 @@
         <p class="eyebrow">Одна сеть — один рейтинг</p>
         <h3 class="panel-title">Ваш город — <span class="gold-text">следующий</span></h3>
         <p class="scene-lead">Каждый новый клуб усиливает всю сеть: общий бренд, федеральный рейтинг и Лига городов.</p>
-<a class="btn btn--gold panel-cta" href="#apply" data-city-intent="open" data-magnetic>Открыть клуб в своём городе <svg class="ico"><use href="#i-arrow"/></svg></a>
+<a class="btn btn--gold panel-cta" href="#apply" data-city-intent="open">Открыть клуб в своём городе <svg class="ico"><use href="#i-arrow"/></svg></a>
       </div>
 
       <div class="ghost-hint" aria-hidden="true"><i></i>Новые города — здесь может быть ваш</div>
@@ -210,7 +214,7 @@
           <article class="lg-glass lgc--2"><img class="ico-lg" src="/img/icons/champions.webp" alt="" width="192" height="192" loading="lazy" decoding="async"><h3>Лига Чемпионов</h3><p>Серия этапов внутри клуба и финал победителей.</p></article>
           <article class="lg-glass lg-glass--main lgc--3"><img class="ico-lg ico-lg--map" src="/img/icons/map-russia.webp" alt="" width="396" height="186" loading="lazy" decoding="async"><h3>Лига Городов</h3><p>Играют все клубы сети. Финал принимает один из городов — может быть, ваш.</p></article>
         </div>
-        <a class="btn btn--gold lg-cta" href="#apply" data-magnetic>Привести Лигу в свой город <svg class="ico"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn--gold lg-cta" href="#apply">Привести Лигу в свой город <svg class="ico"><use href="#i-arrow"/></svg></a>
       </div>
     </div>
   </section>
@@ -250,7 +254,7 @@
             <li>Турнирные лиги</li>
             <li>Структура мероприятий</li>
           </ol>
-          <a class="btn btn--gold" href="#apply" data-city-intent="open" data-magnetic>Открыть клуб СРП <svg class="ico"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn--gold" href="#apply" data-city-intent="open">Открыть клуб СРП <svg class="ico"><use href="#i-arrow"/></svg></a>
         </article>
       </div>
     </div>
@@ -326,7 +330,7 @@
             <div><dt>Поддержка</dt><dd>на каждом этапе запуска</dd></div>
             <div><dt>Лига городов</dt><dd>с первого сезона</dd></div>
           </dl>
-          <a class="btn btn--gold" href="#apply" data-magnetic>Получить условия <svg class="ico"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn--gold" href="#apply">Получить условия <svg class="ico"><use href="#i-arrow"/></svg></a>
         </div>
         <ol class="steps" id="steps">
           <li class="reveal"><b>1</b><div><h4>Заявка</h4><p>Оставляете контакты и город. Мы связываемся и обсуждаем ваш проект.</p></div></li>
@@ -351,7 +355,7 @@
         <div><dd><span data-count="30000" data-suffix="+">30&nbsp;000+</span></dd><dt>игроков в сети СРП</dt></div>
         <div><dd><span data-count="69" data-suffix="%">69%</span></dd><dt>удержание игроков в сети СРП</dt></div>
       </dl>
-      <div class="best-cta reveal"><a class="btn btn--ghost" href="#club-grid">Смотреть список</a><a class="btn btn--gold" href="#apply" data-magnetic>Связаться <svg class="ico"><use href="#i-arrow"/></svg></a></div>
+      <div class="best-cta reveal"><a class="btn btn--ghost" href="#club-grid">Смотреть список</a><a class="btn btn--gold" href="#apply">Связаться <svg class="ico"><use href="#i-arrow"/></svg></a></div>
       <div class="finder reveal">
         <label class="sr-only" for="club-search">Поиск клуба</label>
         <input id="club-search" type="search" placeholder="Город, название или улица" autocomplete="off">
@@ -558,7 +562,7 @@
         </div>
         <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
         <label class="consent"><input type="checkbox" name="consent" required><span>Я согласен(на) на обработку персональных данных и принимаю <a href="https://srppoker.ru/consent" target="_blank" rel="noopener">политику обработки</a> и <a href="https://srppoker.ru/privacy" target="_blank" rel="noopener">конфиденциальности</a></span></label>
-        <button class="btn btn--gold btn--block" type="submit" data-magnetic>Получить консультацию <svg class="ico"><use href="#i-arrow"/></svg></button>
+        <button class="btn btn--gold btn--block" type="submit">Получить консультацию <svg class="ico"><use href="#i-arrow"/></svg></button>
         <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
       </form>
     </div>

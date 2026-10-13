@@ -289,14 +289,6 @@
         el.style.setProperty("--tx", "0deg"); el.style.setProperty("--ty", "0deg");
       });
     });
-    $$("[data-magnetic]").forEach((el) => {
-      el.addEventListener("pointermove", (e) => {
-        const r = el.getBoundingClientRect();
-        if (innerWidth <= 1020) return;
-        el.style.transform = `translate(${((e.clientX - r.left - r.width / 2) * 0.16).toFixed(1)}px, ${((e.clientY - r.top - r.height / 2) * 0.28).toFixed(1)}px)`;
-      });
-      el.addEventListener("pointerleave", () => { el.style.transform = ""; });
-    });
   }
 
   /* ---------- Видео: играют только на экране; поверх фото-подложки — только когда пошли кадры ---------- */
@@ -329,10 +321,28 @@
     heroVideo.load();
     if (!reduce) heroVideo.play().catch(() => {});
   };
-  if (heroVideo && heroVideo.dataset.alphaWebm) {
+  // ролик с картами нужен только тёмной теме (в светлой — фото-натюрморт), грузим его один раз и после фото страницы
+  let heroStarted = false;
+  const startHeroOnce = () => {
+    if (heroStarted || !heroVideo || !heroVideo.dataset.alphaWebm) return;
+    heroStarted = true;
     if (document.readyState === "complete") startHero(); else addEventListener("load", startHero, { once: true });
-  }
+  };
   watchVideo(heroVideo, false);
+
+  /* ---------- Тема: светлая по умолчанию, выбор запоминаем (ставится ещё в <head>, без вспышки) ---------- */
+  const themeBtn = $("#theme-toggle"), themeMeta = $('meta[name="theme-color"]');
+  const isDark = () => document.documentElement.dataset.theme === "dark";
+  const applyTheme = (dark) => {
+    if (dark) document.documentElement.dataset.theme = "dark"; else delete document.documentElement.dataset.theme;
+    themeBtn?.setAttribute("aria-pressed", String(dark));
+    themeBtn?.setAttribute("aria-label", dark ? "Светлая тема" : "Тёмная тема");
+    themeMeta?.setAttribute("content", dark ? "#0a0908" : "#f7f1e8");
+    if (map) map.setTheme(dark ? "dark" : "light");
+    if (dark) startHeroOnce();
+  };
+  themeBtn?.addEventListener("click", () => { const dark = !isDark(); store.set("srp-theme", dark ? "dark" : "light"); applyTheme(dark); });
+  applyTheme(isDark());
   watchVideo(lgVideo, true);
   watchVideo($("#app-video"), true);
   watchVideo($("#crm-video"), true);
@@ -530,7 +540,7 @@
     tableSvg.setAttribute("viewBox", `0 0 ${W.toFixed(0)} ${H.toFixed(0)}`);
     tableSvg.innerHTML = `<defs>
         <linearGradient id="ptRim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7a4a1c"/><stop offset=".22" stop-color="#f3cf8a"/><stop offset=".5" stop-color="#9a6528"/><stop offset=".78" stop-color="#f6d896"/><stop offset="1" stop-color="#8a5a24"/></linearGradient>
-        <radialGradient id="ptFelt" cx="50%" cy="30%" r="75%"><stop offset="0" stop-color="#6a2444"/><stop offset=".55" stop-color="#4a1630"/><stop offset="1" stop-color="#2e0c1d"/></radialGradient>
+        <radialGradient id="ptFelt" cx="50%" cy="30%" r="75%"><stop offset="0" style="stop-color:var(--felt-a)"/><stop offset=".55" style="stop-color:var(--felt-b)"/><stop offset="1" style="stop-color:var(--felt-c)"/></radialGradient>
         <clipPath id="ptClip"><path d="${path(0)}"/></clipPath>
       </defs>
       <g class="pt-flares">${flares}</g>
