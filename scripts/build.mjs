@@ -150,14 +150,14 @@ for (const [k, v] of Object.entries(tokens)) html = html.split(k).join(v);
 html = html.replace(/\{\{LQIP:([a-z0-9-]+)\}\}/g, (_, n) => `data:image/webp;base64,${readFileSync(join(root, "data/lqip", `${n}.webp`)).toString("base64")}`);
 if (DEMO) html = html.replace("<head>", '<head>\n  <meta name="robots" content="noindex, nofollow">');
 // пути от корня (/img, /video, /fonts, скрипты и стили) переносим в подпапку BASE_PATH
-const rebase = (s) => (BASE_PATH === "/" ? s : s.replace(/(["'(`])\/(img|video|fonts|styles\.css|main\.js|map3d\.js|privacy\/|consent\/)/g, `$1${BASE_PATH}$2`));
+const rebase = (s) => (BASE_PATH === "/" ? s : s.replace(/(["'(`])\/(img|video|fonts|styles\.css|main\.js|map3d\.js|favicon\.ico|site\.webmanifest|privacy\/|consent\/)/g, `$1${BASE_PATH}$2`));
 writeFileSync(join(dist, "index.html"), rebase(html));
 for (const f of ["styles.css", "main.js", "map3d.js"]) writeFileSync(join(dist, f), rebase(readFileSync(join(root, "src", f), "utf8")));
 
 writeFileSync(join(dist, "robots.txt"), DEMO ? "User-agent: *\nDisallow: /\n" : `User-agent: *\nAllow: /\nSitemap: ${SITE_URL}/sitemap.xml\n`);
 writeFileSync(
   join(dist, "sitemap.xml"),
-  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${SITE_URL}/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url></urlset>\n`,
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${SITE_URL}/</loc><lastmod>${new Date().toISOString().slice(0, 10)}</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url></urlset>\n`,
 );
 
 console.log(`build ok: ${clubs.length} ${plural(clubs.length, ["клуб", "клуба", "клубов"])}, ${cities.length} ${plural(cities.length, ["город", "города", "городов"])} -> dist/`);
