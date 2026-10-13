@@ -76,10 +76,14 @@
   /* ---------- Параллакс: один rAF-цикл, пишет только CSS-переменные ---------- */
   const items = $$("[data-parallax],[data-parallax-x]").map((el) => ({
     el, y: parseFloat(el.dataset.parallax || 0), x: parseFloat(el.dataset.parallaxX || 0),
-    m: parseFloat(el.dataset.mouse || 0), base: 0, vis: true,
+    m: parseFloat(el.dataset.mouse || 0), base: 0, vis: false,
   }));
   const visIO = new IntersectionObserver((entries) => {
-    entries.forEach((e) => { const it = items.find((i) => i.el === e.target); if (it) it.vis = e.isIntersecting; });
+    // элемент вошёл в зону — сразу пересчитать кадр: иначе после короткого перехода (ссылка в меню)
+    // он остался бы со сдвигом, посчитанным далеко отсюда (так «пропадал» iPhone в блоке IT)
+    let woke = false;
+    entries.forEach((e) => { const it = items.find((i) => i.el === e.target); if (it) { if (e.isIntersecting && !it.vis) woke = true; it.vis = e.isIntersecting; } });
+    if (woke) request();
   }, { rootMargin: "25% 0px 25% 0px" });
   items.forEach((it) => visIO.observe(it.el));
 
