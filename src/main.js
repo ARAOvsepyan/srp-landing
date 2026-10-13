@@ -50,7 +50,7 @@
   /* ---------- Появление блоков ---------- */
   const revealIO = new IntersectionObserver((entries) => {
     entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); revealIO.unobserve(e.target); } });
-  }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+  }, { threshold: 0, rootMargin: "0px 0px 6% 0px" });
   $$(".reveal").forEach((el) => revealIO.observe(el));
 
   /* ---------- Счётчики ---------- */
@@ -141,9 +141,9 @@
      .58–.86 камера поднимается над всей Россией, «новые города», панель проверки города
      .86–1   кадр держится, затем уезжает вверх вместе со страницей */
   const clubOrder = map ? map.clubs : [];
-  const driveNetwork = (p) => {
+  const driveNetwork = (p, ap = 1) => {
     const small = vw < 760;
-    const enter = sm(0, 0.14, p), grow = sm(0.14, 0.58, p), east = sm(0.58, 0.86, p), hold = sm(0.86, 1, p);
+    const enter = sm(0.25, 0.95, ap), grow = sm(0.14, 0.58, p), east = sm(0.58, 0.86, p), hold = sm(0.86, 1, p);
     const k0 = small ? vw / 330 : vw / 640, k1 = small ? vw / 600 : vw / 1100, k2 = small ? vw / 1300 : vw / 2150;
     const k = lerp(lerp(k0, k1, grow), k2, east) * (1 - hold * 0.06);
     const tilt = lerp(lerp(1.2, 0.98, sm(0.05, 0.5, p)), 0.84, east) + hold * 0.06;
@@ -157,10 +157,11 @@
     }
     const reveal = sm(0.12, 0.56, p) * 1.04, ghostOn = sm(0.66, 0.8, p);
 
-    const hh = sm(0.04, 0.16, p);
+    const hh = sm(0.55, 1, ap);
     const c1 = sm(0.24, 0.34, p), c2 = sm(0.32, 0.42, p), c3 = sm(0.4, 0.5, p);
-    const pp = sm(0.6, 0.72, p);
+    const po = sm(0.58, 0.65, p), pp = sm(0.64, 0.74, p);
     const st = scene.style;
+    st.setProperty("--po", po.toFixed(3));
     st.setProperty("--hh", hh.toFixed(3));
     st.setProperty("--c1", c1.toFixed(3)); st.setProperty("--c2", c2.toFixed(3)); st.setProperty("--c3", c3.toFixed(3));
     st.setProperty("--pp", pp.toFixed(3));
@@ -234,7 +235,7 @@
       }
     }
 
-    if (y > sceneTop - vh && y < sceneTop + sceneH) driveNetwork(clamp((y - sceneTop) / Math.max(1, sceneH - vh)));
+    if (y > sceneTop - vh && y < sceneTop + sceneH) driveNetwork(clamp((y - sceneTop) / Math.max(1, sceneH - vh)), clamp((y - sceneTop + vh) / vh));
     if (y > lgTop - vh && y < lgTop + lgH) driveLeague(clamp((y - lgTop) / Math.max(1, lgH - vh)));
 
     // Mac и iPhone выезжают из глубины: наклон уходит по мере приближения к центру экрана
@@ -358,6 +359,7 @@
       c.hidden = !ok; if (ok) shown++;
     });
     empty.hidden = shown > 0;
+    $("#club-grid").scrollLeft = 0;
   };
   chips.forEach((ch) => ch.addEventListener("click", () => {
     cityFilter = ch.dataset.city;
@@ -399,14 +401,38 @@
     rail.scrollBy({ left: step * 2 * +b.dataset.rail, behavior: reduce ? "auto" : "smooth" });
   }));
 
+  /* ---------- Карусели на мобильном (клубы, отзывы) листаются сами; касание, открытый попап или видео — пауза ---------- */
+  const mobileMq = matchMedia("(max-width: 760px)");
+  const autoRail = (el, itemSel) => {
+    if (!el || reduce) return;
+    let inView = false, holdUntil = 0;
+    new IntersectionObserver(([e]) => { inView = e.isIntersecting; }, { threshold: 0.4 }).observe(el);
+    const hold = () => { holdUntil = Date.now() + 8000; };
+    ["pointerdown", "touchstart", "wheel", "focusin"].forEach((t) => el.addEventListener(t, hold, { passive: true }));
+    setInterval(() => {
+      if (!mobileMq.matches || !inView || document.hidden || Date.now() < holdUntil) return;
+      if (el.querySelector(".is-playing") || document.documentElement.classList.contains("modal-open")) return;
+      const item = [...el.querySelectorAll(itemSel)].find((n) => !n.hidden);
+      if (!item) return;
+      const step = item.getBoundingClientRect().width + (parseFloat(getComputedStyle(el).columnGap) || 12);
+      const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 8;
+      el.scrollTo({ left: atEnd ? 0 : el.scrollLeft + step, behavior: "smooth" });
+    }, 3500);
+  };
+  autoRail($("#club-grid"), ".club");
+  autoRail(rail, ".review");
+
   /* ---------- Стол СРП фоном финального блока: столешница обрамляет текст и форму, «ножка» уходит вниз ---------- */
   const applySecEl = $("#apply"), tableSvg = $("#apply-table"), applyGrid = $(".apply-grid");
   const drawTable = () => {
     if (!applySecEl || !tableSvg || !applyGrid) return;
     const sr = applySecEl.getBoundingClientRect(), g = applyGrid.getBoundingClientRect();
     const W = sr.width, H = sr.height, narrow = W < 760;
-    const padX = narrow ? 14 : 190, padY = narrow ? 26 : 64;
-    const x0 = g.left - sr.left - padX, x1 = g.right - sr.left + padX, y0 = g.top - sr.top - padY, y1 = g.bottom - sr.top + padY;
+    // на телефоне стол по краям экрана с тонким бортом, контент внутри с отступом (CSS сужает .apply-grid)
+    const padX = narrow ? 0 : 190, padY = narrow ? 0 : 64;
+    const x0 = narrow ? 10 : g.left - sr.left - padX, x1 = narrow ? W - 10 : g.right - sr.left + padX;
+    const y0 = g.top - sr.top - (narrow ? 46 : padY), y1 = g.bottom - sr.top + (narrow ? 30 : padY);
+    const rim = narrow ? 8 : 18, inset = narrow ? 8 : 14;
     const r = narrow ? 34 : (y1 - y0) / 2, cx = W / 2, sw = narrow ? 0 : Math.min(520, (x1 - x0) * 0.36), f = 56, yb = H + 30;
     const path = (d) => {
       const R = r - d, X0 = x0 + d, X1 = x1 - d, Y0 = y0 + d, Y1 = y1 - d;
@@ -444,13 +470,13 @@
         <clipPath id="ptClip"><path d="${path(0)}"/></clipPath>
       </defs>
       <g class="pt-flares">${flares}</g>
-      <path d="${path(-9)}" fill="none" stroke="url(#ptRim)" stroke-width="18"/>
+      <path d="${path(-rim / 2)}" fill="none" stroke="url(#ptRim)" stroke-width="${rim}"/>
       <path d="${path(0)}" fill="url(#ptFelt)"/>
       <g clip-path="url(#ptClip)">
         <image href="/img/map-russia.svg" x="${(cx - mw / 2).toFixed(0)}" y="${(y0 + (y1 - y0 - mh) / 2).toFixed(0)}" width="${mw.toFixed(0)}" height="${mh.toFixed(0)}" opacity=".13"/>
         ${stars}
       </g>
-      <path d="${path(14)}" fill="none" stroke="rgba(246,212,143,.38)" stroke-width="1.2"/>`;
+      <path d="${path(inset)}" fill="none" stroke="rgba(246,212,143,.38)" stroke-width="1.2"/>`;
   };
   if (applySecEl) { drawTable(); new ResizeObserver(drawTable).observe(applySecEl); }
 

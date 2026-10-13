@@ -64,7 +64,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 [data-parallax], [data-parallax-x], .reveal, .tilt {
   transform: translate3d(var(--px, 0px), calc(var(--py, 0px) + var(--ry, 0px)), 0) perspective(1000px) rotateX(var(--tx, 0deg)) rotateY(var(--ty, 0deg));
 }
-.js .reveal { opacity: 0; --ry: 34px; transition: opacity .9s ease var(--d, 0ms), --ry 1s cubic-bezier(.2, .7, .2, 1) var(--d, 0ms); }
+.js .reveal { opacity: 0; --ry: 34px; transition: opacity .6s ease var(--d, 0ms), --ry .8s cubic-bezier(.2, .7, .2, 1) var(--d, 0ms); }
 .js .reveal.in { opacity: 1; --ry: 0px; }
 .tilt { transition: --tx .35s ease, --ty .35s ease, border-color .3s, background .3s; }
 .tilt.is-hover { transition: --tx .08s linear, --ty .08s linear, border-color .3s, background .3s; }
@@ -142,7 +142,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 /* ============ Сцена-глобус: hero и сеть в одном длинном кадре ============ */
 .orbit { position: relative; height: 400vh; background: var(--bg); }
 .anchor { position: absolute; left: 0; width: 1px; height: 1px; pointer-events: none; }
-.orbit-sticky { position: sticky; top: 0; height: 100svh; overflow: hidden; isolation: isolate; background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(220, 150, 60, .10), transparent 70%), repeating-linear-gradient(60deg, transparent 0 78px, rgba(220, 199, 127, .03) 78px 79px), repeating-linear-gradient(-60deg, transparent 0 78px, rgba(220, 199, 127, .03) 78px 79px), var(--bg); }
+.orbit-sticky { position: sticky; top: 0; height: 100vh; height: 100lvh; overflow: hidden; isolation: isolate; background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(220, 150, 60, .10), transparent 70%), repeating-linear-gradient(60deg, transparent 0 78px, rgba(220, 199, 127, .03) 78px 79px), repeating-linear-gradient(-60deg, transparent 0 78px, rgba(220, 199, 127, .03) 78px 79px), var(--bg); }
 .orbit-canvas { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; }
 .orbit-vignette { position: absolute; inset: 0; z-index: 2; pointer-events: none; background: radial-gradient(ellipse 120% 90% at 50% 50%, transparent 55%, rgba(10, 9, 8, .85) 100%), linear-gradient(0deg, rgba(10, 9, 8, .55), transparent 20%); }
 .orbit-cards { position: absolute; inset: 0; z-index: 4; pointer-events: none; perspective: 1200px; }
@@ -152,9 +152,9 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .gcard b.gcard-text { font-size: clamp(22px, 2vw, 30px); line-height: 1.1; }
 .gcard > span { display: block; margin-top: 10px; font-size: 14px; color: #d8d0bd; line-height: 1.4; }
 .gcard .mono-tag { margin: 0 0 6px; font-size: 11px; }
-.gcard--1 { left: max(20px, calc((100vw - 1180px) / 2 - 20px)); top: 56%; --o: calc(var(--c1, 0) * (1 - var(--pp, 0) * 2.2)); }
-.gcard--2 { right: max(20px, calc((100vw - 1180px) / 2 - 30px)); top: 38%; --o: calc(var(--c2, 0) * (1 - var(--pp, 0) * 2.2)); }
-.gcard--3 { right: max(20px, calc((100vw - 1180px) / 2 + 60px)); top: 68%; --o: calc(var(--c3, 0) * (1 - var(--pp, 0) * 2.2)); }
+.gcard--1 { left: max(20px, calc((100vw - 1180px) / 2 - 20px)); top: 56%; --o: calc(var(--c1, 0) * (1 - var(--po, 0))); }
+.gcard--2 { right: max(20px, calc((100vw - 1180px) / 2 - 30px)); top: 38%; --o: calc(var(--c2, 0) * (1 - var(--po, 0))); }
+.gcard--3 { right: max(20px, calc((100vw - 1180px) / 2 + 60px)); top: 68%; --o: calc(var(--c3, 0) * (1 - var(--po, 0))); }
 .orbit-panel { position: absolute; z-index: 5; left: max(20px, calc((100vw - 1180px) / 2)); top: 50%; width: min(440px, calc(100vw - 40px)); padding: 34px 32px; opacity: var(--pp, 0); transform: translate3d(calc((1 - var(--pp, 0)) * -70px), -50%, 0); pointer-events: none; }
 .orbit-panel.on { pointer-events: auto; }
 .ghost-hint { position: absolute; z-index: 3; left: 50%; top: 104px; transform: translateX(-50%); display: flex; align-items: center; gap: 12px; padding: 11px 20px; border: 1px dashed var(--line-strong); border-radius: 99px; background: rgba(10, 9, 8, .7); backdrop-filter: blur(8px); font: 700 11px/1 var(--body); letter-spacing: .2em; text-transform: uppercase; color: var(--gold-hi); opacity: 0; transition: opacity .8s; white-space: nowrap; pointer-events: none; }
@@ -166,8 +166,6 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .hero-bg { position: absolute; inset: 0; z-index: -1; }
 .hero-object { position: absolute; right: max(0px, calc((100vw - 1320px) / 2)); top: 50%; width: clamp(300px, 38vw, 600px); aspect-ratio: 4 / 5; margin-top: calc(clamp(300px, 38vw, 600px) * -0.66); }
 .hero-video { width: 100%; height: 100%; object-fit: contain; background: transparent; }
-.hero-arc { position: absolute; left: 50%; top: 82%; width: 220vw; height: 220vw; margin-left: -110vw; border-radius: 50%; background: radial-gradient(circle at 50% 0%, #1c160c, var(--bg) 30%); box-shadow: 0 -1px 0 rgba(255, 244, 210, .85), 0 -10px 30px -6px rgba(255, 214, 140, .5), 0 -50px 140px -30px rgba(255, 170, 80, .4); }
-.hero-arc::before { content: ""; position: absolute; left: 30%; right: 30%; top: -2px; height: 4px; border-radius: 50%; background: radial-gradient(ellipse at 50% 50%, rgba(255, 252, 235, .95), transparent 70%); filter: blur(1px); }
 .hero-inner { position: relative; }
 .hero h1 { font-size: clamp(28px, 4.2vw, 60px); max-width: 15ch; font-weight: 800; letter-spacing: -.02em; }
 .hero .lead { max-width: 48ch; margin-top: 26px; font-size: clamp(16px, 1.4vw, 20px); color: #d9d1bd; }
@@ -182,7 +180,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .hero .scroll-cue { opacity: 1; }
 
 /* ============ Масштаб: заголовок сцены ============ */
-.net-head { position: absolute; z-index: 4; left: 0; right: 0; top: clamp(92px, 13vh, 140px); text-align: center; opacity: calc(var(--hh, 0) * (1 - var(--pp, 0) * 1.6)); transform: translate3d(0, calc((1 - var(--hh, 0)) * 30px - var(--pp, 0) * 40px), 0); pointer-events: none; }
+.net-head { position: absolute; z-index: 4; left: 0; right: 0; top: clamp(92px, 13vh, 140px); text-align: center; opacity: calc(var(--hh, 0) * (1 - var(--po, 0))); transform: translate3d(0, calc((1 - var(--hh, 0)) * 30px - var(--po, 0) * 40px), 0); pointer-events: none; }
 .net-head .mono-tag { justify-content: center; }
 .net-head h2 { max-width: none; font-size: clamp(30px, 4.8vw, 72px); line-height: 1.02; }
 .net-count b { display: inline-block; min-width: 1.25ch; text-align: right; font-variant-numeric: tabular-nums; background: var(--gold-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
@@ -193,7 +191,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 
 /* ============ Лига городов: видео финала раскрывается при прокрутке ============ */
 .lg-scene { position: relative; height: 300vh; background: var(--bg); }
-.lg-sticky { position: sticky; top: 0; height: 100svh; overflow: hidden; isolation: isolate; background: radial-gradient(ellipse 70% 60% at 50% 50%, #1a1409, var(--bg) 70%); }
+.lg-sticky { position: sticky; top: 0; height: 100vh; height: 100lvh; overflow: hidden; isolation: isolate; background: radial-gradient(ellipse 70% 60% at 50% 50%, #1a1409, var(--bg) 70%); }
 .lg-word { position: absolute; inset: 0; z-index: 0; display: grid; place-items: center; pointer-events: none; opacity: calc(1 - var(--la, 0) * 1.4); }
 .lg-word span { font: 900 clamp(80px, 14vw, 250px)/.9 var(--display); letter-spacing: -.04em; white-space: nowrap; color: transparent; -webkit-text-stroke: 1px rgba(220, 199, 127, .24); transform: translate3d(var(--wx, 0px), 0, 0); }
 .lg-video { position: absolute; inset: 0; z-index: 2; overflow: hidden; transform: scale(var(--vs, .42)); border-radius: var(--vr, 60px); box-shadow: 0 40px 120px -20px rgba(0, 0, 0, .9), 0 0 0 1px rgba(220, 199, 127, .25); will-change: transform; }
@@ -503,7 +501,6 @@ img.ico-lg--map { width: 118px; height: 60px; object-fit: contain; object-positi
   .orbit { height: 420vh; }
   .hero { padding: 104px 0 130px; justify-content: flex-start; }
   .hero-object { right: -22vw; top: 70px; margin-top: 0; width: 82vw; opacity: .5; }
-  .hero-arc { top: 88%; }
   .hero-meta { gap: 24px; margin-top: 32px; } .hero-meta dd { font-size: 24px; }
   .net-head { top: 84px; } .net-head h2 { font-size: 30px; } .net-last { margin-top: 10px; }
   .lg-scene { height: 300vh; }
@@ -523,7 +520,7 @@ img.ico-lg--map { width: 118px; height: 60px; object-fit: contain; object-positi
   .gcard { width: 44vw; padding: 14px 14px 16px; border-radius: 16px; }
   .gcard b { font-size: 28px; } .gcard > span { font-size: 12px; margin-top: 6px; }
   .gcard--1 { left: 14px; top: 66%; } .gcard--2 { right: 14px; top: 76%; } .gcard--3 { display: none; }
-  .orbit-panel { top: auto; bottom: 14px; left: 14px; right: 14px; width: auto; padding: 20px 20px 18px; transform: translate3d(0, calc((1 - var(--pp, 0)) * 60px), 0); }
+  .orbit-panel { top: auto; bottom: calc(14px + 100lvh - 100svh); left: 14px; right: 14px; width: auto; padding: 20px 20px 18px; transform: translate3d(0, calc((1 - var(--pp, 0)) * 60px), 0); }
   .scene-lead { display: none; }
   .counter { margin: 10px 0 0; } .counter b { font-size: 44px; }
   .citycheck { margin-top: 12px; padding-top: 12px; }
@@ -562,7 +559,7 @@ img.ico-lg--map { width: 118px; height: 60px; object-fit: contain; object-positi
 .review-play::after { content: ""; position: absolute; left: 26px; top: 21px; border-left: 18px solid var(--gold); border-top: 11px solid transparent; border-bottom: 11px solid transparent; }
 .review--video blockquote { font-size: 14.5px; line-height: 1.5; padding: 0 6px; }
 .review--video figcaption { padding: 0 6px; margin-top: auto; }
-.rail-nav { display: flex; justify-content: flex-end; gap: 10px; margin-top: 4px; }
+.rail-nav { display: flex; justify-content: center; gap: 10px; margin-top: 4px; }
 .rail-btn { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; border: 1px solid var(--line-strong); background: rgba(10, 9, 8, .5); color: var(--gold-hi); cursor: pointer; transition: border-color .2s, background .2s; }
 .rail-btn:hover { border-color: var(--gold); background: rgba(220, 199, 127, .1); }
 .rail-btn[data-rail="-1"] .ico { transform: scaleX(-1); }
@@ -682,3 +679,11 @@ button.review-cover:focus-visible { outline: 2px solid var(--gold); outline-offs
 .reviews.section { padding-bottom: clamp(40px, 5vw, 70px); }
 
 .panel-cta { margin-top: 22px; }
+
+/* Клубы на мобильном: горизонтальная карусель вместо длинного списка (листается сама, см. main.js) */
+@media (max-width: 760px) {
+  .club-grid { display: flex; gap: 12px; margin-inline: -20px; padding: 2px 20px 10px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: 20px; scrollbar-width: none; }
+  .club-grid::-webkit-scrollbar { display: none; }
+  .club-grid > .club { flex: 0 0 84%; scroll-snap-align: start; }
+  .apply .apply-grid { width: calc(100% - 60px); }
+}
