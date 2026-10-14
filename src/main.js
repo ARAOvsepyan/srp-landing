@@ -426,7 +426,7 @@
     const playing = () => deck.classList.contains("is-playing");
     // кольцо вокруг активного логотипа — таймер: на паузе (не на экране, курсор над блоком, видео, фокус с клавиатуры) оно стоит
     const sync = () => rv.classList.toggle("is-paused", !inView || hover || document.hidden || playing() || !!rv.querySelector(":focus-visible"));
-    const stop = () => { $("iframe", deck)?.remove(); deck.classList.remove("is-playing"); sync(); };
+    const stop = () => { $("iframe", deck)?.remove(); $(".rv-swipe", deck)?.remove(); deck.classList.remove("is-playing"); sync(); };
     const layout = () => cards.forEach((c, i) => {
       const k = (i - cur + n) % n;
       c.style.setProperty("--k", Math.min(k, 3));
@@ -455,7 +455,11 @@
       const vk = cards[i].dataset.vk;
       watch.hidden = !vk; soon.hidden = !!vk;
       live.setAttribute("aria-live", manual ? "polite" : "off");
-      if (manual) picks[i].scrollIntoView({ block: "nearest", inline: "nearest", behavior: reduce ? "auto" : "smooth" });
+      // логотип — в видимую часть ленты, только по горизонтали: scrollIntoView двигал и страницу (после свайпа она прыгала вниз)
+      if (manual) {
+        const rail = picks[i].parentElement, rr = rail.getBoundingClientRect(), pr = picks[i].getBoundingClientRect();
+        if (pr.left < rr.left || pr.right > rr.right) rail.scrollTo({ left: rail.scrollLeft + pr.left - rr.left - (rr.width - pr.width) / 2, behavior: reduce ? "auto" : "smooth" });
+      }
     };
     const play = () => {
       const c = cards[cur];
@@ -467,6 +471,12 @@
       f.allow = "autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock";
       f.allowFullscreen = true;
       c.appendChild(f);
+      // касания внутри iframe до страницы не доходят — свайп ловит прозрачный слой поверх видео (только касание;
+      // низ с панелью плеера VK открыт). Касание без свайпа убирает слой на 5 с: следующее попадёт в плеер
+      const layer = document.createElement("div");
+      layer.className = "rv-swipe";
+      layer.setAttribute("aria-hidden", "true");
+      c.appendChild(layer);
       deck.classList.add("is-playing");
       sync();
     };
@@ -487,14 +497,21 @@
       e.preventDefault(); go(cur + (e.key === "ArrowRight" ? 1 : -1), true); picks[cur].focus();
     });
     // свайп по колоде (касание и мышь); вертикальная прокрутка страницы остаётся за браузером
-    let sx = null;
-    deck.addEventListener("pointerdown", (e) => { if (!playing()) sx = e.clientX; });
+    // идёт видео — свайп листает дальше (видео останавливается), как и без него
+    let sx = null, layerTimer = 0;
+    deck.addEventListener("pointerdown", (e) => { sx = e.clientX; });
     deck.addEventListener("pointercancel", () => { sx = null; });
     deck.addEventListener("dragstart", (e) => e.preventDefault()); // иначе мышь тащит картинку логотипа, а не карту
     deck.addEventListener("pointerup", (e) => {
       if (sx === null) return;
       const dx = e.clientX - sx; sx = null;
-      if (Math.abs(dx) > 40) { swipedAt = performance.now(); go(cur + (dx < 0 ? 1 : -1), true); }
+      if (Math.abs(dx) > 40) { swipedAt = performance.now(); go(cur + (dx < 0 ? 1 : -1), true); return; }
+      const layer = e.target.closest?.(".rv-swipe");
+      if (layer && Math.abs(dx) < 10) {
+        layer.classList.add("is-off");
+        clearTimeout(layerTimer);
+        layerTimer = setTimeout(() => layer.classList.remove("is-off"), 5000);
+      }
     });
     rv.addEventListener("mouseenter", () => { hover = true; sync(); });
     rv.addEventListener("mouseleave", () => { hover = false; sync(); });
